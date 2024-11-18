@@ -31,3 +31,36 @@
 - Création d'un nouveau projet **Symfony** : ``symfony --webapp new [nom_projet]``
 - Lancer le serveur **Symfony** : ``symfony serve``
 
+### 3. Scripts Composer
+- Script **Start** qui lance le serveur web de test *(« symfony serve »)* sans restriction de durée d'exécution :
+    ```
+    "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "symfony serve"
+    ],
+   ```
+- Script **test:phpcs** qui lance la commande de vérification du code par PHP CS Fixer :
+    ```
+    "test:phpcs": [
+        "php vendor/bin/php-cs-fixer fix --dry-run"
+    ],
+  ```
+- Script **fix:phpcs** qui lance la commande de correction du code par PHP CS Fixer :
+    ```
+    "fix:phpcs": [
+        "php vendor/bin/php-cs-fixer fix"
+    ],
+  ```
+- Script **test:twigcs** qui lance la commande de vérification du code par Twig CS Fixer :
+    ```
+    "test:twigcs": [
+        "php vendor/bin/twig-cs-fixer lint"
+    ],
+    ```
+- Script **fix:twigcs** qui lance la commande de correction du code par Twig CS Fixer :
+    ```
+    "fix:twigcs": [
+        "php vendor/bin/twig-cs-fixer fix"
+    ]
+    ```
+
