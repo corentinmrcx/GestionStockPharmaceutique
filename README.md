@@ -22,3 +22,12 @@
     - Installation de **Symfony** : `scoop install symfony-cli`
 - Vérification du bon fonctionnement de l'exécutable **Symfony** : ``symfony self:version``
 - Contrôler la compatibilité du system : ``symfony check:requirements  --verbose``
+
+
+### 2. Création d'un projet Symfony
+
+- Vérification du bon fonctionnement de **Composer** : ``composer about``
+- Mise à jour de **Composer** : ``composer self-update``
+- Création d'un nouveau projet **Symfony** : ``symfony --webapp new [nom_projet]``
+- Lancer le serveur **Symfony** : ``symfony serve``
+
