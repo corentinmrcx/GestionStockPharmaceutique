@@ -100,8 +100,7 @@
         ],
         "fix:twigcs": [
             "php vendor/bin/twig-cs-fixer fix"
-        ],
-
+        ]
     },
     "conflict": {
         "symfony/symfony": "*"
