@@ -147,11 +147,6 @@ class Produit
 
     public function setStock(Stock $stock): static
     {
-        // set the owning side of the relation if necessary
-        if ($stock->getProduit() !== $this) {
-            $stock->setProduit($this);
-        }
-
         $this->stock = $stock;
 
         return $this;
