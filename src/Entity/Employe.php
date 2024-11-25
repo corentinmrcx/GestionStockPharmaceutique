@@ -39,12 +39,26 @@ class Employe
     /**
      * @var Collection<int, Inventaire>
      */
-    #[ORM\ManyToMany(targetEntity: Inventaire::class, mappedBy: 'employe')]
+    #[ORM\OneToMany(targetEntity: Inventaire::class, mappedBy: 'employe', orphanRemoval: true)]
     private Collection $inventaires;
+
+    /**
+     * @var Collection<int, Livraison>
+     */
+    #[ORM\OneToMany(targetEntity: Livraison::class, mappedBy: 'employe', orphanRemoval: true)]
+    private Collection $livraisons;
+
+    /**
+     * @var Collection<int, Approvisionnement>
+     */
+    #[ORM\OneToMany(targetEntity: Approvisionnement::class, mappedBy: 'employe', orphanRemoval: true)]
+    private Collection $approvisionnements;
 
     public function __construct()
     {
         $this->inventaires = new ArrayCollection();
+        $this->livraisons = new ArrayCollection();
+        $this->approvisionnements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -148,7 +162,7 @@ class Employe
     {
         if (!$this->inventaires->contains($inventaire)) {
             $this->inventaires->add($inventaire);
-            $inventaire->addEmploye($this);
+            $inventaire->setEmploye($this);
         }
 
         return $this;
@@ -157,7 +171,70 @@ class Employe
     public function removeInventaire(Inventaire $inventaire): static
     {
         if ($this->inventaires->removeElement($inventaire)) {
-            $inventaire->removeEmploye($this);
+            // set the owning side to null (unless already changed)
+            if ($inventaire->getEmploye() === $this) {
+                $inventaire->setEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livraison>
+     */
+    public function getLivraisons(): Collection
+    {
+        return $this->livraisons;
+    }
+
+    public function addLivraison(Livraison $livraison): static
+    {
+        if (!$this->livraisons->contains($livraison)) {
+            $this->livraisons->add($livraison);
+            $livraison->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivraison(Livraison $livraison): static
+    {
+        if ($this->livraisons->removeElement($livraison)) {
+            // set the owning side to null (unless already changed)
+            if ($livraison->getEmploye() === $this) {
+                $livraison->setEmploye(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Approvisionnement>
+     */
+    public function getApprovisionnements(): Collection
+    {
+        return $this->approvisionnements;
+    }
+
+    public function addApprovisionnement(Approvisionnement $approvisionnement): static
+    {
+        if (!$this->approvisionnements->contains($approvisionnement)) {
+            $this->approvisionnements->add($approvisionnement);
+            $approvisionnement->setEmploye($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApprovisionnement(Approvisionnement $approvisionnement): static
+    {
+        if ($this->approvisionnements->removeElement($approvisionnement)) {
+            // set the owning side to null (unless already changed)
+            if ($approvisionnement->getEmploye() === $this) {
+                $approvisionnement->setEmploye(null);
+            }
         }
 
         return $this;
