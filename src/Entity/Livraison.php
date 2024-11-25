@@ -28,9 +28,13 @@ class Livraison
     #[ORM\Column(length: 50)]
     private ?string $villeLiv = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: 'Client', inversedBy: 'livraisons')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Commande $commande = null;
+    private ?Client $client = null;
+
+    #[ORM\ManyToOne(targetEntity: 'Employe', inversedBy: 'livraisons')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employe $employe = null;
 
     public function getId(): ?int
     {
@@ -97,15 +101,28 @@ class Livraison
         return $this;
     }
 
-    public function getCommande(): ?Commande
+    public function getClient(): ?Client
     {
-        return $this->commande;
+        return $this->client;
     }
 
-    public function setCommande(Commande $commande): static
+    public function setClient(Client $client): static
     {
-        $this->commande = $commande;
+        $this->client = $client;
 
         return $this;
     }
+
+    public function getEmploye(): ?Employe
+    {
+        return $this->employe;
+    }
+
+    public function setEmploye(Employe $employe): static
+    {
+        $this->employe = $employe;
+
+        return $this;
+    }
+
 }
