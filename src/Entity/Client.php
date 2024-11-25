@@ -58,9 +58,17 @@ class Client
     #[ORM\OneToMany(targetEntity: Commande::class, mappedBy: 'client', orphanRemoval: true)]
     private Collection $commande;
 
+    /**
+     * @var Collection<int, Livraison>
+     */
+    #[ORM\OneToMany(targetEntity: Livraison::class, mappedBy: 'client', orphanRemoval: true)]
+    private Collection $livraisons;
+
     public function __construct()
     {
         $this->commande = new ArrayCollection();
+        $this->livraisons = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -248,6 +256,36 @@ class Client
             // set the owning side to null (unless already changed)
             if ($commande->getClient() === $this) {
                 $commande->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livraison>
+     */
+    public function getLivraisons(): Collection
+    {
+        return $this->livraisons;
+    }
+
+    public function addLivraison(Livraison $livraison): static
+    {
+        if (!$this->livraisons->contains($livraison)) {
+            $this->livraisons->add($livraison);
+            $livraison->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivraison(Livraison $livraison): static
+    {
+        if ($this->livraisons->removeElement($livraison)) {
+            // set the owning side to null (unless already changed)
+            if ($livraison->getClient() === $this) {
+                $livraison->setClient(null);
             }
         }
 
