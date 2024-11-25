@@ -34,7 +34,8 @@ class Produit
     #[ORM\JoinColumn(nullable: false)]
     private ?Categorie $categorie = null;
 
-    #[ORM\OneToOne(mappedBy: 'produit', cascade: ['persist', 'remove'])]
+    #[ORM\ManyToOne(targetEntity: 'Stock', inversedBy: 'produits')]
+    #[ORM\JoinColumn(nullable: false)]
     private ?Stock $stock = null;
 
     /**
