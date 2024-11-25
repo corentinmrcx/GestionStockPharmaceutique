@@ -5,8 +5,8 @@ namespace App\enum;
 
 enum ClientType: string
 {
-    case private = 'Particulier';
-    case professional = 'Professionnel';
+    case private = 'private';
+    case professional = 'professional';
 
     public function getLabel(): string
     {
