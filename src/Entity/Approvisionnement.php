@@ -22,6 +22,10 @@ class Approvisionnement
     #[ORM\JoinColumn(nullable: false)]
     private ?Fournisseur $fournisseur = null;
 
+    #[ORM\ManyToOne(targetEntity: "Employe", inversedBy: 'approvisionnement')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employe $employe = null;
+
     /**
      * @var Collection<int, LigneApprovisionnement>
      */
@@ -58,6 +62,18 @@ class Approvisionnement
     public function setFournisseur(?Fournisseur $fournisseur): static
     {
         $this->fournisseur = $fournisseur;
+
+        return $this;
+    }
+
+    public function getEmploye(): ?Employe
+    {
+        return $this->employe;
+    }
+
+    public function setEmploye(?Employe $employe): static
+    {
+        $this->employe = $employe;
 
         return $this;
     }
