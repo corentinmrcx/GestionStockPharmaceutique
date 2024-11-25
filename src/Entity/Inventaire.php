@@ -18,16 +18,13 @@ class Inventaire
     #[ORM\Column]
     private ?\DateTimeImmutable $dateInventaire = null;
 
-    /**
-     * @var Collection<int, Employe>
-     */
-    #[ORM\ManyToMany(targetEntity: Employe::class, inversedBy: 'inventaires')]
-    private Collection $employe;
+    #[ORM\ManyToOne(targetEntity: 'Employe', inversedBy: 'inventaires')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Employe $employe = null;
 
-    public function __construct()
-    {
-        $this->employe = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(targetEntity: 'Stock', inversedBy: 'inventaires')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Stock $stock = null;
 
     public function getId(): ?int
     {
@@ -46,26 +43,26 @@ class Inventaire
         return $this;
     }
 
-    /**
-     * @return Collection<int, Employe>
-     */
-    public function getEmploye(): Collection
+    public function getEmploye(): ?Employe
     {
         return $this->employe;
     }
 
-    public function addEmploye(Employe $employe): static
+    public function setEmploye(?Employe $employe): static
     {
-        if (!$this->employe->contains($employe)) {
-            $this->employe->add($employe);
-        }
+        $this->employe = $employe;
 
         return $this;
     }
 
-    public function removeEmploye(Employe $employe): static
+    public function getStock(): ?Stock
     {
-        $this->employe->removeElement($employe);
+        return $this->stock;
+    }
+
+    public function setStock(Stock $stock): static
+    {
+        $this->stock = $stock;
 
         return $this;
     }
