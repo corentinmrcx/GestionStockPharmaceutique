@@ -19,9 +19,23 @@ class Stock
     #[ORM\Column]
     private ?int $seuilAlerte = null;
 
-    #[ORM\OneToOne(inversedBy: 'stock', cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Produit $produit = null;
+    /**
+     * @var Collection<int, Produit>
+     */
+    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'stock', orphanRemoval: true)]
+    private Collection $produits;
+
+    /**
+     * @var Collection<int, Inventaire>
+     */
+    #[ORM\OneToMany(targetEntity: Inventaire::class, mappedBy: 'stock', orphanRemoval: true)]
+    private Collection $inventaires;
+
+    public function __construct()
+    {
+        $this->produits = new ArrayCollection();
+        $this->inventaires = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -52,14 +66,62 @@ class Stock
         return $this;
     }
 
-    public function getProduit(): ?Produit
+    /**
+     * @return Collection<int, Produit>
+     */
+    public function getProduits(): Collection
     {
-        return $this->produit;
+        return $this->produits;
     }
 
-    public function setProduit(Produit $produit): static
+    public function addProduit(Produit $produit): static
     {
-        $this->produit = $produit;
+        if (!$this->produits->contains($produit)) {
+            $this->produits->add($produit);
+            $produit->setStock($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProduit(Produit $produit): static
+    {
+        if ($this->produits->removeElement($produit)) {
+            // set the owning side to null (unless already changed)
+            if ($produit->getStock() === $this) {
+                $produit->setStock(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Inventaire>
+     */
+    public function getInventaires(): Collection
+    {
+        return $this->inventaires;
+    }
+
+    public function addInventaire(Inventaire $inventaire): static
+    {
+        if (!$this->inventaires->contains($inventaire)) {
+            $this->inventaires->add($inventaire);
+            $inventaire->setStock($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventaire(Inventaire $inventaire): static
+    {
+        if ($this->inventaires->removeElement($inventaire)) {
+            // set the owning side to null (unless already changed)
+            if ($inventaire->getStock() === $this) {
+                $inventaire->setStock(null);
+            }
+        }
 
         return $this;
     }
