@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\enum;
 
-enum ClientType: string
+enum CustomerType: string
 {
     case private = 'private';
     case professional = 'professional';

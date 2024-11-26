@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\StockRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
 class Stock
@@ -14,27 +16,27 @@ class Stock
     private ?int $idStock = null;
 
     #[ORM\Column]
-    private ?int $qte = null;
+    private ?int $quantity = null;
 
     #[ORM\Column]
-    private ?int $seuilAlerte = null;
+    private ?int $alert = null;
 
     /**
-     * @var Collection<int, Produit>
+     * @var Collection<int, Product>
      */
-    #[ORM\OneToMany(targetEntity: Produit::class, mappedBy: 'stock', orphanRemoval: true)]
-    private Collection $produits;
+    #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'stock', orphanRemoval: true)]
+    private Collection $products;
 
     /**
-     * @var Collection<int, Inventaire>
+     * @var Collection<int, Inventory>
      */
-    #[ORM\OneToMany(targetEntity: Inventaire::class, mappedBy: 'stock', orphanRemoval: true)]
-    private Collection $inventaires;
+    #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'stock', orphanRemoval: true)]
+    private Collection $inventories;
 
     public function __construct()
     {
-        $this->produits = new ArrayCollection();
-        $this->inventaires = new ArrayCollection();
+        $this->products = new ArrayCollection();
+        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -42,54 +44,54 @@ class Stock
         return $this->idStock;
     }
 
-    public function getQte(): ?int
+    public function getQuantity(): ?int
     {
-        return $this->qte;
+        return $this->quantity;
     }
 
-    public function setQte(int $qte): static
+    public function setQuantity(int $quantity): static
     {
-        $this->qte = $qte;
+        $this->quantity = $quantity;
 
         return $this;
     }
 
-    public function getSeuilAlerte(): ?int
+    public function getAlertThreshold(): ?int
     {
-        return $this->seuilAlerte;
+        return $this->alert;
     }
 
-    public function setSeuilAlerte(int $seuilAlerte): static
+    public function setAlertThreshold(int $alertThreshold): static
     {
-        $this->seuilAlerte = $seuilAlerte;
+        $this->alert = $alertThreshold;
 
         return $this;
     }
 
     /**
-     * @return Collection<int, Produit>
+     * @return Collection<int, Product>
      */
-    public function getProduits(): Collection
+    public function getProducts(): Collection
     {
-        return $this->produits;
+        return $this->products;
     }
 
-    public function addProduit(Produit $produit): static
+    public function addProduct(Product $product): static
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits->add($produit);
-            $produit->setStock($this);
+        if (!$this->products->contains($product)) {
+            $this->products->add($product);
+            $product->setStock($this);
         }
 
         return $this;
     }
 
-    public function removeProduit(Produit $produit): static
+    public function removeProduct(Product $product): static
     {
-        if ($this->produits->removeElement($produit)) {
+        if ($this->products->removeElement($product)) {
             // set the owning side to null (unless already changed)
-            if ($produit->getStock() === $this) {
-                $produit->setStock(null);
+            if ($product->getStock() === $this) {
+                $product->setStock(null);
             }
         }
 
@@ -97,29 +99,29 @@ class Stock
     }
 
     /**
-     * @return Collection<int, Inventaire>
+     * @return Collection<int, Inventory>
      */
-    public function getInventaires(): Collection
+    public function getInventories(): Collection
     {
-        return $this->inventaires;
+        return $this->inventories;
     }
 
-    public function addInventaire(Inventaire $inventaire): static
+    public function addInventory(Inventory $inventory): static
     {
-        if (!$this->inventaires->contains($inventaire)) {
-            $this->inventaires->add($inventaire);
-            $inventaire->setStock($this);
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories->add($inventory);
+            $inventory->setStock($this);
         }
 
         return $this;
     }
 
-    public function removeInventaire(Inventaire $inventaire): static
+    public function removeInventory(Inventory $inventory): static
     {
-        if ($this->inventaires->removeElement($inventaire)) {
+        if ($this->inventories->removeElement($inventory)) {
             // set the owning side to null (unless already changed)
-            if ($inventaire->getStock() === $this) {
-                $inventaire->setStock(null);
+            if ($inventory->getStock() === $this) {
+                $inventory->setStock(null);
             }
         }
 

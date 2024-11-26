@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Inventaire;
+use App\Entity\Inventory;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Inventaire>
+ * @extends ServiceEntityRepository<Inventory>
  */
-class InventaireRepository extends ServiceEntityRepository
+class InventoryRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Inventaire::class);
+        parent::__construct($registry, Inventory::class);
     }
 
     //    /**
-    //     * @return Inventaire[] Returns an array of Inventaire objects
+    //     * @return Inventory[] Returns an array of Inventory objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class InventaireRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Inventaire
+    //    public function findOneBySomeField($value): ?Inventory
     //    {
     //        return $this->createQueryBuilder('i')
     //            ->andWhere('i.exampleField = :val')

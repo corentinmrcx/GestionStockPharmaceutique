@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\LigneApprovisionnement;
+use App\Entity\OrderLine;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<LigneApprovisionnement>
+ * @extends ServiceEntityRepository<OrderLine>
  */
-class LigneApprovisionnementRepository extends ServiceEntityRepository
+class OrderLineRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, LigneApprovisionnement::class);
+        parent::__construct($registry, OrderLine::class);
     }
 
     //    /**
-    //     * @return LigneApprovisionnement[] Returns an array of LigneApprovisionnement objects
+    //     * @return OrderLine[] Returns an array of OrderLine objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class LigneApprovisionnementRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?LigneApprovisionnement
+    //    public function findOneBySomeField($value): ?OrderLine
     //    {
     //        return $this->createQueryBuilder('l')
     //            ->andWhere('l.exampleField = :val')

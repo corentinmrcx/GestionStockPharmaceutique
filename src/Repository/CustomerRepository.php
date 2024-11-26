@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Commande;
+use App\Entity\Customer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Commande>
+ * @extends ServiceEntityRepository<Customer>
  */
-class CommandeRepository extends ServiceEntityRepository
+class CustomerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Commande::class);
+        parent::__construct($registry, Customer::class);
     }
 
     //    /**
-    //     * @return Commande[] Returns an array of Commande objects
+    //     * @return Customer[] Returns an array of Customer objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,7 +31,7 @@ class CommandeRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Commande
+    //    public function findOneBySomeField($value): ?Customer
     //    {
     //        return $this->createQueryBuilder('c')
     //            ->andWhere('c.exampleField = :val')
