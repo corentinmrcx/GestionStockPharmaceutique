@@ -13,7 +13,7 @@ class Supplier
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idSupplier = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 100)]
     private ?string $name = null;
@@ -46,12 +46,12 @@ class Supplier
 
     public function getId(): ?int
     {
-        return $this->idSupplier;
+        return $this->id;
     }
 
     public function setIdSupplier(int $idSupplier): static
     {
-        $this->idSupplier = $idSupplier;
+        $this->id = $idSupplier;
 
         return $this;
     }

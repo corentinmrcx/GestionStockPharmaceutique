@@ -13,7 +13,7 @@ class Inventory
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idInventory = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $inventoryDate = null;
@@ -28,12 +28,12 @@ class Inventory
 
     public function getId(): ?int
     {
-        return $this->idInventory;
+        return $this->id;
     }
 
     public function setIdInventory(int $idInventory): static
     {
-        $this->idInventory = $idInventory;
+        $this->id = $idInventory;
 
         return $this;
     }

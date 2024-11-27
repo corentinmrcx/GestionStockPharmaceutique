@@ -13,7 +13,7 @@ class Order
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idOrder = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?int $orderNumber = null;
@@ -37,12 +37,12 @@ class Order
 
     public function getId(): ?int
     {
-        return $this->idOrder;
+        return $this->id;
     }
 
     public function setIdOrder(int $idOrder): static
     {
-        $this->idOrder = $idOrder;
+        $this->id = $idOrder;
 
         return $this;
     }

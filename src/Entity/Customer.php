@@ -14,7 +14,7 @@ class Customer
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idCustomer = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     private ?string $lastName = null;
@@ -72,12 +72,12 @@ class Customer
 
     public function getId(): ?int
     {
-        return $this->idCustomer;
+        return $this->id;
     }
 
     public function setIdCustomer(int $idCustomer): static
     {
-        $this->idCustomer = $idCustomer;
+        $this->id = $idCustomer;
 
         return $this;
     }

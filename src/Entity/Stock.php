@@ -13,7 +13,7 @@ class Stock
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idStock = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?int $quantity = null;
@@ -41,7 +41,7 @@ class Stock
 
     public function getId(): ?int
     {
-        return $this->idStock;
+        return $this->id;
     }
 
     public function getQuantity(): ?int

@@ -11,7 +11,7 @@ class Delivery
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idDelivery = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $deliveryDate = null;
@@ -38,12 +38,12 @@ class Delivery
 
     public function getId(): ?int
     {
-        return $this->idDelivery;
+        return $this->id;
     }
 
     public function setIdDelivery(int $idDelivery): static
     {
-        $this->idDelivery = $idDelivery;
+        $this->id = $idDelivery;
 
         return $this;
     }

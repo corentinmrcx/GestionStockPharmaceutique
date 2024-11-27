@@ -13,7 +13,7 @@ class Supply
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idSupply = null;
+    private ?int $id = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $supplyDate = null;
@@ -39,7 +39,7 @@ class Supply
 
     public function getId(): ?int
     {
-        return $this->idSupply;
+        return $this->id;
     }
 
     public function getSupplyDate(): ?\DateTimeImmutable

@@ -13,7 +13,7 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private ?int $idCategory = null;
+    private ?int $id = null;
 
     #[ORM\Column(length: 50)]
     private ?string $nameCategory = null;
@@ -31,12 +31,12 @@ class Category
 
     public function getId(): ?int
     {
-        return $this->idCategory;
+        return $this->id;
     }
 
     public function setIdCategory(int $idCategory): static
     {
-        $this->idCategory = $idCategory;
+        $this->id = $idCategory;
 
         return $this;
     }
