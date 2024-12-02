@@ -1,3 +1,5 @@
+/* --------------- Variables Globales --------------- */
+
 :root {
     --primary-color: #124660;
     --secondary-color: #1B9476;
@@ -5,6 +7,8 @@
     --primary-text-color: #C7DBC2;
     --secondary-text-color: #F4EBD6;
 }
+
+/* --------------- Navbar --------------- */
 
 .navbar-custom {
     background-color: var(--primary-color);
@@ -18,8 +22,10 @@
 }
 
 .navbar-brand img {
-    height: 100px;
-    width: 100px;
+    height: auto;
+    width: auto;
+
+    max-height: 100px;
 }
 
 .search-bar-container {
@@ -102,6 +108,18 @@
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%231B9476' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
+/* --------------- Bannière --------------- */
+
+.banner {
+    background-color: var(--third-color);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+
+}
+
+/* --------------- Media Queries --------------- */
 
 @media screen and (max-width: 992px) {
     .container {
@@ -138,11 +156,3 @@
     }
 }
 
-.banner {
-    background-color: var(--third-color);
-    color: var(--primary-color);
-    text-align: center;
-    padding: 10px;
-    font-size: 18px;
-
-}
