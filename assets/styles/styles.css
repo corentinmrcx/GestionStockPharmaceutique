@@ -1,0 +1,158 @@
+/* --------------- Variables Globales --------------- */
+
+:root {
+    --primary-color: #124660;
+    --secondary-color: #1B9476;
+    --third-color: #8BD59E;
+    --primary-text-color: #C7DBC2;
+    --secondary-text-color: #F4EBD6;
+}
+
+/* --------------- Navbar --------------- */
+
+.navbar-custom {
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
+
+.navbar-brand img {
+    height: auto;
+    width: auto;
+
+    max-height: 100px;
+}
+
+.search-bar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.navbar-collapse {
+    flex: 0;
+}
+
+.search-bar {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+
+    border-radius: 25px;
+    width: 100%;
+    max-width: 600px;
+
+    position: relative;
+}
+
+.search-input {
+    background-color: var(--primary-color);
+    border: none;
+
+    width: 100%;
+    border-radius: 25px;
+    padding: 5px 15px;
+
+    position: relative;
+
+    color: var(--secondary-text-color);
+}
+
+.search-bar-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-text-color);
+}
+
+.navbar-nav .nav-link {
+    color: var(--secondary-text-color);
+    font-weight: bold;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--third-color);
+}
+
+.action-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.action-buttons .btn {
+    background-color: var(--secondary-color);
+    color: var(--secondary-text-color);
+    font-weight: bold;
+
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.navbar-toggler {
+    background-color: var(--primary-color);
+    border-color: var(--secondary-color) ;
+}
+
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%231B9476' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+/* --------------- Bannière --------------- */
+
+.banner {
+    background-color: var(--third-color);
+    color: var(--primary-color);
+    text-align: center;
+    padding: 10px;
+    font-size: 18px;
+
+}
+
+/* --------------- Media Queries --------------- */
+
+@media screen and (max-width: 992px) {
+    .container {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .navbar-collapse{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .container #action-buttons-out {
+        display: none;
+    }
+
+
+    #link_nav{
+        width: 100%;
+        text-align: center;
+    }
+
+}
+
+@media screen and (min-width: 993px) {
+    .navbar-collapse #action-buttons-in {
+        display: none;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}
+
