@@ -15,6 +15,26 @@
 }
 
 /* --------------- Gestion Police --------------- */
+h1{
+    font-family: var(--font-primary);
+    font-size: 48px;
+    font-weight: 700;
+
+    color: var(--primary-color);
+}
+
+h2 {
+    font-family: var(--font-secondary);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--primary-text-color);
+}
 
 /* --------------- Navbar --------------- */
 
@@ -163,4 +183,3 @@
         flex-direction: column;
     }
 }
-
