@@ -1,11 +1,39 @@
 /* --------------- Variables Globales --------------- */
 
 :root {
+    /* Colors */
     --primary-color: #124660;
     --secondary-color: #1B9476;
     --third-color: #8BD59E;
     --primary-text-color: #C7DBC2;
     --secondary-text-color: #F4EBD6;
+
+    /* Fonts */
+    --font-primary: 'Rubik', sans-serif;
+    --font-secondary: 'Arsenal', sans-serif;
+    --font-body: 'Palanquin', sans-serif;
+}
+
+/* --------------- Font management --------------- */
+h1{
+    font-family: var(--font-primary);
+    font-size: 48px;
+    font-weight: 700;
+
+    color: var(--primary-color);
+}
+
+h2 {
+    font-family: var(--font-secondary);
+    font-size: 32px;
+    font-weight: 500;
+    color: var(--primary-color);
+}
+
+p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--primary-text-color);
 }
 
 /* --------------- Navbar --------------- */
@@ -108,7 +136,7 @@
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%231B9476' stroke-width='3' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
 }
 
-/* --------------- Bannière --------------- */
+/* --------------- Banner --------------- */
 
 .banner {
     background-color: var(--third-color);
@@ -116,7 +144,56 @@
     text-align: center;
     padding: 10px;
     font-size: 18px;
+}
 
+/* --------------- Products --------------- */
+
+.product-container {
+    width: 100%;
+    padding: 0 15px;
+}
+
+.product-container .row{
+    display: flex;
+    justify-content: center;
+}
+
+.product-card {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+    border-radius: 20px;
+    text-align: center;
+    padding: 20px;
+    margin: 10px;
+}
+
+.product-card img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    margin-bottom: 15px;
+}
+
+.product-card h5 {
+    color: var(--secondary-color);
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.product-card .price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--third-color);
+    margin-top: 10px;
+}
+
+.product-card .btn {
+    background-color: var(--third-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    border: none;
+    border-radius: 10px;
+    margin-top: 10px;
 }
 
 /* --------------- Media Queries --------------- */
@@ -155,4 +232,3 @@
         flex-direction: column;
     }
 }
-
