@@ -36,6 +36,10 @@ p {
     color: var(--primary-text-color);
 }
 
+a{
+    text-decoration: none;
+}
+
 /* --------------- Navbar --------------- */
 
 .navbar-custom {
@@ -195,6 +199,129 @@ p {
     border-radius: 10px;
     margin-top: 10px;
 }
+
+/* --------------- Show Product --------------- */
+
+.py-5{
+    padding: 0 50px;
+}
+
+.details-container {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.product-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+}
+
+.product-title {
+    color: var(--secondary-color);
+}
+
+.fs-5 span {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.price {
+    color: var(--third-color);
+}
+
+.product-description {
+    color: var(--secondary-text-color);
+}
+
+.brand{
+    display: flex;
+    gap: 10px;
+}
+
+.brand p{
+    width: fit-content;
+
+    border: 3px solid var(--secondary-color);
+    border-radius: 15px;
+
+    padding: 5px 20px;
+
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.btn-outline-success {
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+
+    padding: 8px 20px;
+    font-weight: bold;
+
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+}
+
+.btn-outline-success:hover {
+    border: 3px solid var(--third-color);
+    background-color: var(--third-color);
+    color: var(--primary-color);
+}
+
+/* -- Produits similaires -- */
+h4{
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.similar-product-card {
+    background-color: var(--secondary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: var(--primary-color);
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-text {
+    max-height: 50px;
+    overflow: hidden;
+    color: var(--secondary-text-color);
+}
+
+.card-img-top {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.similar-product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+
+    padding: 5px;
+
+    background-color: var(--primary-color);
+}
+
+.similar-product-card .card-body {
+    padding: 1rem;
+}
+
+.similar-product-card .btn {
+    padding: 5px 15px;
+    font-size: 14px;
+}
+
 
 /* --------------- Media Queries --------------- */
 
