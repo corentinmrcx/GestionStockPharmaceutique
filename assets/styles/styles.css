@@ -40,6 +40,30 @@ a{
     text-decoration: none;
 }
 
+/* --------------- Buttons --------------- */
+
+.btn-custom {
+    background-color: var(--third-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background-color: var(--secondary-color);
+    color: var(--secondary-text-color);
+    transform: scale(1.05);
+}
+
+#btn-custom-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+    transform: scale(1.05);
+}
+
 /* --------------- Navbar --------------- */
 
 .navbar-custom {
