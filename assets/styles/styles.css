@@ -157,8 +157,7 @@ a{
     padding: 0 15px;
 }
 
-.product-container .row{
-    display: flex;
+.row{
     justify-content: center;
 }
 
@@ -270,7 +269,7 @@ a{
     color: var(--primary-color);
 }
 
-/* -- Produits similaires -- */
+/* -- Similary Products -- */
 h4{
     color: var(--secondary-color);
     font-weight: bold;
@@ -322,6 +321,34 @@ h4{
     font-size: 14px;
 }
 
+/* --------------- List Categories --------------- */
+
+.category-card {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+    padding: 30px;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.card-content {
+    text-align: center;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
 
 /* --------------- Media Queries --------------- */
 
