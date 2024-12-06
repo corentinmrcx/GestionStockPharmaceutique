@@ -40,6 +40,30 @@ a{
     text-decoration: none;
 }
 
+/* --------------- Buttons --------------- */
+
+.btn-custom {
+    background-color: var(--third-color);
+    color: var(--primary-color);
+    font-weight: bold;
+    border-radius: 10px;
+    padding: 10px 20px;
+    border: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-custom:hover {
+    background-color: var(--secondary-color);
+    color: var(--secondary-text-color);
+    transform: scale(1.05);
+}
+
+#btn-custom-secondary:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+    transform: scale(1.05);
+}
+
 /* --------------- Navbar --------------- */
 
 .navbar-custom {
@@ -157,8 +181,7 @@ a{
     padding: 0 15px;
 }
 
-.product-container .row{
-    display: flex;
+.row{
     justify-content: center;
 }
 
@@ -270,7 +293,7 @@ a{
     color: var(--primary-color);
 }
 
-/* -- Produits similaires -- */
+/* -- Similary Products -- */
 h4{
     color: var(--secondary-color);
     font-weight: bold;
@@ -322,6 +345,34 @@ h4{
     font-size: 14px;
 }
 
+/* --------------- List Categories --------------- */
+
+.category-card {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+    padding: 30px;
+
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.category-card:hover {
+    transform: scale(1.05);
+}
+
+.card-content {
+    text-align: center;
+}
+
+.category-title {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
 
 /* --------------- Media Queries --------------- */
 

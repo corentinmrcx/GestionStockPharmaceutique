@@ -1,20 +1,20 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Catégories{% endblock %}
+
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Nos catégories</h1>
-
-        <ul class="Category">
-            {% for category in categories %}
-                <li class="list-group-item">
-                    <a href="{{ path('app_category_show', {id: category.id}) }}">{{ category.name }} </a>
-                </li>
-            {% endfor %}
-        </ul>
-</div>
+    <section class="categories-section py-5">
+        <div class="categories-container">
+            <h1 class="text-center mb-4">Nos catégories de produits</h1>
+            <div class="row gx-4 gy-4">
+                <div class="col-lg-4 col-md-6">
+                    <a href="" class="category-card d-block text-decoration-none">
+                        <div class="card-content text-center">
+                            <span class="category-title">Titre</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}
