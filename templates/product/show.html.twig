@@ -7,24 +7,24 @@
         <div class="details-container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                    <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset('') }}" alt="" />
+                    <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset(product.images) }}" alt="{{ product.name }}" />
                 </div>
 
                 <div class="col-md-6">
-                    <div class="small mb-1"><p>Référence: --- ---</p></div>
-                    <h1 class="product-title">Nom du produit</h1>
+                    <div class="small mb-1"><p>Référence: {{ product.reference }}</p></div>
+                    <h1 class="product-title">{{ product.name }}</h1>
 
                     <div class="fs-5 mb-2">
-                        <span class="price">-,--&euro;</span>
+                        <span class="price">{{ product.price }}&euro;</span>
                     </div>
 
                     <p class="product-description">
-                        Description..
+                        {{ product.description }}
                     </p>
 
                     <div class="brand mb-3">
                         <a href=""><p>Marque</p></a>
-                        <a href=""><p>Catégorie</p></a>
+                        <a href=""><p>{{ product.category.name }}</p></a>
                     </div>
 
                     <div class="d-flex">
