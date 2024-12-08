@@ -7,13 +7,15 @@
         <div class="categories-container">
             <h1 class="text-center mb-4">Nos catégories de produits</h1>
             <div class="row gx-4 gy-4">
+                {% for category in categories %}
                 <div class="col-lg-4 col-md-6">
                     <a href="" class="category-card d-block text-decoration-none">
                         <div class="card-content text-center">
-                            <span class="category-title">Titre</span>
+                            <span class="category-title">{{ category.name }}</span>
                         </div>
                     </a>
                 </div>
+                {% endfor %}
             </div>
         </div>
     </section>
