@@ -38,16 +38,18 @@
             <!-- Produits similaires -->
             <div class="row mt-5">
                 <h4>Dans la même catégorie</h4>
-                <div class="col-md-3">
-                    <div class="similar-product-card card">
-                        <img src="https://via.placeholder.com/300x300" class="card-img-top" alt="Produit similaire">
-                        <div class="card-body">
-                            <h5 class="card-title">Produit similaire 1</h5>
-                            <p class="card-text">Description</p>
-                            <a href="#" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
+                {% for similarProduct in similarProducts %}
+                    <div class="col-md-3">
+                        <div class="similar-product-card card">
+                            <img src="{{ asset(similarProduct.images) }}" class="card-img-top" alt="{{ similarProduct.name }}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ similarProduct.name }}</h5>
+                                <p class="card-text">{{ similarProduct.description }}</p>
+                                <a href="{{ path('product_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
