@@ -53,6 +53,9 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
+    #[ORM\Column]
+    private ?bool $isRecommended = null;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
@@ -223,6 +226,18 @@ class Product
     public function setReference(string $reference): static
     {
         $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function isRecommended(): ?bool
+    {
+        return $this->isRecommended;
+    }
+
+    public function setRecommended(bool $isRecommended): static
+    {
+        $this->isRecommended = $isRecommended;
 
         return $this;
     }
