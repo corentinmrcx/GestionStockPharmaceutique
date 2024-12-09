@@ -6,15 +6,17 @@
     <div class="product-container my-5">
         <h1 class="text-center mb-4">Nos produits conseils du mois</h1>
         <div class="row">
+            {% for product in recommendedProducts %}
             <div class="col-md-4">
                 <div class="product-card">
-                    <img src="{{ asset('') }}" alt="">
-                    <h5>Titre</h5>
-                    <p>Description...</p>
-                    <p class="price">-,--€</p>
+                    <img src="{{ asset(product.images[0]) }}" alt="">
+                    <h5>{{ product.name }}</h5>
+                    <p>{{ product.description }}</p>
+                    <p class="price">{{ product.price }}€</p>
                     <button class="btn-custom"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

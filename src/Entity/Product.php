@@ -50,6 +50,16 @@ class Product
     #[ORM\OneToMany(targetEntity: SupplyLine::class, mappedBy: 'product', orphanRemoval: true)]
     private Collection $supplyLines;
 
+    #[ORM\Column(length: 255)]
+    private ?string $reference = null;
+
+    #[ORM\Column]
+    private ?bool $isRecommended = null;
+
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Brand $brand = null;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
@@ -208,6 +218,42 @@ class Product
                 $supplyLine->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getReference(): ?string
+    {
+        return $this->reference;
+    }
+
+    public function setReference(string $reference): static
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function isRecommended(): ?bool
+    {
+        return $this->isRecommended;
+    }
+
+    public function setRecommended(bool $isRecommended): static
+    {
+        $this->isRecommended = $isRecommended;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): static
+    {
+        $this->brand = $brand;
 
         return $this;
     }
