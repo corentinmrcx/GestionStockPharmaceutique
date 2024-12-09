@@ -38,7 +38,7 @@
                         </div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="link_nav">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Catalogue</a>
+                                <a class="nav-link" href="{{ path('app_product') }}">Catalogue</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('app_category') }}">Catégories</a>
@@ -94,7 +94,7 @@
                     <li class="mx-3"><a class="nav-link" href="{{ path('app_category') }}">Catégories</a></li>
                     <li class="mx-3"><a href="#" class="nav-link">À propos</a></li>
                     <li class="mx-3"><a href="#" class="nav-link">FAQ</a></li>
-                    <li class="mx-3"><a href="#" class="nav-link">Contact</a></li>
+                    <li class="mx-3"><a href="{{ path('app_product') }}" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
             <hr class="footer-divider">
