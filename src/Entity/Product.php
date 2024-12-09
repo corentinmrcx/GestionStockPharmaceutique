@@ -56,6 +56,10 @@ class Product
     #[ORM\Column]
     private ?bool $isRecommended = null;
 
+    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Brand $brand = null;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
@@ -238,6 +242,18 @@ class Product
     public function setRecommended(bool $isRecommended): static
     {
         $this->isRecommended = $isRecommended;
+
+        return $this;
+    }
+
+    public function getBrand(): ?Brand
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(?Brand $brand): static
+    {
+        $this->brand = $brand;
 
         return $this;
     }
