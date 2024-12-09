@@ -7,7 +7,7 @@
         <div class="details-container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                    <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset(product.images) }}" alt="{{ product.name }}" />
+                        <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset(product.images[0]) }}" alt="{{ product.name }}" />
                 </div>
 
                 <div class="col-md-6">
@@ -23,14 +23,15 @@
                     </p>
 
                     <div class="brand mb-3">
-                        <a href=""><p>{{ product.brand.name }}</p></a>
-                        <a href=""><p>{{ product.category.name }}</p></a>
+                        <a href="#"><p>{{ product.brand.name }}</p></a>
+                        <a href="#"><p>{{ product.category.name }}</p></a>
                     </div>
 
                     <div class="d-flex">
                         <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem" />
                         <button class="btn btn-custom flex-shrink-0" type="button">
-                            <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier</button>
+                            <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
+                        </button>
                     </div>
                 </div>
             </div>
@@ -41,7 +42,7 @@
                 {% for similarProduct in similarProducts %}
                     <div class="col-md-3">
                         <div class="similar-product-card card">
-                            <img src="{{ asset(similarProduct.images) }}" class="card-img-top" alt="{{ similarProduct.name }}">
+                                <img src="{{ asset(similarProduct.images[0]) }}" class="card-img-top" alt="{{ similarProduct.name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ similarProduct.name }}</h5>
                                 <p class="card-text">{{ similarProduct.description }}</p>
