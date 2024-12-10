@@ -17,6 +17,7 @@ final class ProductFactory extends PersistentProxyObjectFactory
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     public static function class(): string
@@ -32,14 +33,17 @@ final class ProductFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'brand' => BrandFactory::new(),
-            'category' => CategoryFactory::new(),
-            'expirationDate' => \DateTimeImmutable::createFromMutable(self::faker()->dateTime()),
+            'expirationDate' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeBetween('now', '+2 years')),
             'isRecommended' => self::faker()->boolean(),
-            'name' => self::faker()->text(255),
-            'price' => self::faker()->randomFloat(),
-            'reference' => self::faker()->text(255),
-            'stock' => StockFactory::new(),
+            'name' => self::faker()->words(3, true),
+            'price' => self::faker()->randomFloat(2, 1, 100),
+            'images' => ['/images/doliprane.png'],
+            'reference' => self::faker()->bothify('REF-##########'),
+            'description' => self::faker()->sentence(10),
+            'stock' => StockFactory::createOne(),
+            'brand' => BrandFactory::random(),
+            'category' => CategoryFactory::random(),
+
         ];
     }
 
