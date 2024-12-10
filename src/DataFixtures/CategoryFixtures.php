@@ -15,7 +15,7 @@ class CategoryFixtures extends Fixture
         $categories = json_decode($json, true);
 
         foreach ($categories as $category) {
-            CategoryFactory::createOne($category);
+            CategoryFactory::createOne(['nameCategory' => $category['name']]);
         }
         $manager->flush();
     }
