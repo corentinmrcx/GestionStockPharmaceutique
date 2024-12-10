@@ -3,6 +3,7 @@
 namespace App\Factory;
 
 use App\Entity\Brand;
+use phpDocumentor\Reflection\Types\Parent_;
 use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
 
 /**
@@ -17,6 +18,7 @@ final class BrandFactory extends PersistentProxyObjectFactory
      */
     public function __construct()
     {
+        parent::__construct();
     }
 
     public static function class(): string
@@ -32,7 +34,7 @@ final class BrandFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'name' => self::faker()->text(255),
+            'name' => self::faker()->company(),
         ];
     }
 
