@@ -13,10 +13,7 @@ class Cart
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column]
-    private ?int $idCart = null;
-
+    
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $cartDate = null;
 
@@ -24,22 +21,14 @@ class Cart
     #[ORM\JoinColumn(nullable: false)]
     private ?Customer $customer = null;
 
+    #[ORM\ManyToOne(inversedBy: 'carts')]
+    private ?CartLine $cartLine = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getIdCart(): ?int
-    {
-        return $this->idCart;
-    }
-
-    public function setIdCart(int $idCart): static
-    {
-        $this->idCart = $idCart;
-
-        return $this;
-    }
 
     public function getCartDate(): ?\DateTimeInterface
     {
@@ -61,6 +50,18 @@ class Cart
     public function setCustomer(?Customer $customer): static
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getCartLine(): ?CartLine
+    {
+        return $this->cartLine;
+    }
+
+    public function setCartLine(?CartLine $cartLine): static
+    {
+        $this->cartLine = $cartLine;
 
         return $this;
     }
