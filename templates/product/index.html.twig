@@ -6,15 +6,17 @@
     <div class="product-container my-5">
         <h1 class="text-center mb-4">Nos produits</h1>
         <div class="row">
+            {% for product in products %}
             <div class="col-md-4">
                 <div class="product-card">
                     <img src="" alt="">
-                    <a href=""><h5>Titre</h5></a>
-                    <p>Description...</p>
-                    <p class="price">-,--€</p>
+                    <a href=""><h5>{{ product.name }}</h5></a>
+                    <p>{{ product.description }}</p>
+                    <p class="price">{{ product.price }}€</p>
                     <button class="btn-custom"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Ajouter au panier</button>
                 </div>
             </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
