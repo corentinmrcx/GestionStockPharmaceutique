@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProductController!{% endblock %}
+{% block title %}{% endblock %}
 
 {% block body %}
     <div class="product-container my-5">
@@ -9,8 +9,8 @@
             {% for product in products %}
             <div class="col-md-4">
                 <div class="product-card">
-                    <img src="" alt="">
-                    <a href=""><h5>{{ product.name }}</h5></a>
+                    <img src="{{ asset(product.images[0]) }}" alt="">
+                    <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                     <p>{{ product.description }}</p>
                     <p class="price">{{ product.price }}€</p>
                     <button class="btn-custom"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Ajouter au panier</button>
