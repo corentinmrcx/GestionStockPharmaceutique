@@ -60,10 +60,17 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
 
+    /**
+     * @var Collection<int, CartLine>
+     */
+    #[ORM\OneToMany(targetEntity: CartLine::class, mappedBy: 'product')]
+    private Collection $cartLine;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
         $this->supplyLines = new ArrayCollection();
+        $this->cartLine = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -254,6 +261,36 @@ class Product
     public function setBrand(?Brand $brand): static
     {
         $this->brand = $brand;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CartLine>
+     */
+    public function getCartLine(): Collection
+    {
+        return $this->cartLine;
+    }
+
+    public function addCartLine(CartLine $cartLine): static
+    {
+        if (!$this->cartLine->contains($cartLine)) {
+            $this->cartLine->add($cartLine);
+            $cartLine->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCartLine(CartLine $cartLine): static
+    {
+        if ($this->cartLine->removeElement($cartLine)) {
+            // set the owning side to null (unless already changed)
+            if ($cartLine->getProduct() === $this) {
+                $cartLine->setProduct(null);
+            }
+        }
 
         return $this;
     }

@@ -64,10 +64,17 @@ class Customer
     #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'customer', orphanRemoval: true)]
     private Collection $deliveries;
 
+    /**
+     * @var Collection<int, Cart>
+     */
+    #[ORM\OneToMany(targetEntity: Cart::class, mappedBy: 'customer')]
+    private Collection $carts;
+
     public function __construct()
     {
         $this->orders = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
+        $this->carts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -280,6 +287,36 @@ class Customer
             // set the owning side to null (unless already changed)
             if ($delivery->getCustomer() === $this) {
                 $delivery->setCustomer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Cart>
+     */
+    public function getCarts(): Collection
+    {
+        return $this->carts;
+    }
+
+    public function addCart(Cart $cart): static
+    {
+        if (!$this->carts->contains($cart)) {
+            $this->carts->add($cart);
+            $cart->setCustomer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCart(Cart $cart): static
+    {
+        if ($this->carts->removeElement($cart)) {
+            // set the owning side to null (unless already changed)
+            if ($cart->getCustomer() === $this) {
+                $cart->setCustomer(null);
             }
         }
 
