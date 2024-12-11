@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CartRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,7 +15,7 @@ class Cart
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-    
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $cartDate = null;
 
@@ -21,14 +23,21 @@ class Cart
     #[ORM\JoinColumn(nullable: false)]
     private ?Customer $customer = null;
 
-    #[ORM\ManyToOne(inversedBy: 'carts')]
-    private ?CartLine $cartLine = null;
+    /**
+     * @var Collection<int, CartLine>
+     */
+    #[ORM\OneToMany(targetEntity: CartLine::class, mappedBy: 'cart')]
+    private Collection $cartLine;
+
+    public function __construct()
+    {
+        $this->cartLine = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
 
     public function getCartDate(): ?\DateTimeInterface
     {
@@ -54,15 +63,35 @@ class Cart
         return $this;
     }
 
-    public function getCartLine(): ?CartLine
+    /**
+     * @return Collection<int, CartLine>
+     */
+    public function getCartLine(): Collection
     {
         return $this->cartLine;
     }
 
-    public function setCartLine(?CartLine $cartLine): static
+    public function addCartLine(CartLine $cartLine): static
     {
-        $this->cartLine = $cartLine;
+        if (!$this->cartLine->contains($cartLine)) {
+            $this->cartLine->add($cartLine);
+            $cartLine->setCart($this);
+        }
 
         return $this;
     }
+
+    public function removeCartLine(CartLine $cartLine): static
+    {
+        if ($this->cartLine->removeElement($cartLine)) {
+            // set the owning side to null (unless already changed)
+            if ($cartLine->getCart() === $this) {
+                $cartLine->setCart(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 }
