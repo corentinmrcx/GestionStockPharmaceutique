@@ -9,6 +9,7 @@ use App\Entity\Stock;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -32,7 +33,7 @@ class ProductType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('expirationDate', null, [
+            ->add('expirationDate', DateType::class, [
                 'widget' => 'single_text',
             ])
             ->add('reference', TextType::class)
