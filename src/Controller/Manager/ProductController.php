@@ -2,7 +2,11 @@
 
 namespace App\Controller\Manager;
 
+use App\Entity\Product;
+use App\Form\ProductType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -18,10 +22,22 @@ class ProductController extends AbstractController
     }
 
     #[Route('/create', name: 'app_manager_product_create', methods: ['GET', 'POST'])]
-    public function create(): Response
+    public function create(Request $request, EntityManagerInterface $manager): Response
     {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($product);
+            $manager->flush();
+
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
+
         return $this->render('manager/product/create.html.twig', [
-            'controller_name' => 'ProductController',
+            'product' => $product,
+            'form' => $form,
         ]);
     }
 
