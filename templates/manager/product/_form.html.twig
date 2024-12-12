@@ -1,0 +1,13 @@
+{% set submit_label = submit_label %}
+{{ form_start(form) }}
+    {{ form_row(form.name, {label: 'Nom'}) }}
+    {{ form_row(form.description, {label: 'Description'}) }}
+    {{ form_row(form.price, {label: "Prix de l'article"}) }}
+    {{ form_row(form.images, {label: 'Images'}) }}
+    {{ form_row(form.expirationDate, {label: "Date d'expiration"}) }}
+    {{ form_row(form.reference, {label: 'Référence'}) }}
+    {{ form_row(form.category, {label: 'Catégories'}) }}
+    {{ form_row(form.brand, {label: 'Marque'}) }}
+
+<button type="submit" class="btn btn-custom">{{ submit_label }}</button>
+{{ form_end(form) }}
