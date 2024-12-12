@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Brand;
 use App\Entity\Category;
 use App\Entity\Product;
-use App\Entity\Stock;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -27,11 +26,16 @@ class ProductType extends AbstractType
                 'required' => false,
             ])
             ->add('price', MoneyType::class, [
-                'currency' => 'EUR'
+                'currency' => 'EUR',
             ])
             ->add('images', FileType::class, [
+                'label' => 'Images du produit',
                 'multiple' => true,
+                'mapped' => false,
                 'required' => false,
+                'attr' => [
+                    'class' => 'form-control',
+                ],
             ])
             ->add('expirationDate', DateType::class, [
                 'widget' => 'single_text',
@@ -53,6 +57,9 @@ class ProductType extends AbstractType
                         ->orderBy('b.name', 'ASC');
                 },
             ])
+            ->add('stock', StockType::class, [
+                'label' => 'Stock',
+            ]);
         ;
     }
 
