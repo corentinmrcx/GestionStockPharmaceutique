@@ -23,7 +23,7 @@ class Product
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Length(255)]
+    #[Assert\Length(max: 255)]
     private ?string $description = null;
 
     #[ORM\Column]
