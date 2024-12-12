@@ -56,12 +56,12 @@ class Stock
         return $this;
     }
 
-    public function getAlertThreshold(): ?int
+    public function getAlert(): ?int
     {
         return $this->alert;
     }
 
-    public function setAlertThreshold(int $alertThreshold): static
+    public function setAlert(int $alertThreshold): static
     {
         $this->alert = $alertThreshold;
 

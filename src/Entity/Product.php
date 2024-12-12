@@ -246,7 +246,7 @@ class Product
         return $this->isRecommended;
     }
 
-    public function setRecommended(bool $isRecommended): static
+    public function setIsRecommended(bool $isRecommended): static
     {
         $this->isRecommended = $isRecommended;
 

@@ -41,14 +41,14 @@ class Category
         return $this;
     }
 
-    public function getName(): ?string
+    public function getNameCategory(): ?string
     {
         return $this->nameCategory;
     }
 
-    public function setName(string $name): static
+    public function setNameCategory(string $nameCategory): static
     {
-        $this->nameCategory = $name;
+        $this->nameCategory = $nameCategory;
 
         return $this;
     }
