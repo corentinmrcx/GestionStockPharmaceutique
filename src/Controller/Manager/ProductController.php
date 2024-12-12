@@ -3,6 +3,7 @@
 namespace App\Controller\Manager;
 
 use App\Entity\Product;
+use App\Entity\Stock;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,11 +27,16 @@ class ProductController extends AbstractController
     public function create(Request $request, EntityManagerInterface $manager): Response
     {
         $product = new Product();
+        $stock = new Stock();
+        $product->setStock($stock);
+
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $manager->persist($stock);
             $manager->persist($product);
+
             $manager->flush();
 
             return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
@@ -38,7 +44,7 @@ class ProductController extends AbstractController
 
         return $this->render('manager/product/create.html.twig', [
             'product' => $product,
-            'form' => $form,
+            'form' => $form->createView(),
         ]);
     }
 
