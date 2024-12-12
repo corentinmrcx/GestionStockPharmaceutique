@@ -6,6 +6,8 @@ use App\Repository\ProductRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -16,18 +18,25 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 255)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Length(255)]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
     private ?float $price = null;
 
     #[ORM\Column(nullable: true)]
     private ?array $images = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\GreaterThanOrEqual("today")]
     private ?\DateTimeImmutable $expirationDate = null;
 
     #[ORM\ManyToOne(targetEntity: 'Category', inversedBy: 'products')]
@@ -51,6 +60,8 @@ class Product
     private Collection $supplyLines;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 255)]
     private ?string $reference = null;
 
     #[ORM\Column]
