@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/manager/product')]
 class ProductController extends AbstractController
 {
-    #[Route('/', name: 'app_manager_product')]
+    #[Route('/', name: 'app_manager_product', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('manager/product/index.html.twig', [
@@ -60,7 +60,7 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/delete', name: 'app_manager_product', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    #[Route('/{id}/delete', name: 'app_manager_product_delete', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function delete(Product $product, Request $request, EntityManagerInterface $manager): Response
     {
         $form = $this->createFormBuilder()
