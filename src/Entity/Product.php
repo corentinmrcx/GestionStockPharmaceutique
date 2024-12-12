@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
 {
@@ -36,7 +35,7 @@ class Product
 
     #[ORM\Column]
     #[Assert\NotBlank()]
-    #[Assert\GreaterThanOrEqual("today")]
+    #[Assert\GreaterThanOrEqual('today')]
     private ?\DateTimeImmutable $expirationDate = null;
 
     #[ORM\ManyToOne(targetEntity: 'Category', inversedBy: 'products')]
@@ -64,9 +63,6 @@ class Product
     #[Assert\Length(max: 255)]
     private ?string $reference = null;
 
-    #[ORM\Column]
-    private ?bool $isRecommended = null;
-
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Brand $brand = null;
@@ -76,6 +72,9 @@ class Product
      */
     #[ORM\OneToMany(targetEntity: CartLine::class, mappedBy: 'product')]
     private Collection $cartLine;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $isRecommended = null;
 
     public function __construct()
     {
@@ -252,18 +251,6 @@ class Product
         return $this;
     }
 
-    public function isRecommended(): ?bool
-    {
-        return $this->isRecommended;
-    }
-
-    public function setIsRecommended(bool $isRecommended): static
-    {
-        $this->isRecommended = $isRecommended;
-
-        return $this;
-    }
-
     public function getBrand(): ?Brand
     {
         return $this->brand;
@@ -302,6 +289,18 @@ class Product
                 $cartLine->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isRecommended(): ?bool
+    {
+        return $this->isRecommended;
+    }
+
+    public function setIsRecommended(?bool $isRecommended): static
+    {
+        $this->isRecommended = $isRecommended;
 
         return $this;
     }
