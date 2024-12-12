@@ -26,10 +26,20 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id}/update', name: 'app_manager_product_update', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function update(): Response
+    public function update(Request $request, Product $product, EntityManagerInterface $manager): Response
     {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $manager->flush();
+
+            return $this->redirectToRoute('product_show', ['id' => $product->getId()]);
+        }
+
         return $this->render('manager/product/update.html.twig', [
-            'controller_name' => 'ProductController',
+            'product' => $product,
+            'form' => $form
         ]);
     }
 
