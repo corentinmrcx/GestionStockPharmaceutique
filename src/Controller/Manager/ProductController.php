@@ -6,6 +6,7 @@ use App\Entity\Product;
 use App\Form\ProductType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -55,15 +56,34 @@ class ProductController extends AbstractController
 
         return $this->render('manager/product/update.html.twig', [
             'product' => $product,
-            'form' => $form
+            'form' => $form,
         ]);
     }
 
     #[Route('/{id}/delete', name: 'app_manager_product', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function delete(): Response
+    public function delete(Product $product, Request $request, EntityManagerInterface $manager): Response
     {
+        $form = $this->createFormBuilder()
+                ->add('delete', SubmitType::class, [])
+                ->add('cancel', SubmitType::class, [])
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted()) {
+            if ($form->get('delete')->isClicked()) {
+                $manager->remove($product);
+                $manager->flush();
+
+                return $this->redirectToRoute('app_manager_product');
+            } else {
+                return $this->redirectToRoute('app_manager_product');
+            }
+        }
+
         return $this->render('manager/product/delete.html.twig', [
-            'controller_name' => 'ProductController',
+            'product' => $product,
+            'form' => $form,
         ]);
     }
 }
