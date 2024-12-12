@@ -46,6 +46,16 @@
             {{ form_widget(form.brand, {'attr': {'class': 'form-control'}}) }}
         </div>
 
+        <div class="mb-3">
+            {{ form_label(form.stock.quantity, 'Quantité initiale', {'attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.stock.quantity, {'attr': {'class': 'form-control', 'placeholder': 'Entrez la quantité initiale'}}) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form_label(form.stock.alert, 'Seuil d\'alerte', {'attr': {'class': 'form-label'}}) }}
+            {{ form_widget(form.stock.alert, {'attr': {'class': 'form-control', 'placeholder': 'Entrez le seuil d\'alerte'}}) }}
+        </div>
+
         <div class="text-center">
             <button type="submit" class="btn btn-custom">{{ submit_label }}</button>
         </div>
