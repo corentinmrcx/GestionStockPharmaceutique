@@ -6,4 +6,5 @@
 
 {% block body %}
     <h1>{{ pageTitle }}</h1>
+    {{ include('/manager/product/_form.html.twig', {form: form, submit_label: 'Ajouter'}, with_context = false) }}
 {% endblock %}

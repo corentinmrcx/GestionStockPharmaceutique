@@ -5,4 +5,5 @@
 {% block title %}{{ pageTitle }}{% endblock %}
 {% block body %}
     <h1>{{ pageTitle }}</h1>
+    {{ include('/manager/product/_form.html.twig', {form: form, submit_label: 'Modifier'}, with_context = false) }}
 {% endblock %}
