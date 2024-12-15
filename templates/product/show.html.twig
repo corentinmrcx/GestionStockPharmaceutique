@@ -28,10 +28,15 @@
                     </div>
 
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem" />
-                        <button class="btn btn-custom flex-shrink-0" type="button">
+                        {{ form_start(form) }}
+                        {{ form_row(form.quantity) }}
+
+                        <
+                        <button type="submit" class="btn btn-custom flex-shrink-0">
                             <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
                         </button>
+
+                        {{ form_end() }}
                     </div>
                 </div>
             </div>
