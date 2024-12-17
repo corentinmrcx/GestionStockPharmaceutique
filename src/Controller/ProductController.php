@@ -19,14 +19,16 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/product/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
-    public function show(Product $product, ProductRepository $productRepository): Response
-    {
-        $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
-        return $this->render('product/show.html.twig', [
-            'product' => $product,
-            'similarProducts' => $similarProducts,
-        ]);
-    }
+//    #[Route('/product/{id}', name: 'product_show', requirements: ['id' => '\d+'])]
+//    public function show(Product $product, ProductRepository $productRepository): Response
+//    {
+//        $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
+//        return $this->render('product/show.html.twig', [
+//            'product' => $product,
+//            'similarProducts' => $similarProducts,
+//        ]);
+//    }
+
+
 
 }

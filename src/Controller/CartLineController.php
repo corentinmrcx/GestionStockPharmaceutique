@@ -2,13 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\CartLine;
 use App\Entity\Product;
 use App\Form\CartLineType;
+use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class CartLineController extends AbstractController
@@ -21,10 +24,15 @@ class CartLineController extends AbstractController
         ]);
     }
 
-    #[Route('/product/{ProductId}', name: 'cart_add', requirements: ['ProductId' => '\d+'])]
-    public function addToCart(Product $product, EntityManagerInterface $entityManager, Request $request): Response
+    #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, SessionInterface $session): Response
     {
+        $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
+
         $newCartLine = new CartLine();
+        $newCartLine->setProduct($product);
+
+
 
         $form = $this->createForm(CartLineType::class, $newCartLine);
         $form->handleRequest($request);
@@ -34,11 +42,11 @@ class CartLineController extends AbstractController
             $entityManager->persist($newCartLine);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_cart');
+            return $this->redirectToRoute('app_cart_index');
         }
 
         return $this->render('product/show.html.twig', [
-            'form' => $form->createView(), 'cartLine' => $newCartLine,
+            'form' => $form->createView(), 'cartLine' => $newCartLine, 'product' => $product,  'similarProducts' => $similarProducts,
         ]);
     }
 }

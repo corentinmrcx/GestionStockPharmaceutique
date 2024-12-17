@@ -15,14 +15,18 @@ class CartLineType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+//            ->add('product', EntityType::class, [
+//                'class' => Product::class,
+//                'choice_label' => 'name',
+//            ])
             ->add('quantity', IntegerType::class, [
                 'label' => 'Quantité',
-                'data' => 1, // Valeur par défaut
+                'data' => 1,
                 'attr' => [
-                    'min' => 1,  // Valeur minimale
-                    'max' => 99, // Valeur maximale
-                    'class' => 'form-control text-center', // Appliquer un style
-                ]
+                    'min' => 1,
+                    'max' => 99,
+                    'class' => 'form-control text-center',
+                ],
             ]);
     }
 
