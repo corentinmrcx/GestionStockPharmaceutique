@@ -29,15 +29,16 @@ class CartLineController extends AbstractController
     {
         $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
 
-        $newCartLine = new CartLine();
-        $newCartLine->setProduct($product);
 
+        $newCartLine = new CartLine();
 
 
         $form = $this->createForm(CartLineType::class, $newCartLine);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $newCartLine->setProduct($product);
+
             $newCartLine = $form->getData();
             $entityManager->persist($newCartLine);
             $entityManager->flush();
