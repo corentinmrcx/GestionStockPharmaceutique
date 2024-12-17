@@ -9,7 +9,7 @@
             {% for product in products %}
             <div class="col-md-4">
                 <div class="product-card">
-                    <img src="{{ asset(product.images[0]) }}" alt="">
+                    <img src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="{{ product.name }}">
                     <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                     <p>{{ product.description }}</p>
                     <p class="price">{{ product.price }}€</p>

@@ -7,7 +7,7 @@
         <div class="details-container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                        <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset(product.images[0]) }}" alt="{{ product.name }}" />
+                        <img class="product-image card-img-top mb-5 mb-md-0" src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="{{ product.name }}" />
                 </div>
 
                 <div class="col-md-6">
