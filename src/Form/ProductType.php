@@ -15,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ProductType extends AbstractType
 {
@@ -28,14 +29,8 @@ class ProductType extends AbstractType
             ->add('price', MoneyType::class, [
                 'currency' => 'EUR',
             ])
-            ->add('images', FileType::class, [
-                'label' => 'Images du produit',
-                'multiple' => true,
-                'mapped' => false,
+            ->add('imageFile', VichImageType::class, [
                 'required' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                ],
             ])
             ->add('expirationDate', DateType::class, [
                 'widget' => 'single_text',
