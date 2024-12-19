@@ -4,19 +4,27 @@
 
 {% block body %}
     <div class="product-container my-5">
-        <h1 class="text-center mb-4">Nos produits</h1>
-        <div class="row">
-            {% for product in products %}
-            <div class="col-md-4">
-                <div class="product-card">
-                    <img src="{{ asset(product.images[0]) }}" alt="">
-                    <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
-                    <p>{{ product.description }}</p>
-                    <p class="price">{{ product.price }}€</p>
-                    <button class="btn-custom"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Ajouter au panier</button>
+        {% if products is not empty %}
+            {% if search is empty %}
+                <h1 class="text-center mb-4">Notre catalogue de produits</h1>
+            {% else %}
+                <h1 class="text-center mb-4">Résultats de recherche pour "{{ search }}"</h1>
+            {% endif %}
+                <div class="row">
+                {% for product in products %}
+                <div class="col-md-4">
+                    <div class="product-card">
+                        <img src="{{ asset(product.images[0]) }}" alt="">
+                        <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
+                        <p>{{ product.description|slice(0, 80) ~ (product.description|length > 80 ? '...' : '') }}</p>
+                        <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
+                        <button class="btn-custom"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Ajouter au panier</button>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-        </div>
+        {% else %}
+            <h1 class="text-center mb-4">Désolé, aucun produit ne correspond à votre recherche.</h1>
+        {% endif %}
     </div>
 {% endblock %}
