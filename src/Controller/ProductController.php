@@ -6,14 +6,15 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
 class ProductController extends AbstractController
 {
     #[Route('/product', name: 'app_product')]
-    public function index(ProductRepository $productRepository): Response
+    public function index(ProductRepository $productRepository, #[MapQueryParameter] ?string $search = null): Response
     {
-        $products = $productRepository->findAll();
+        $products = $productRepository->search($search);
         return $this->render('product/index.html.twig', [
             'products' => $products,
         ]);
