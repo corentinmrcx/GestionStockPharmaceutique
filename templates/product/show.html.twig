@@ -49,9 +49,9 @@
                         <div class="similar-product-card card">
                             <img src="
                             {% if similarProduct.imageName %}
-                                {{ vich_uploader_asset(similarProduct, 'imageFile', 'product_images') }}
+                                {{ vich_uploader_asset(similarProduct, 'imageFile') }}
                             {% else %}
-                                {{ asset('images/products/default_image.webp') }}
+                                {{ asset('images/products/default_image.png') }}
                             {% endif %}" alt="{{ product.name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ similarProduct.name }}</h5>

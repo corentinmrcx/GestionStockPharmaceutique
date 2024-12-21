@@ -11,9 +11,9 @@
                 <div class="product-card">
                     <img src="
                         {% if product.imageName %}
-                            {{ vich_uploader_asset(product, 'imageFile', 'product_images') }}
+                            {{ vich_uploader_asset(product, 'imageFile') }}
                         {% else %}
-                            {{ asset('images/products/default_image.webp') }}
+                            {{ asset('images/products/default_image.png') }}
                         {% endif %}" alt="{{ product.name }}">
                     <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                     <p>{{ product.description|slice(0, 80) ~ (product.description|length > 80 ? '...' : '') }}</p>
