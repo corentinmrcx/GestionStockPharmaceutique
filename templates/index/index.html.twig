@@ -14,7 +14,7 @@
                             {{ vich_uploader_asset(product, 'imageFile', 'product_images') }}
                         {% else %}
                             {{ asset('images/products/default_image.webp') }}
-                        {% endif %}" alt="{{ product.name }}" class="img-fluid">
+                        {% endif %}" alt="{{ product.name }}">
                     <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                     <p>{{ product.description|slice(0, 80) ~ (product.description|length > 80 ? '...' : '') }}</p>
                     <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>

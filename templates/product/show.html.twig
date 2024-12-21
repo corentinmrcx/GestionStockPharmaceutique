@@ -7,7 +7,12 @@
         <div class="details-container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6">
-                        <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset(product.images[0]) }}" alt="{{ product.name }}" />
+                    <img src="
+                        {% if product.imageName %}
+                            {{ vich_uploader_asset(product, 'imageFile', 'product_images') }}
+                        {% else %}
+                            {{ asset('images/products/default_image.webp') }}
+                        {% endif %}" alt="{{ product.name }}">
                 </div>
 
                 <div class="col-md-6">
@@ -42,7 +47,12 @@
                 {% for similarProduct in similarProducts %}
                     <div class="col-md-3">
                         <div class="similar-product-card card">
-                                <img src="{{ asset(similarProduct.images[0]) }}" class="card-img-top" alt="{{ similarProduct.name }}">
+                            <img src="
+                            {% if similarProduct.imageName %}
+                                {{ vich_uploader_asset(similarProduct, 'imageFile', 'product_images') }}
+                            {% else %}
+                                {{ asset('images/products/default_image.webp') }}
+                            {% endif %}" alt="{{ product.name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ similarProduct.name }}</h5>
                                 <p class="card-text">{{ similarProduct.description }}</p>
