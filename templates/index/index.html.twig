@@ -9,10 +9,15 @@
             {% for product in recommendedProducts %}
             <div class="col-md-4">
                 <div class="product-card">
-                    <img src="{{ asset(product.images[0]) }}" alt="">
-                    <h5>{{ product.name }}</h5>
-                    <p>{{ product.description }}</p>
-                    <p class="price">{{ product.price }}€</p>
+                    <img src="
+                        {% if product.imageName %}
+                            {{ vich_uploader_asset(product, 'imageFile', 'product_images') }}
+                        {% else %}
+                            {{ asset('images/products/default_image.webp') }}
+                        {% endif %}" alt="{{ product.name }}" class="img-fluid">
+                    <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
+                    <p>{{ product.description|slice(0, 80) ~ (product.description|length > 80 ? '...' : '') }}</p>
+                    <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
                     <button class="btn-custom"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
                 </div>
             </div>
