@@ -22,15 +22,15 @@ class Supply
     #[ORM\JoinColumn(nullable: false)]
     private ?Supplier $supplier = null;
 
-    #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'supplies')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Employee $employee = null;
-
     /**
      * @var Collection<int, SupplyLine>
      */
     #[ORM\OneToMany(targetEntity: SupplyLine::class, mappedBy: 'supply', orphanRemoval: true)]
     private Collection $supplyLines;
+
+    #[ORM\ManyToOne(inversedBy: 'supplies')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $manager = null;
 
     public function __construct()
     {
@@ -66,18 +66,6 @@ class Supply
         return $this;
     }
 
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
-
-    public function setEmployee(?Employee $employee): static
-    {
-        $this->employee = $employee;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, SupplyLine>
      */
@@ -104,6 +92,18 @@ class Supply
                 $supplyLine->setSupply(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getManager(): ?User
+    {
+        return $this->manager;
+    }
+
+    public function setManager(?User $manager): static
+    {
+        $this->manager = $manager;
 
         return $this;
     }

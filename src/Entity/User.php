@@ -63,9 +63,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'administrator')]
     private Collection $inventories;
 
+    /**
+     * @var Collection<int, Delivery>
+     */
+    #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'user')]
+    private Collection $deliveries;
+
+    /**
+     * @var Collection<int, Supply>
+     */
+    #[ORM\OneToMany(targetEntity: Supply::class, mappedBy: 'manager')]
+    private Collection $supplies;
+
     public function __construct()
     {
         $this->inventories = new ArrayCollection();
+        $this->deliveries = new ArrayCollection();
+        $this->supplies = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -263,6 +277,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($inventory->getAdministrator() === $this) {
                 $inventory->setAdministrator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Delivery>
+     */
+    public function getDeliveries(): Collection
+    {
+        return $this->deliveries;
+    }
+
+    public function addDelivery(Delivery $delivery): static
+    {
+        if (!$this->deliveries->contains($delivery)) {
+            $this->deliveries->add($delivery);
+            $delivery->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDelivery(Delivery $delivery): static
+    {
+        if ($this->deliveries->removeElement($delivery)) {
+            // set the owning side to null (unless already changed)
+            if ($delivery->getUser() === $this) {
+                $delivery->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Supply>
+     */
+    public function getSupplies(): Collection
+    {
+        return $this->supplies;
+    }
+
+    public function addSupply(Supply $supply): static
+    {
+        if (!$this->supplies->contains($supply)) {
+            $this->supplies->add($supply);
+            $supply->setManager($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSupply(Supply $supply): static
+    {
+        if ($this->supplies->removeElement($supply)) {
+            // set the owning side to null (unless already changed)
+            if ($supply->getManager() === $this) {
+                $supply->setManager(null);
             }
         }
 
