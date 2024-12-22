@@ -82,3 +82,33 @@
 - **Affichage dynamique des images :**
    - Les templates utilisent `vich_uploader_asset` pour récupérer les images des produits.
    - Si aucune image n'est associée, l'image par défaut est utilisée via Twig.
+
+## Utilisateurs 
+- **Louis Baudat**
+  - **Email** : ``louis@example.com``
+  - **Mot de passe** : ``test``
+  - **Rôle** : ``ROLE_ADMIN``
+
+
+- **Corentin Marcoux**
+  - **Email** : ``corentin@example.com``
+  - **Mot de passe** : ``test``
+  - **Rôle** : ``ROLE_USER``
+
+- **Romain Lobreaux**
+  - **Email** : ``romain@example.com``
+  - **Mot de passe** : ``test``
+  - **Rôle** : ``ROLE_ADMIN``
+
+- **Peter Parker**
+  - **Email** : ``user@example.com``
+  - **Mot de passe** : ``test``
+  - **Rôle** : ``ROLE_CUSTOMER``
+  
+- **Tony Stark**
+  - **Email** : ``manager@example.com``
+  - **Mot de passe** : ``test``
+  - **Rôle** : ``ROLE_MANAGER``
+  
+
+
