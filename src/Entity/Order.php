@@ -21,14 +21,15 @@ class Order
     #[ORM\Column]
     private ?\DateTimeImmutable $orderDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orders')]
-    private ?Customer $customer = null;
-
     /**
      * @var Collection<int, OrderLine>
      */
     #[ORM\OneToMany(targetEntity: OrderLine::class, mappedBy: 'order', orphanRemoval: true)]
     private Collection $orderLines;
+
+    #[ORM\ManyToOne(inversedBy: 'orders')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -71,18 +72,6 @@ class Order
         return $this;
     }
 
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): static
-    {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, OrderLine>
      */
@@ -109,6 +98,18 @@ class Order
                 $orderLine->setOrder(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
