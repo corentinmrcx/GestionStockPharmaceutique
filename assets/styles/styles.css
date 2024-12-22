@@ -402,6 +402,38 @@ h4{
     font-size: 0.875rem;
 }
 
+/* --------------- Form Card --------------- */
+
+.form-card {
+    max-width: 600px;
+
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+
+    border-radius: 15px;
+    border: 3px solid var(--secondary-color);
+}
+
+.form-title {
+    color: var(--secondary-color);
+}
+
+.form-control {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+}
+
+.form-control::placeholder {
+    color: var(--primary-text-color);
+}
+
+.form-control:focus {
+    background-color: var(--primary-text-color);
+}
+
 /* --------------- Media Queries --------------- */
 
 @media screen and (max-width: 992px) {
