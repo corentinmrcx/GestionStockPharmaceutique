@@ -28,6 +28,9 @@
                 </div>
                 {% endfor %}
             </div>
+            <div class="d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(products) }}
+            </div>
         {% else %}
             <h1 class="text-center mb-4">Désolé, aucun produit ne correspond à votre recherche.</h1>
         {% endif %}

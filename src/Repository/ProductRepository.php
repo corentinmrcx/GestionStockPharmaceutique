@@ -15,7 +15,7 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
-    public function search(?string $txt): array
+    public function search(?string $txt)
     {
         $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.category', 'cat')
@@ -29,33 +29,6 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('txt', "%$txt%");
         }
 
-        return $qb->orderBy('p.name', 'ASC')
-            ->getQuery()
-            ->getResult();
+        return $qb->orderBy('p.name', 'ASC');
     }
-
-    //    /**
-    //     * @return Product[] Returns an array of Product objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('p.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?Product
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
 }
