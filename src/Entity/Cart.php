@@ -19,15 +19,15 @@ class Cart
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $cartDate = null;
 
-    #[ORM\ManyToOne(inversedBy: 'carts')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Customer $customer = null;
-
     /**
      * @var Collection<int, CartLine>
      */
     #[ORM\OneToMany(targetEntity: CartLine::class, mappedBy: 'cart')]
     private Collection $cartLine;
+
+    #[ORM\ManyToOne(inversedBy: 'carts')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -47,18 +47,6 @@ class Cart
     public function setCartDate(?\DateTimeInterface $cartDate): static
     {
         $this->cartDate = $cartDate;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?Customer
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(?Customer $customer): static
-    {
-        $this->customer = $customer;
 
         return $this;
     }
@@ -89,6 +77,18 @@ class Cart
                 $cartLine->setCart(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }

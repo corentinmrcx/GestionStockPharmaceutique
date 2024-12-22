@@ -28,13 +28,9 @@ class Delivery
     #[ORM\Column(length: 50)]
     private ?string $city = null;
 
-    #[ORM\ManyToOne(targetEntity: Customer::class, inversedBy: 'deliveries')]
+    #[ORM\ManyToOne(inversedBy: 'deliveries')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Customer $customer = null;
-
-    #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'deliveries')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Employee $employee = null;
+    private ?User $user = null;
 
     public function getId(): ?int
     {
@@ -108,26 +104,14 @@ class Delivery
         return $this;
     }
 
-    public function getCustomer(): ?Customer
+    public function getUser(): ?User
     {
-        return $this->customer;
+        return $this->user;
     }
 
-    public function setCustomer(Customer $customer): static
+    public function setUser(?User $user): static
     {
-        $this->customer = $customer;
-
-        return $this;
-    }
-
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
-
-    public function setEmployee(Employee $employee): static
-    {
-        $this->employee = $employee;
+        $this->user = $user;
 
         return $this;
     }

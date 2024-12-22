@@ -63,8 +63,17 @@
         "php vendor/bin/twig-cs-fixer fix"
     ]
     ```
-
 ***
+## Comptes et Authentification
+| **Prénom - Nom** | **Email**                | **Mot de passe** | **Rôle**          |
+|------------------|----------------------|--------------|---------------|
+| Louis Baudat     | louis@example.com     | test         | ROLE_ADMIN    |
+| Corentin Marcoux | corentin@example.com  | test         | ROLE_ADMIN    |
+| Romain Lobreaux  | romain@example.com    | test         | ROLE_ADMIN    |
+| Peter Parker     | user@example.com      | test         | ROLE_CUSTOMER |
+| Tony Stark       | manager@example.com    | test         | ROLE_MANAGER  |
+***
+
 ## Fonctionnalités du projet
 ### 1. Recherche de produits
 - **Barre de recherche dynamique :**
@@ -82,3 +91,6 @@
 - **Affichage dynamique des images :**
    - Les templates utilisent `vich_uploader_asset` pour récupérer les images des produits.
    - Si aucune image n'est associée, l'image par défaut est utilisée via Twig.
+  
+
+
