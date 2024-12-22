@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\InventoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InventoryRepository::class)]
@@ -18,13 +16,13 @@ class Inventory
     #[ORM\Column]
     private ?\DateTimeImmutable $inventoryDate = null;
 
-    #[ORM\ManyToOne(targetEntity: Employee::class, inversedBy: 'inventories')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Employee $employee = null;
-
     #[ORM\ManyToOne(targetEntity: Stock::class, inversedBy: 'inventories')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Stock $stock = null;
+
+    #[ORM\ManyToOne(inversedBy: 'inventories')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $administrator = null;
 
     public function getId(): ?int
     {
@@ -50,18 +48,6 @@ class Inventory
         return $this;
     }
 
-    public function getEmployee(): ?Employee
-    {
-        return $this->employee;
-    }
-
-    public function setEmployee(?Employee $employee): static
-    {
-        $this->employee = $employee;
-
-        return $this;
-    }
-
     public function getStock(): ?Stock
     {
         return $this->stock;
@@ -70,6 +56,18 @@ class Inventory
     public function setStock(Stock $stock): static
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getAdministrator(): ?User
+    {
+        return $this->administrator;
+    }
+
+    public function setAdministrator(?User $administrator): static
+    {
+        $this->administrator = $administrator;
 
         return $this;
     }
