@@ -387,6 +387,27 @@ h4{
     font-weight: bold;
 }
 
+/* --------------- Pagination --------------- */
+
+.pagination .page-link {
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+    margin: 0 3px;
+    padding: 0.5rem 0.75rem;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+}
+
 /* --------------- Footer --------------- */
 
 .footer {
