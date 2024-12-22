@@ -1,0 +1,44 @@
+{% extends '@KnpPaginator/Pagination/twitter_bootstrap_v4_pagination.html.twig' %}
+
+{% block pagination %}
+    <nav aria-label="Pagination">
+        <ul class="pagination justify-content-center my-custom-pagination">
+            {% if pageCount > 1 %}
+                {# Bouton précédent #}
+                {% if previous is defined %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path(previous) }}" aria-label="Précédent">Précédent</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-label="Précédent désactivé">Précédent</span>
+                    </li>
+                {% endif %}
+
+                {# Liens vers les pages #}
+                {% for page in pagesInRange %}
+                    {% if page != current %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ path(page) }}" aria-label="Page {{ page }}">{{ page }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item active" aria-current="page">
+                            <span class="page-link">{{ page }}</span>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+
+                {# Bouton suivant #}
+                {% if next is defined %}
+                    <li class="page-item">
+                        <a class="page-link" href="{{ path(next) }}" aria-label="Suivant">Suivant</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <span class="page-link" aria-label="Suivant désactivé">Suivant</span>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}
