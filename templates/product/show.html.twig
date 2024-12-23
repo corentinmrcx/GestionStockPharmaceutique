@@ -60,7 +60,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ similarProduct.name }}</h5>
                                 <p class="card-text">{{ similarProduct.description|slice(0, 60) ~ (similarProduct.description|length > 60 ? '...' : '') }}</p>
-                                <a href="{{ path('product_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
+                                <a href="{{ path('cart_add_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
                             </div>
                         </div>
                     </div>

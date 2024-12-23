@@ -24,31 +24,31 @@ class CartLineController extends AbstractController
         ]);
     }
 
-    #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, SessionInterface $session): Response
-    {
-        $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
-
-
-        $newCartLine = new CartLine();
-
-
-        $form = $this->createForm(CartLineType::class, $newCartLine);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $newCartLine->setProduct($product);
-
-            $newCartLine = $form->getData();
-            $entityManager->persist($newCartLine);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_cart_index');
-        }
-
-        return $this->render('product/show.html.twig', [
-            'form' => $form->createView(), 'cartLine' => $newCartLine, 'product' => $product,  'similarProducts' => $similarProducts,
-        ]);
-    }
+//    #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
+//    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, SessionInterface $session): Response
+//    {
+//        $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
+//
+//
+//        $newCartLine = new CartLine();
+//
+//
+//        $form = $this->createForm(CartLineType::class, $newCartLine);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $newCartLine->setProduct($product);
+//
+//            $newCartLine = $form->getData();
+//            $entityManager->persist($newCartLine);
+//            $entityManager->flush();
+//
+//            return $this->redirectToRoute('app_cart_index');
+//        }
+//
+//        return $this->render('product/show.html.twig', [
+//            'form' => $form->createView(), 'cartLine' => $newCartLine, 'product' => $product,  'similarProducts' => $similarProducts,
+//        ]);
+//    }
 }
 
