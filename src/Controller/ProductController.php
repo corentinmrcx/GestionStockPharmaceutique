@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Cart;
 use App\Entity\CartLine;
 use App\Entity\Product;
 use App\Form\CartLineType;
@@ -36,27 +37,48 @@ class ProductController extends AbstractController
     #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, SessionInterface $session): Response
     {
-        $similarProducts = $productRepository->findBy(['category' => $product->getCategory()->getId()], null, 4);
 
 
-        $newCartLine = new CartLine();
+        $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
 
+        $cartRepository = $entityManager->getRepository(Cart::class);
+        $cart = $cartRepository->findOneBy(['user' => $user]);
 
-        $form = $this->createForm(CartLineType::class, $newCartLine);
+        if (!$cart) {
+            $cart = new Cart();
+            $cart->setUser($user);
+            $entityManager->persist($cart);
+            $entityManager->flush();
+        }
+
+        $cartLine = new CartLine();
+        $cartLine->setCart($cart);
+        $cartLine->setProduct($product);
+
+        $form = $this->createForm(CartLineType::class, $cartLine);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $newCartLine->setProduct($product);
-
-            $newCartLine = $form->getData();
-            $entityManager->persist($newCartLine);
+            $cartLine->setQuantity($form->get('quantity')->getData());
+            $entityManager->persist($cartLine);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_cart_index');
         }
 
+        $similarProducts = $productRepository->findBy(
+            ['category' => $product->getCategory()],
+            null,
+            4
+        );
+
         return $this->render('product/show.html.twig', [
-            'form' => $form->createView(), 'cartLine' => $newCartLine, 'product' => $product,  'similarProducts' => $similarProducts,
+            'form' => $form->createView(),
+            'product' => $product,
+            'similarProducts' => $similarProducts,
         ]);
     }
 }
