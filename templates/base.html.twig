@@ -33,8 +33,12 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <div class="search-bar-container">
                         <div class="search-bar">
-                            <input class="search-input" type="search">
-                            <i class="fas fa-search search-bar-icon"></i>
+                            <form method="GET" action="{{ path('app_product') }}">
+                                <input class="search-input" type="search" placeholder="Rechercher un produit.." aria-label="Search" name="search">
+                                <button type="submit" class="search-bar-icon">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </form>
                         </div>
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0" id="link_nav">
                             <li class="nav-item">
@@ -55,9 +59,9 @@
                         </ul>
                     </div>
                     <div class="action-buttons" id="action-buttons-in">
-                        <a href="#" class="btn">
+                        <a href="{{ app.user ? path('app_login') : path('app_login') }}" class="btn">
                             <i class="fas fa-user"></i>
-                            Mon Compte
+                            {{ app.user ? app.user.firstName : 'Se connecter' }}
                         </a>
                         <a href="#" class="btn">
                             <i class="fas fa-shopping-cart"></i>
@@ -67,9 +71,9 @@
                 </div>
 
                 <div class="action-buttons" id="action-buttons-out">
-                    <a href="#" class="btn">
+                    <a href="{{ app.user ? path('app_login') : path('app_login') }}" class="btn">
                         <i class="fas fa-user"></i>
-                        Mon Compte
+                        {{ app.user ? app.user.firstName : 'Se connecter' }}
                     </a>
                     <a href="#" class="btn">
                         <i class="fas fa-shopping-cart"></i>

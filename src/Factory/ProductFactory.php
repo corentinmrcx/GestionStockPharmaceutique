@@ -37,13 +37,12 @@ final class ProductFactory extends PersistentProxyObjectFactory
             'isRecommended' => self::faker()->boolean(),
             'name' => self::faker()->words(3, true),
             'price' => self::faker()->randomFloat(2, 1, 100),
-            'images' => ['/images/doliprane.png'],
+            'imageName' => self::faker()->randomElement(['doliprane.png', 'citrateBétaine.png', 'gaviscon.png', null]),
             'reference' => self::faker()->bothify('REF-##########'),
             'description' => self::faker()->sentence(10),
             'stock' => StockFactory::createOne(),
             'brand' => BrandFactory::random(),
             'category' => CategoryFactory::random(),
-
         ];
     }
 
