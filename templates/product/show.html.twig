@@ -6,13 +6,8 @@
     <section class="py-5">
         <div class="details-container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
-                <div class="col-md-6" style="display: flex; justify-content: center" >
-                    <img src="
-                        {% if product.imageName %}
-                            {{ vich_uploader_asset(product, 'imageFile') }}
-                        {% else %}
-                            {{ asset('images/products/default_image.png') }}
-                        {% endif %}" alt="{{ product.name }}">
+                <div class="col-md-6">
+                    <img class="product-image card-img-top mb-5 mb-md-0" src="{{ asset(product.images[0]) }}" alt="{{ product.name }}" />
                 </div>
 
                 <div class="col-md-6">
@@ -33,10 +28,13 @@
                     </div>
 
                     <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem" />
-                        <button class="btn btn-custom flex-shrink-0" type="button">
+                        {{ form_start(form) }}
+                        {{ form_row(form.quantity) }}
+                        <button type="submit" class="btn btn-custom flex-shrink-0">
                             <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
                         </button>
+
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
@@ -47,16 +45,11 @@
                 {% for similarProduct in similarProducts %}
                     <div class="col-md-3">
                         <div class="similar-product-card card">
-                            <img src="
-                            {% if similarProduct.imageName %}
-                                {{ vich_uploader_asset(similarProduct, 'imageFile') }}
-                            {% else %}
-                                {{ asset('images/products/default_image.png') }}
-                            {% endif %}" class="card-img-top" alt="{{ product.name }}" >
+                            <img src="{{ asset(similarProduct.images[0]) }}" class="card-img-top" alt="{{ similarProduct.name }}">
                             <div class="card-body">
                                 <h5 class="card-title">{{ similarProduct.name }}</h5>
-                                <p class="card-text">{{ similarProduct.description|slice(0, 60) ~ (similarProduct.description|length > 60 ? '...' : '') }}</p>
-                                <a href="{{ path('product_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
+                                <p class="card-text">{{ similarProduct.description }}</p>
+                                <a href="{{ path('cart_add_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
                             </div>
                         </div>
                     </div>
