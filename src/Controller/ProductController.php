@@ -12,7 +12,6 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -35,10 +34,8 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, SessionInterface $session): Response
+    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository): Response
     {
-
-
         $user = $this->getUser();
         if (!$user) {
             return $this->redirectToRoute('app_login');
@@ -58,6 +55,7 @@ class ProductController extends AbstractController
         $cartLine->setCart($cart);
         $cartLine->setProduct($product);
 
+
         $form = $this->createForm(CartLineType::class, $cartLine);
         $form->handleRequest($request);
 
@@ -66,6 +64,7 @@ class ProductController extends AbstractController
             $entityManager->persist($cartLine);
             $entityManager->flush();
 
+            
             return $this->redirectToRoute('app_cart_index');
         }
 
