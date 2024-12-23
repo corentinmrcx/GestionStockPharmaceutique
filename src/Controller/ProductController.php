@@ -6,6 +6,7 @@ use App\Entity\Cart;
 use App\Entity\CartLine;
 use App\Entity\Product;
 use App\Form\CartLineType;
+use App\Repository\CartLineRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -34,7 +35,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository): Response
+    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, CartLineRepository $cartLineRepository): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -51,20 +52,28 @@ class ProductController extends AbstractController
             $entityManager->flush();
         }
 
-        $cartLine = new CartLine();
-        $cartLine->setCart($cart);
-        $cartLine->setProduct($product);
-
-
+        $cartLine = $cartLineRepository->findOneBy(['cart' => $cart, 'product' => $product]);
+        if ($cartLine) {
+            $currentQuantity = $cartLine->getQuantity();
+        }
         $form = $this->createForm(CartLineType::class, $cartLine);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $cartLine->setQuantity($form->get('quantity')->getData());
+            if ($cartLine) {
+                $additionalQuantity = $form->get('quantity')->getData();
+                $cartLine->setQuantity($currentQuantity + $additionalQuantity);
+            }
+            else {
+                $cartLine = new CartLine();
+                $cartLine->setCart($cart);
+                $cartLine->setProduct($product);
+                $cartLine->setQuantity($form->get('quantity')->getData());
+            }
             $entityManager->persist($cartLine);
+
             $entityManager->flush();
 
-            
             return $this->redirectToRoute('app_cart_index');
         }
 
