@@ -63,8 +63,7 @@ class ProductController extends AbstractController
             if ($cartLine) {
                 $additionalQuantity = $form->get('quantity')->getData();
                 $cartLine->setQuantity($currentQuantity + $additionalQuantity);
-            }
-            else {
+            } else {
                 $cartLine = new CartLine();
                 $cartLine->setCart($cart);
                 $cartLine->setProduct($product);

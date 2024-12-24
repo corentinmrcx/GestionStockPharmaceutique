@@ -7,7 +7,16 @@
     <h1>Panier</h1>
     <ul class="cartLines">
         {% for cartLine in cartLines %}
-            <li><span class="product">{{ cartLine.product }}</span>, <span class="quantity">{{ cartLine.quantity }}</span>, <span class="username">{{ cartLine.cart.user.firstname }}</span> : <span class="price.cartLine">{{ cartLine.product.price * cartLine.quantity }} €</span></li>
+
+            <li><span class="product">{{ cartLine.product }}</span>,
+                <span class="quantity">{{ cartLine.quantity }}</span>,
+                <span class="username">{{ cartLine.cart.user.firstname }}</span> :
+                <span class="price.cartLine">{{ cartLine.product.price * cartLine.quantity }} €</span>
+                <span>
+                        {{ form_start(deleteForms[cartLine.id]) }}
+                        {{ form_widget(deleteForms[cartLine.id]) }}
+                        {{ form_end(deleteForms[cartLine.id]) }}
+                </span>
         {% endfor %}
     </ul>
 {% endblock %}
