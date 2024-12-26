@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\StockRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
 class Stock
@@ -16,9 +17,13 @@ class Stock
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'La quantité est obligatoire.')]
+    #[Assert\PositiveOrZero(message: 'La quantité doit être un nombre positif ou zéro.')]
     private ?int $quantity = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Le seuil d\'alerte est obligatoire.')]
+    #[Assert\PositiveOrZero(message: 'Le seuil d\'alerte doit être un nombre positif ou zéro.')]
     private ?int $alert = null;
 
     /**
