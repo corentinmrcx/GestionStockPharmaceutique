@@ -5,18 +5,29 @@
 {% block body %}
 
     <h1>Panier</h1>
-    <ul class="cartLines">
+    <ul class="list-group list-group-flush">
         {% for cartLine in cartLines %}
 
-            <li><span class="product">{{ cartLine.product }}</span>,
-                <span class="quantity">{{ cartLine.quantity }}</span>,
-                <span class="username">{{ cartLine.cart.user.firstname }}</span> :
-                <span class="price.cartLine">{{ cartLine.product.price * cartLine.quantity }} €</span>
-                <span>
-                        {{ form_start(deleteForms[cartLine.id]) }}
-                        {{ form_widget(deleteForms[cartLine.id]) }}
-                        {{ form_end(deleteForms[cartLine.id]) }}
-                </span>
+            <li class="list-group-item">
+                <div class="list-group-horizontal-lg d-flex align-items-center" style="flex: auto; gap: 20px;">
+                    <img src=
+                        {% if cartLine.product.imageName %}
+                            {{ vich_uploader_asset(cartLine.product, 'imageFile') }}
+                        {% else %}
+                            {{ asset('images/products/default_image.png') }}
+                        {% endif %}" alt="{{ cartLine.product.name }}" style="width: 70px; height: 70px;">
+                    <span class="product.name"> {{ cartLine.product.name }}</span>
+                    <span class="quantity">, {{ cartLine.quantity }}</span>
+                    <span class="username">, {{ cartLine.cart.user.firstname }}</span>
+                    <span class="price.cartLine"> : {{ cartLine.product.price * cartLine.quantity }} €</span>
+                    <span class="delete.cartLine">
+                            {{ form_start(deleteForms[cartLine.id]) }}
+                            {{ form_widget(deleteForms[cartLine.id]) }}
+                            {{ form_end(deleteForms[cartLine.id]) }}
+                    </span>
+
+                </div>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

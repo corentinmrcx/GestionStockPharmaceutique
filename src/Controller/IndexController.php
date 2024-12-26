@@ -36,6 +36,7 @@ class IndexController extends AbstractController
                 ->getForm();
             $addCartIndex[$product->getId()] = $form->createView();
         }
+
         return $this->render('index/index.html.twig', [
             'addCartIndex' => $addCartIndex,
             'recommendedProducts' => $recommendedProducts,
