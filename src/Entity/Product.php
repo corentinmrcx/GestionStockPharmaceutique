@@ -7,8 +7,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[Vich\Uploadable]
@@ -44,7 +44,7 @@ class Product
 
     #[ORM\Column]
     #[Assert\NotBlank()]
-    #[Assert\GreaterThanOrEqual("today")]
+    #[Assert\GreaterThanOrEqual('today')]
     private ?\DateTimeImmutable $expirationDate = null;
 
     #[ORM\ManyToOne(targetEntity: 'Category', inversedBy: 'products')]
