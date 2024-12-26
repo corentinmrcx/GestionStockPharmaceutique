@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 #[Vich\Uploadable]
@@ -19,12 +20,17 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 255)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 500, nullable: true)]
+    #[Assert\Length(max: 500)]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\Positive()]
     private ?float $price = null;
 
     #[Vich\UploadableField(mapping: 'product_images', fileNameProperty: 'imageName')]
@@ -37,6 +43,8 @@ class Product
     private ?\DateTimeInterface $updatedAt = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank()]
+    #[Assert\GreaterThanOrEqual("today")]
     private ?\DateTimeImmutable $expirationDate = null;
 
     #[ORM\ManyToOne(targetEntity: 'Category', inversedBy: 'products')]
@@ -60,6 +68,8 @@ class Product
     private Collection $supplyLines;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank()]
+    #[Assert\Length(max: 255)]
     private ?string $reference = null;
 
     #[ORM\Column(nullable: true)]
