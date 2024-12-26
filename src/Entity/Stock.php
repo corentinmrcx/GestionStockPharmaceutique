@@ -17,12 +17,10 @@ class Stock
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'La quantité est obligatoire.')]
     #[Assert\PositiveOrZero(message: 'La quantité doit être un nombre positif ou zéro.')]
     private ?int $quantity = null;
 
     #[ORM\Column]
-    #[Assert\NotBlank(message: 'Le seuil d\'alerte est obligatoire.')]
     #[Assert\PositiveOrZero(message: 'Le seuil d\'alerte doit être un nombre positif ou zéro.')]
     private ?int $alert = null;
 
