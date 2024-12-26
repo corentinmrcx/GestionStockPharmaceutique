@@ -18,7 +18,9 @@
                     <a href="{{ path('cart_add_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                     <p>{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
                     <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
-                    <button class="btn-custom"><i class="fas fa-shopping-cart"></i> Ajouter au panier</button>
+                    {{ form_start(addCartIndex[product.id]) }}
+                    {{ form_widget(addCartIndex[product.id]) }}
+                    {{ form_end(addCartIndex[product.id]) }}
                 </div>
             </div>
             {% endfor %}
