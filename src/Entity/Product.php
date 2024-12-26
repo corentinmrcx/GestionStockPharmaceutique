@@ -62,7 +62,7 @@ class Product
     #[ORM\Column(length: 255)]
     private ?string $reference = null;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?bool $isRecommended = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
