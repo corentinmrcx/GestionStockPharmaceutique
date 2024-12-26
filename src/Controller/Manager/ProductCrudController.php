@@ -3,10 +3,13 @@
 namespace App\Controller\Manager;
 
 use App\Entity\Product;
+use App\Entity\Stock;
+use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\FormField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
@@ -28,9 +31,28 @@ class ProductCrudController extends AbstractCrudController
                 ->setPaginatorPageSize(20);
     }
 
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        if (!$entityInstance instanceof Product) {
+            return;
+        }
+
+        if ($entityInstance->getStock() === null) {
+            $stock = new Stock();
+            $stock->setQuantity(0);
+            $stock->setAlert(0);
+            $entityInstance->setStock($stock);
+
+            $entityManager->persist($stock);
+        }
+
+        parent::persistEntity($entityManager, $entityInstance);
+    }
+
     public function configureFields(string $pageName): iterable
     {
         return [
+            FormField::addPanel('Informations Produit'),
             TextField::new('reference', 'Référence'),
             TextField::new('name', 'Nom du produit'),
             TextField::new('description', 'Description')
