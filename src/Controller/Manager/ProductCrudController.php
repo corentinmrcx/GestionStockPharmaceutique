@@ -31,22 +31,17 @@ class ProductCrudController extends AbstractCrudController
                 ->setPaginatorPageSize(20);
     }
 
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    public function createEntity(string $entityFqcn)
     {
-        if (!$entityInstance instanceof Product) {
-            return;
-        }
+        $product = new Product();
 
-        if ($entityInstance->getStock() === null) {
-            $stock = new Stock();
-            $stock->setQuantity(0);
-            $stock->setAlert(0);
-            $entityInstance->setStock($stock);
+        $stock = new Stock();
+        $stock->setQuantity(0);
+        $stock->setAlert(0);
 
-            $entityManager->persist($stock);
-        }
+        $product->setStock($stock);
 
-        parent::persistEntity($entityManager, $entityInstance);
+        return $product;
     }
 
     public function configureFields(string $pageName): iterable
