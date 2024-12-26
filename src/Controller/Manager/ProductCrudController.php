@@ -51,6 +51,11 @@ class ProductCrudController extends AbstractCrudController
                     return $entity->getBrand()->getName();
                 }),
             DateField::new('expirationDate', 'Date d\'expiration'),
+
+            FormField::addPanel('Stock'),
+            NumberField::new('stock.quantity', 'Quantité'),
+            NumberField::new('stock.alert', 'Seuil d\'alerte')
+                ->onlyOnForms(),
         ];
     }
 }
