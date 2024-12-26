@@ -22,12 +22,12 @@
                         {% endif %}" alt="{{ product.name }}">
                         <a href="{{ path('cart_add_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                         <p>{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
-                        {% if is_granted('IS_AUTHENTICATED') %}
+
                         <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
                         {{ form_start(addCart[product.id]) }}
                         {{ form_widget(addCart[product.id]) }}
                         {{ form_end(addCart[product.id]) }}
-                        {{ end if }}
+
                     </div>
                 </div>
                 {% endfor %}

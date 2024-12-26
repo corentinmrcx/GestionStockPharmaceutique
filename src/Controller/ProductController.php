@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 class ProductController extends AbstractController
 {
@@ -51,11 +52,14 @@ class ProductController extends AbstractController
             'addCart' => $addCart,
         ]);
     }
-
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/product/addCartIndex/{id}', name: 'app_product_add', methods: ['POST'])]
     public function addCartIndex(CartRepository $cartRepository, EntityManagerInterface $entityManager, CartLineRepository $cartLineRepository, Product $product): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            return $this->redirectToRoute('app_login');
+        }
         $cart = $cartRepository->findOneBy(['user' => $user]);
 
         if (!$cart) {
@@ -86,46 +90,54 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, CartLineRepository $cartLineRepository): Response
-    {
+    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, CartLineRepository $cartLineRepository): Response {
+
+
         $user = $this->getUser();
-        if (!$user) {
-            return $this->redirectToRoute('app_login');
-        }
 
-        $cartRepository = $entityManager->getRepository(Cart::class);
-        $cart = $cartRepository->findOneBy(['user' => $user]);
+        if (!$user) {$isConnected = false;}
+        else {$isConnected = true;}
 
-        if (!$cart) {
-            $cart = new Cart();
-            $cart->setUser($user);
-            $entityManager->persist($cart);
-            $entityManager->flush();
-        }
-
-        $cartLine = $cartLineRepository->findOneBy(['cart' => $cart, 'product' => $product]);
-        if ($cartLine) {
-            $currentQuantity = $cartLine->getQuantity();
-        }
+        $cartLine = new CartLine();
         $form = $this->createForm(CartLineType::class, $cartLine);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($cartLine) {
+
+            if (!$user) {
+                return $this->redirectToRoute('app_login');
+            }
+
+
+            $cartRepository = $entityManager->getRepository(Cart::class);
+            $cart = $cartRepository->findOneBy(['user' => $user]);
+
+            if (!$cart) {
+                $cart = new Cart();
+                $cart->setUser($user);
+                $entityManager->persist($cart);
+                $entityManager->flush();
+            }
+
+
+            $existingCartLine = $cartLineRepository->findOneBy(['cart' => $cart, 'product' => $product]);
+            if ($existingCartLine) {
                 $additionalQuantity = $form->get('quantity')->getData();
-                $cartLine->setQuantity($currentQuantity + $additionalQuantity);
+                $existingCartLine->setQuantity($existingCartLine->getQuantity() + $additionalQuantity);
             } else {
                 $cartLine = new CartLine();
                 $cartLine->setCart($cart);
                 $cartLine->setProduct($product);
                 $cartLine->setQuantity($form->get('quantity')->getData());
+                $entityManager->persist($cartLine);
             }
-            $entityManager->persist($cartLine);
 
             $entityManager->flush();
 
             return $this->redirectToRoute('app_cart_index');
+
         }
+
 
         $similarProducts = $productRepository->findBy(
             ['category' => $product->getCategory()],
@@ -133,10 +145,12 @@ class ProductController extends AbstractController
             4
         );
 
+
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
             'product' => $product,
             'similarProducts' => $similarProducts,
+            'user' => $user,
         ]);
     }
 }
