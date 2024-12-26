@@ -51,7 +51,7 @@ class Product
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    #[ORM\ManyToOne(targetEntity: 'Stock', inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity: 'Stock', cascade: ['persist'], inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Stock $stock = null;
 
