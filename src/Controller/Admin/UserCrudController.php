@@ -6,6 +6,7 @@ use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
@@ -37,7 +38,7 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastname', 'Nom'),
             TextField::new('firstname', 'Prénom'),
             EmailField::new('email', 'Adresse email')
-                ->setFormTypeOption('disabled', 'disabled'),
+                ->setFormTypeOption('attr', ['readonly' => true]),
             TextField::new('phone', 'Numéro de téléphone'),
             DateField::new('birthdate', 'Date de naissance')
                 ->hideOnIndex(),
@@ -47,7 +48,13 @@ class UserCrudController extends AbstractCrudController
                 ->hideOnIndex(),
             NumberField::new('postalCode', 'Code postal')
                 ->hideOnIndex(),
-            ArrayField::new('roles', 'Rôles'),
+            ChoiceField::new('roles', 'Rôle(s)')
+                ->setChoices([
+                    'Utilisateur' => 'ROLE_USER',
+                    'Administrateur' => 'ROLE_ADMIN',
+                    'Gestionnaire' => 'ROLE_MANAGER',
+                ])
+                ->allowMultipleChoices(),
             NumberField::new('rppsNumber', 'Numéro RPPS'),
         ];
     }
