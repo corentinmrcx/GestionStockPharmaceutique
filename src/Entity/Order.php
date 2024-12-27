@@ -16,9 +16,6 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column]
-    private ?int $orderNumber = null;
-
-    #[ORM\Column]
     private ?\DateTimeImmutable $orderDate = null;
 
     /**
