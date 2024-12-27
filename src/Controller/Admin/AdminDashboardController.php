@@ -2,8 +2,8 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Inventory;
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Entity\Supplier;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
@@ -35,7 +35,8 @@ class AdminDashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Accueil', 'fa fa-home');
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
-        yield MenuItem::linkToCrud('Inventaire', 'fas fa-warehouse', Inventory::class);
+        yield MenuItem::linkToCrud('Inventaire', 'fas fas fa-warehouse', Product::class)
+            ->setController(ProductInventaireCrudController::class);
         yield MenuItem::linkToCrud('Fournisseurs', 'fas fa-truck-field', Supplier::class);
     }
 }
