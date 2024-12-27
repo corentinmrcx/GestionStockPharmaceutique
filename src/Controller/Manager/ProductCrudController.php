@@ -47,7 +47,7 @@ class ProductCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            FormField::addPanel('Informations Produit'),
+            FormField::addFieldset('Informations Produit'),
             TextField::new('reference', 'Référence'),
             TextField::new('name', 'Nom du produit'),
             TextField::new('description', 'Description')
@@ -69,7 +69,7 @@ class ProductCrudController extends AbstractCrudController
                 }),
             DateField::new('expirationDate', 'Date d\'expiration'),
 
-            FormField::addPanel('Stock'),
+            FormField::addFieldset('Gestion Stock du Produit'),
             NumberField::new('stock.quantity', 'Quantité'),
             NumberField::new('stock.alert', 'Seuil d\'alerte')
                 ->onlyOnForms(),
