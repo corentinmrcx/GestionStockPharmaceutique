@@ -5,8 +5,6 @@ namespace App\Controller\Manager;
 use App\Entity\Brand;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
-use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class BrandCrudController extends AbstractCrudController
@@ -24,6 +22,7 @@ class BrandCrudController extends AbstractCrudController
             ->setPageTitle(Crud::PAGE_INDEX, 'Pharmacie - Gestion des marques')
             ->setPaginatorPageSize(20);
     }
+
     public function configureFields(string $pageName): iterable
     {
         return [
