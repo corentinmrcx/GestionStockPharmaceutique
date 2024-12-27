@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\Order;
 use App\Entity\Product;
 use App\Entity\Supplier;
 use App\Entity\User;
