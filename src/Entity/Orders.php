@@ -45,18 +45,6 @@ class Orders
         return $this;
     }
 
-    public function getOrderNumber(): ?int
-    {
-        return $this->orderNumber;
-    }
-
-    public function setOrderNumber(int $orderNumber): static
-    {
-        $this->orderNumber = $orderNumber;
-
-        return $this;
-    }
-
     public function getOrderDate(): ?\DateTimeImmutable
     {
         return $this->orderDate;
