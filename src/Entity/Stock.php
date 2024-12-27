@@ -30,16 +30,9 @@ class Stock
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'stock', orphanRemoval: true)]
     private Collection $products;
 
-    /**
-     * @var Collection<int, Inventory>
-     */
-    #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'stock', orphanRemoval: true)]
-    private Collection $inventories;
-
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -95,36 +88,6 @@ class Stock
             // set the owning side to null (unless already changed)
             if ($product->getStock() === $this) {
                 $product->setStock(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Inventory>
-     */
-    public function getInventories(): Collection
-    {
-        return $this->inventories;
-    }
-
-    public function addInventory(Inventory $inventory): static
-    {
-        if (!$this->inventories->contains($inventory)) {
-            $this->inventories->add($inventory);
-            $inventory->setStock($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInventory(Inventory $inventory): static
-    {
-        if ($this->inventories->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getStock() === $this) {
-                $inventory->setStock(null);
             }
         }
 
