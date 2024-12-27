@@ -4,6 +4,7 @@ namespace App\Controller\Manager;
 
 use App\Entity\Brand;
 use App\Entity\Category;
+use App\Entity\Order;
 use App\Entity\Product;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -36,5 +37,6 @@ class ManagerDashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Produits', 'fas fa-capsules', Product::class);
         yield MenuItem::linkToCrud('Marques', 'fas fa-certificate', Brand::class);
         yield MenuItem::linkToCrud('Catégories', 'fas fa-layer-group', Category::class);
+        yield MenuItem::linkToCrud('Commandes', 'fas fa-cart-flatbed', Order::class);
     }
 }
