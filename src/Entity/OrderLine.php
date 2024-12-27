@@ -27,6 +27,11 @@ class OrderLine
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
 
+    public function __toString(): string
+    {
+        return $this->product->getName().' (Quantité : '.$this->quantity.' | Prix unitaire : '.$this->unitPrice.'€)';
+    }
+
     public function getId(): ?int
     {
         return $this->id;
