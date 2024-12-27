@@ -110,12 +110,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $rppsNumber = null;
 
     /**
-     * @var Collection<int, Inventory>
-     */
-    #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'administrator')]
-    private Collection $inventories;
-
-    /**
      * @var Collection<int, Delivery>
      */
     #[ORM\OneToMany(targetEntity: Delivery::class, mappedBy: 'user')]
@@ -141,7 +135,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->inventories = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
         $this->supplies = new ArrayCollection();
         $this->orders = new ArrayCollection();
@@ -315,36 +308,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRppsNumber(?string $rppsNumber): static
     {
         $this->rppsNumber = $rppsNumber;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Inventory>
-     */
-    public function getInventories(): Collection
-    {
-        return $this->inventories;
-    }
-
-    public function addInventory(Inventory $inventory): static
-    {
-        if (!$this->inventories->contains($inventory)) {
-            $this->inventories->add($inventory);
-            $inventory->setAdministrator($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInventory(Inventory $inventory): static
-    {
-        if ($this->inventories->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getAdministrator() === $this) {
-                $inventory->setAdministrator(null);
-            }
-        }
 
         return $this;
     }
