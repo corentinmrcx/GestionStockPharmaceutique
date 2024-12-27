@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ category.nameCategory }}{% endblock %}
+
+{% block body %}
+    <div class="product-container my-5">
+        {% if products is not empty %}
+                <h1 class="text-center mb-4">{{ category.nameCategory }}</h1>
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="
+                        {% if product.imageName %}
+                            {{ vich_uploader_asset(product, 'imageFile') }}
+                        {% else %}
+                            {{ asset('images/products/default_image.png') }}
+                        {% endif %}" alt="{{ product.name }}">
+                            <a href="{{ path('product_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
+                            <p>{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
+                            <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
+                            <button class="btn-custom"><i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;Ajouter au panier</button>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                {{ knp_pagination_render(products) }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
