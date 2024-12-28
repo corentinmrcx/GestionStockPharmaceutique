@@ -59,7 +59,7 @@
                         </ul>
                     </div>
                     <div class="action-buttons" id="action-buttons-in">
-                        <a href="{{ app.user ? path('app_login') : path('app_login') }}" class="btn">
+                        <a href="{{ app.user ? path('app_user_dashboard') : path('app_login') }}" class="btn">
                             <i class="fas fa-user"></i>
                             {{ app.user ? app.user.firstName : 'Se connecter' }}
                         </a>
@@ -71,7 +71,7 @@
                 </div>
 
                 <div class="action-buttons" id="action-buttons-out">
-                    <a href="{{ app.user ? path('app_login') : path('app_login') }}" class="btn">
+                    <a href="{{ app.user ? path('app_user_dashboard') : path('app_login') }}" class="btn">
                         <i class="fas fa-user"></i>
                         {{ app.user ? app.user.firstName : 'Se connecter' }}
                     </a>
