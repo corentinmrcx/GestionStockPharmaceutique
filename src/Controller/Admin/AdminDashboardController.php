@@ -12,11 +12,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[Route('/admin')]
 #[IsGranted('ROLE_ADMIN')]
 class AdminDashboardController extends AbstractDashboardController
 {
-    #[Route('/', name: 'app_admin_index')]
+    #[Route('/admin', name: 'app_admin_index')]
     public function index(): Response
     {
         return $this->render('admin/dashboard.html.twig');
