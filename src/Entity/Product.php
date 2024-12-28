@@ -328,12 +328,16 @@ class Product
     public function removeCartLine(CartLine $cartLine): static
     {
         if ($this->cartLine->removeElement($cartLine)) {
-            // set the owning side to null (unless already changed)
             if ($cartLine->getProduct() === $this) {
                 $cartLine->setProduct(null);
             }
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->name;
     }
 }

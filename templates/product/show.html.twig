@@ -32,11 +32,13 @@
                         <a href="#"><p>{{ product.category.nameCategory }}</p></a>
                     </div>
 
-                    <div class="d-flex">
-                        <input class="form-control text-center me-3" id="inputQuantity" type="number" value="1" style="max-width: 4rem" />
-                        <button class="btn btn-custom flex-shrink-0" type="button">
+                    <div class="d-flex align-items-center">
+                        {{ form_start(form, {'attr': {'class': 'form_inline'}}) }}
+                        {{ form_widget(form.quantity) }}
+                        <button type="submit" class="btn btn-custom flex-shrink-0">
                             <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
                         </button>
+                        {{ form_end(form) }}
                     </div>
                 </div>
             </div>
@@ -56,7 +58,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ similarProduct.name }}</h5>
                                 <p class="card-text">{{ similarProduct.description|slice(0, 60) ~ (similarProduct.description|length > 60 ? '...' : '') }}</p>
-                                <a href="{{ path('product_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
+                                <a href="{{ path('cart_add_show', {'id': similarProduct.id}) }}" class="btn btn-custom" id="btn-custom-secondary">Voir le produit</a>
                             </div>
                         </div>
                     </div>
@@ -65,3 +67,4 @@
         </div>
     </section>
 {% endblock %}
+
