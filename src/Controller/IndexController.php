@@ -26,13 +26,6 @@ class IndexController extends AbstractController
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_index_addcartindex', ['id' => $product->getId()]))
                 ->setMethod('POST')
-                ->add('add', SubmitType::class, [
-                    'label' => 'Ajoutez au panier',
-                    'attr' => [
-                        'class' => 'btn-custom',
-                        'style' => 'margin-top: 10px; background-color: #8bd59e; border-color: #28a745;',
-                    ],
-                ])
                 ->getForm();
             $addCartIndex[$product->getId()] = $form->createView();
         }
