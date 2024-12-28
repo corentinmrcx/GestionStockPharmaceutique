@@ -12,7 +12,6 @@ use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
@@ -35,13 +34,6 @@ class ProductController extends AbstractController
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_product_add', ['id' => $product->getId()]))
                 ->setMethod('POST')
-                ->add('add', SubmitType::class, [
-                    'label' => 'Ajoutez au panier',
-                    'attr' => [
-                        'class' => 'btn-custom',
-                        'style' => 'margin-top: 10px; background-color: #8bd59e; border-color: #28a745;',
-                    ],
-                ])
                 ->getForm();
             $addCart[$product->getId()] = $form->createView();
         }
@@ -52,6 +44,7 @@ class ProductController extends AbstractController
             'addCart' => $addCart,
         ]);
     }
+
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/product/addCartIndex/{id}', name: 'app_product_add', methods: ['POST'])]
     public function addCartIndex(CartRepository $cartRepository, EntityManagerInterface $entityManager, CartLineRepository $cartLineRepository, Product $product): Response
@@ -90,24 +83,24 @@ class ProductController extends AbstractController
     }
 
     #[Route('/product/{id}', name: 'cart_add_show', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, CartLineRepository $cartLineRepository): Response {
-
-
+    public function addToCartAndShow(Product $product, EntityManagerInterface $entityManager, Request $request, ProductRepository $productRepository, CartLineRepository $cartLineRepository): Response
+    {
         $user = $this->getUser();
 
-        if (!$user) {$isConnected = false;}
-        else {$isConnected = true;}
+        if (!$user) {
+            $isConnected = false;
+        } else {
+            $isConnected = true;
+        }
 
         $cartLine = new CartLine();
         $form = $this->createForm(CartLineType::class, $cartLine);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             if (!$user) {
                 return $this->redirectToRoute('app_login');
             }
-
 
             $cartRepository = $entityManager->getRepository(Cart::class);
             $cart = $cartRepository->findOneBy(['user' => $user]);
@@ -118,7 +111,6 @@ class ProductController extends AbstractController
                 $entityManager->persist($cart);
                 $entityManager->flush();
             }
-
 
             $existingCartLine = $cartLineRepository->findOneBy(['cart' => $cart, 'product' => $product]);
             if ($existingCartLine) {
@@ -135,16 +127,13 @@ class ProductController extends AbstractController
             $entityManager->flush();
 
             return $this->redirectToRoute('app_cart_index');
-
         }
-
 
         $similarProducts = $productRepository->findBy(
             ['category' => $product->getCategory()],
             null,
             4
         );
-
 
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
