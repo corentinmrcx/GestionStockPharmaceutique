@@ -21,7 +21,7 @@
                             {{ asset('images/products/default_image.png') }}
                         {% endif %}" alt="{{ product.name }}">
                         <a href="{{ path('cart_add_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
-                        <p>{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
+                        <p class="mt-2">{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
 
                         <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
 
