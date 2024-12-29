@@ -87,11 +87,6 @@ class ProductController extends AbstractController
     {
         $user = $this->getUser();
 
-        if (!$user) {
-            $isConnected = false;
-        } else {
-            $isConnected = true;
-        }
 
         $cartLine = new CartLine();
         $form = $this->createForm(CartLineType::class, $cartLine);
