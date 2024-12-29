@@ -20,8 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    #[Assert\NotBlank(message: 'L\'email est obligatoire.')]
-    #[Assert\Email(message: 'L\'email {{ value }} n\'est pas un email valide.')]
+    #[Assert\NotBlank(message: "L'email est obligatoire.")]
+    #[Assert\Email(message: "L'email '{{ value }}' n'est pas valide.")]
     private ?string $email = null;
 
     /**
@@ -37,13 +37,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Assert\NotBlank(message: 'Le mot de passe est obligatoire.')]
     #[Assert\Length(
         min: 8,
-        minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères.')]
+        minMessage: 'Le mot de passe doit contenir au moins {{ limit }} caractères.'
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: 'Le nom est obligatoire.')]
     #[Assert\Length(
+        min: 2,
         max: 50,
+        minMessage: 'Le nom ne doit pas être inférieur à {{ limit }} caractères.',
         maxMessage: 'Le nom ne peut pas dépasser {{ limit }} caractères.'
     )]
     private ?string $lastname = null;
@@ -51,32 +54,37 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 50)]
     #[Assert\NotBlank(message: 'Le prénom est obligatoire.')]
     #[Assert\Length(
+        min: 2,
         max: 50,
+        minMessage: 'Le prénom ne doit pas être inférieur à {{ limit }} caractères.',
         maxMessage: 'Le prénom ne peut pas dépasser {{ limit }} caractères.'
     )]
     private ?string $firstname = null;
 
     #[ORM\Column(length: 25)]
     #[Assert\NotBlank(message: 'Le numéro de téléphone est obligatoire.')]
+    #[Assert\Regex(
+        pattern: "/^\+?[0-9\s-]+$/",
+        message: "Le numéro de téléphone n'est pas valide."
+    )]
     #[Assert\Length(
         max: 25,
         maxMessage: 'Le numéro de téléphone ne peut pas dépasser {{ limit }} caractères.'
     )]
-    #[Assert\Regex(
-        pattern: '/^\+?[0-9\s\-]{10,25}$/',
-        message: 'Le numéro de téléphone n\'est pas valide.'
-    )]
     private ?string $phone = null;
 
     #[ORM\Column(nullable: true)]
-    #[Assert\Type(\DateTimeImmutable::class)]
-    #[Assert\LessThan('today', message: 'La date de naissance doit être dans le passé.')]
+    #[Assert\Date(message: "La date de naissance n'est pas valide.")]
+    #[Assert\LessThan(
+        value: 'today',
+        message: 'La date de naissance doit être dans le passé.'
+    )]
     private ?\DateTimeImmutable $birthdate = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Assert\Length(
         max: 255,
-        maxMessage: 'L\'adresse ne peut pas dépasser {{ limit }} caractères.'
+        maxMessage: "L'adresse ne peut pas dépasser {{ limit }} caractères."
     )]
     private ?string $address = null;
 
@@ -88,26 +96,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $city = null;
 
     #[ORM\Column(length: 10, nullable: true)]
-    #[Assert\Length(
-        max: 10,
-        maxMessage: 'Le code postal ne peut pas dépasser {{ limit }} caractères.'
-    )]
     #[Assert\Regex(
-        pattern: '/^\d{5}$/',
+        pattern: "/^\d{5}$/",
         message: 'Le code postal doit contenir exactement 5 chiffres.'
     )]
     private ?string $postalCode = null;
 
     #[ORM\Column(length: 11, nullable: true)]
-    #[Assert\Length(
-        max: 11,
-        maxMessage: 'Le numéro RPPS ne peut pas dépasser {{ limit }} caractères.'
-    )]
     #[Assert\Regex(
-        pattern: '/^\d{11}$/',
+        pattern: "/^\d{11}$/",
         message: 'Le numéro RPPS doit contenir exactement 11 chiffres.'
     )]
     private ?string $rppsNumber = null;
+
+    /**
+     * @var Collection<int, Inventory>
+     */
+    #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'administrator')]
+    private Collection $inventories;
 
     /**
      * @var Collection<int, Delivery>
@@ -122,9 +128,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $supplies;
 
     /**
-     * @var Collection<int, Orders>
+     * @var Collection<int, Order>
      */
-    #[ORM\OneToMany(targetEntity: Orders::class, mappedBy: 'user')]
+    #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
     /**
@@ -135,6 +141,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
+        $this->inventories = new ArrayCollection();
         $this->deliveries = new ArrayCollection();
         $this->supplies = new ArrayCollection();
         $this->orders = new ArrayCollection();
@@ -313,6 +320,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
+     * @return Collection<int, Inventory>
+     */
+    public function getInventories(): Collection
+    {
+        return $this->inventories;
+    }
+
+    public function addInventory(Inventory $inventory): static
+    {
+        if (!$this->inventories->contains($inventory)) {
+            $this->inventories->add($inventory);
+            $inventory->setAdministrator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInventory(Inventory $inventory): static
+    {
+        if ($this->inventories->removeElement($inventory)) {
+            // set the owning side to null (unless already changed)
+            if ($inventory->getAdministrator() === $this) {
+                $inventory->setAdministrator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
      * @return Collection<int, Delivery>
      */
     public function getDeliveries(): Collection
@@ -373,14 +410,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection<int, Orders>
+     * @return Collection<int, Order>
      */
     public function getOrders(): Collection
     {
         return $this->orders;
     }
 
-    public function addOrder(Orders $order): static
+    public function addOrder(Order $order): static
     {
         if (!$this->orders->contains($order)) {
             $this->orders->add($order);
@@ -390,7 +427,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeOrder(Orders $order): static
+    public function removeOrder(Order $order): static
     {
         if ($this->orders->removeElement($order)) {
             // set the owning side to null (unless already changed)
