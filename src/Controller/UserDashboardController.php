@@ -31,6 +31,7 @@ class UserDashboardController extends AbstractController
 
         return $this->render('user_dashboard/index.html.twig', [
             'role' => $role,
+            'user' => $user,
         ]);
     }
 

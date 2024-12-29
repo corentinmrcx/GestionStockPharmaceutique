@@ -9,13 +9,15 @@
 
         {% if role == 'ROLE_USER' %}
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-gear fa-3x mb-3"></i>
-                        <h5 class="card-title">Paramètre Compte</h5>
-                        <p class="card-text">Accédez à la page de configuration de votre compte</p>
+                <a href="{{ path('app_user_edit', {'id' : user.id}) }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-gear fa-3x mb-3"></i>
+                            <h5 class="card-title">&Eacute;dition du Profile</h5>
+                            <p class="card-text">Accédez à la page de configuration de votre compte</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
                 <a href="{{ path('app_login') }}" class="dashboardLink">
@@ -43,11 +45,11 @@
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="" class="dashboardLink">
+                <a href="{{ path('app_user_edit', {'id' : user.id}) }}" class="dashboardLink">
                     <div class="dashboard-card card">
                         <div class="card-body text-center">
                             <i class="fas fa-gear fa-3x mb-3"></i>
-                            <h5 class="card-title">Paramètre Compte</h5>
+                            <h5 class="card-title">&Eacute;dition du Profile</h5>
                             <p class="card-text">Accédez à la page de configuration de votre compte</p>
                         </div>
                     </div>
@@ -79,11 +81,11 @@
                 </a>
             </div>
             <div class="col-md-4">
-                <a href="" class="dashboardLink">
+                <a href="{{ path('app_user_edit', {'id' : user.id}) }}" class="dashboardLink">
                     <div class="dashboard-card card">
                         <div class="card-body text-center">
                             <i class="fas fa-gear fa-3x mb-3"></i>
-                            <h5 class="card-title">Paramètre Compte</h5>
+                            <h5 class="card-title">&Eacute;dition du Profile</h5>
                             <p class="card-text">Accédez à la page de configuration de votre compte</p>
                         </div>
                     </div>
