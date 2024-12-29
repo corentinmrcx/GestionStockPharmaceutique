@@ -46,8 +46,8 @@ class ProductController extends AbstractController
     }
 
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    #[Route('/product/addCartIndex/{id}', name: 'app_product_add', methods: ['POST'])]
-    public function addCartIndex(CartRepository $cartRepository, EntityManagerInterface $entityManager, CartLineRepository $cartLineRepository, Product $product): Response
+    #[Route('/product/addCartProduct/{id}', name: 'app_product_add', methods: ['POST'])]
+    public function addCartProduct(CartRepository $cartRepository, EntityManagerInterface $entityManager, CartLineRepository $cartLineRepository, Product $product): Response
     {
         $user = $this->getUser();
         if (!$user) {
