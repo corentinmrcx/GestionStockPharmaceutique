@@ -74,6 +74,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phone = null;
 
     #[ORM\Column(nullable: true)]
+    #[Assert\Date(message: "La date de naissance n'est pas valide.")]
     #[Assert\LessThan(
         value: 'today',
         message: 'La date de naissance doit être dans le passé.'
