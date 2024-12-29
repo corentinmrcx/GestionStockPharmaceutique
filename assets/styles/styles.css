@@ -52,8 +52,27 @@ p {
     color: var(--primary-text-color);
 }
 
-a{
+a {
     text-decoration: none;
+    position: relative;
+}
+
+a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--secondary-color);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+a:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
 }
 
 /* --------------- Buttons --------------- */
@@ -91,6 +110,14 @@ a{
 .container {
     display: flex;
     justify-content: space-around;
+}
+
+.navbar-brand::after{
+    background-color: var(--primary-color);
+}
+
+.navbar-brand:hover::after{
+    background-color: var(--primary-color);
 }
 
 .navbar-brand img {
@@ -181,6 +208,14 @@ a{
     gap: 5px;
 }
 
+.action-buttons .btn::after{
+    background-color: var(--primary-color);
+}
+
+.action-buttons .btn:hover::after{
+    background-color: var(--primary-color);
+}
+
 .navbar-toggler {
     background-color: var(--primary-color);
     border-color: var(--secondary-color) ;
@@ -237,7 +272,7 @@ a{
 .product-card h5 {
     color: var(--secondary-color);
     font-size: 20px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
 }
 
 .product-card .price {
