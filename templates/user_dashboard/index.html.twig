@@ -20,6 +20,17 @@
                 </a>
             </div>
             <div class="col-md-4">
+                <a href="{{ path('app_user_edit_password', {'id' : user.id}) }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-key fa-3x mb-3"></i>
+                            <h5 class="card-title">&Eacute;dition du Mot de passe</h5>
+                            <p class="card-text">Accédez à la page de configuration du mot de passe de votre compte</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
                 <a href="{{ path('app_login') }}" class="dashboardLink">
                     <div class="dashboard-card card">
                         <div class="card-body text-center">
@@ -51,6 +62,17 @@
                             <i class="fas fa-gear fa-3x mb-3"></i>
                             <h5 class="card-title">&Eacute;dition du Profile</h5>
                             <p class="card-text">Accédez à la page de configuration de votre compte</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
+                <a href="{{ path('app_user_edit_password', {'id' : user.id}) }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-key fa-3x mb-3"></i>
+                            <h5 class="card-title">&Eacute;dition du Mot de passe</h5>
+                            <p class="card-text">Accédez à la page de configuration du mot de passe de votre compte</p>
                         </div>
                     </div>
                 </a>
@@ -92,6 +114,17 @@
                 </a>
             </div>
             <div class="col-md-4">
+                <a href="{{ path('app_user_edit_password', {'id' : user.id}) }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-key fa-3x mb-3"></i>
+                            <h5 class="card-title">&Eacute;dition du Mot de passe</h5>
+                            <p class="card-text">Accédez à la page de configuration du mot de passe de votre compte</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-4">
                 <a href="{{ path('app_login') }}" class="dashboardLink">
                     <div class="dashboard-card card">
                         <div class="card-body text-center">
@@ -103,6 +136,5 @@
                 </a>
             </div>
         {% endif %}
-
     </div>
 {% endblock %}
