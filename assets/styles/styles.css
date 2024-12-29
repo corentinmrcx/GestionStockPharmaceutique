@@ -52,6 +52,8 @@ p {
     color: var(--primary-text-color);
 }
 
+/* --------------- Liens --------------- */
+
 a {
     text-decoration: none;
     position: relative;
@@ -74,7 +76,6 @@ a:hover::after {
     transform: scaleX(1);
     transform-origin: bottom left;
 }
-
 
 /* --------------- Buttons --------------- */
 
@@ -485,6 +486,14 @@ h4{
 
 .card-body {
     color: var(--secondary-text-color);
+}
+
+.dashboardLink::after{
+    background-color: var(--primary-color);
+}
+
+.dashboardLink:hover::after{
+    background-color: var(--primary-color);
 }
 
 /* --------------- Footer --------------- */

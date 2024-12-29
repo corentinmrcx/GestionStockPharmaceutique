@@ -11,98 +11,94 @@
             <div class="col-md-4">
                 <div class="dashboard-card card">
                     <div class="card-body text-center">
-                        <i class="fas fa-users fa-3x mb-3"></i>
-                        <h5 class="card-title">Titre</h5>
-                        <p class="card-text">Description</p>
-                        <a href="" class="stretched-link"></a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
                         <i class="fas fa-gear fa-3x mb-3"></i>
                         <h5 class="card-title">Paramètre Compte</h5>
                         <p class="card-text">Accédez à la page de configuration de votre compte</p>
-                        <a href="" class="stretched-link"></a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-right-from-bracket fa-3x mb-3"></i>
-                        <h5 class="card-title">Déconnexion</h5>
-                        <p class="card-text">Accédez à la page de déconnexion</p>
-                        <a href="{{ path('app_login') }}" class="stretched-link"></a>
+                <a href="{{ path('app_login') }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-right-from-bracket fa-3x mb-3"></i>
+                            <h5 class="card-title">Déconnexion</h5>
+                            <p class="card-text">Accédez à la page de déconnexion</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         {% endif %}
 
         {% if role == 'ROLE_MANAGER' %}
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-users fa-3x mb-3"></i>
-                        <h5 class="card-title">DashBoard Gestionnaire</h5>
-                        <p class="card-text">Accédez aux outils de gestion des produits et commandes.</p>
-                        <a href="{{ path('app_manager_index') }}" class="stretched-link"></a>
+                <a href="{{ path('app_manager_index') }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h5 class="card-title">DashBoard Gestionnaire</h5>
+                            <p class="card-text">Accédez aux outils de gestion des produits et commandes.</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-gear fa-3x mb-3"></i>
-                        <h5 class="card-title">Paramètre Compte</h5>
-                        <p class="card-text">Accédez à la page de configuration de votre compte</p>
-                        <a href="" class="stretched-link"></a>
+                <a href="" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-gear fa-3x mb-3"></i>
+                            <h5 class="card-title">Paramètre Compte</h5>
+                            <p class="card-text">Accédez à la page de configuration de votre compte</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-right-from-bracket fa-3x mb-3"></i>
-                        <h5 class="card-title">Déconnexion</h5>
-                        <p class="card-text">Accédez à la page de déconnexion</p>
-                        <a href="{{ path('app_login') }}" class="stretched-link"></a>
+                <a href="{{ path('app_login') }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-right-from-bracket fa-3x mb-3"></i>
+                            <h5 class="card-title">Déconnexion</h5>
+                            <p class="card-text">Accédez à la page de déconnexion</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         {% endif %}
 
         {% if role == 'ROLE_ADMIN' %}
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-crown fa-3x mb-3"></i>
-                        <h5 class="card-title">DashBoard Administrateur</h5>
-                        <p class="card-text">Accédez aux outils d'administration.</p>
-                        <a href="{{ path('app_admin_index') }}" class="stretched-link"></a>
+                <a href="{{ path('app_admin_index') }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-crown fa-3x mb-3"></i>
+                            <h5 class="card-title">DashBoard Administrateur</h5>
+                            <p class="card-text">Accédez aux outils d'administration.</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-gear fa-3x mb-3"></i>
-                        <h5 class="card-title">Paramètre Compte</h5>
-                        <p class="card-text">Accédez à la page de configuration de votre compte</p>
-                        <a href="" class="stretched-link"></a>
+                <a href="" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-gear fa-3x mb-3"></i>
+                            <h5 class="card-title">Paramètre Compte</h5>
+                            <p class="card-text">Accédez à la page de configuration de votre compte</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-md-4">
-                <div class="dashboard-card card">
-                    <div class="card-body text-center">
-                        <i class="fas fa-right-from-bracket fa-3x mb-3"></i>
-                        <h5 class="card-title">Déconnexion</h5>
-                        <p class="card-text">Accédez à la page de déconnexion</p>
-                        <a href="{{ path('app_login') }}" class="stretched-link"></a>
+                <a href="{{ path('app_login') }}" class="dashboardLink">
+                    <div class="dashboard-card card">
+                        <div class="card-body text-center">
+                            <i class="fas fa-right-from-bracket fa-3x mb-3"></i>
+                            <h5 class="card-title">Déconnexion</h5>
+                            <p class="card-text">Accédez à la page de déconnexion</p>
+                        </div>
                     </div>
-                </div>
+                </a>
             </div>
         {% endif %}
 
