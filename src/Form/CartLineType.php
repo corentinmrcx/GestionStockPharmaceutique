@@ -14,6 +14,7 @@ class CartLineType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $maxStock = $options['max_stock'] ?? 99;
         $builder
 //            ->add('product', EntityType::class, [
 //                'class' => Product::class,
@@ -24,7 +25,7 @@ class CartLineType extends AbstractType
                 'data' => 1,
                 'attr' => [
                     'min' => 1,
-                    'max' => 99,
+                    'max' => $maxStock,
                     'class' => 'form-control text-center',
                 ],
             ]);
@@ -34,6 +35,7 @@ class CartLineType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => CartLine::class,
+            'max_stock' => 99,
         ]);
     }
 }

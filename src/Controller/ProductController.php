@@ -87,9 +87,10 @@ class ProductController extends AbstractController
     {
         $user = $this->getUser();
 
+        $currentStock = $product->getStock()->getQuantity();
 
         $cartLine = new CartLine();
-        $form = $this->createForm(CartLineType::class, $cartLine);
+        $form = $this->createForm(CartLineType::class, $cartLine, ['max_stock' => $currentStock]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
