@@ -6,6 +6,7 @@ use App\Entity\Cart;
 use App\Entity\CartLine;
 use App\Entity\Product;
 use App\Form\CartLineType;
+use App\Form\ProductFiltersType;
 use App\Repository\CartLineRepository;
 use App\Repository\CartRepository;
 use App\Repository\ProductRepository;
@@ -21,9 +22,22 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class ProductController extends AbstractController
 {
     #[Route('/product', name: 'app_product')]
-    public function index(ProductRepository $productRepository, Request $request, PaginatorInterface $paginator, #[MapQueryParameter] ?string $search = null): Response
+    public function index(ProductRepository $productRepository, Request $request, PaginatorInterface $paginator): Response
     {
-        $queryBuilder = $productRepository->search($search);
+        $search = $request->query->get('search');
+
+        $formFilters = $this->createForm(ProductFiltersType::class);
+        $formFilters->handleRequest($request);
+
+        if ($formFilters->isSubmitted() && $formFilters->isValid()) {
+            $filters = $formFilters->getData();
+        } else {
+            $filters = [];
+        }
+        $filters['search'] = $search;
+
+        $queryBuilder = $productRepository->search($search, $filters);
+
         $products = $paginator->paginate(
             $queryBuilder,
             $request->query->getInt('page', 1),
@@ -42,8 +56,12 @@ class ProductController extends AbstractController
             'products' => $products,
             'search' => $search,
             'addCart' => $addCart,
+            'formFilters' => $formFilters->createView(),
         ]);
+
     }
+
+
 
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/product/addCartIndex/{id}', name: 'app_product_add', methods: ['POST'])]
