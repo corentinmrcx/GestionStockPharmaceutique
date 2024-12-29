@@ -29,7 +29,7 @@ class ProductInventaireCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         return $actions
-            ->disable(Crud::PAGE_NEW, Crud::PAGE_EDIT, Crud::PAGE_DETAIL, Crud::PAGE_DELETE);
+            ->disable(Crud::PAGE_NEW, Crud::PAGE_EDIT, Crud::PAGE_DETAIL);
     }
 
     public function configureFields(string $pageName): iterable
