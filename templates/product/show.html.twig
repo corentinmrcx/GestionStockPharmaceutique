@@ -22,7 +22,15 @@
                     <div class="fs-5 mb-2">
                         <span class="price">{{ product.price }}&euro;</span>
                     </div>
-
+                    {% if product.stock.quantity <= product.stock.alert and product.stock.quantity > 0 %}
+                        <div class="fs-5 mb-2">
+                            <span class="badge bg-danger">Il en reste {{ product.stock.quantity }} !</span>
+                        </div>
+                    {% elseif  product.stock.quantity == 0 %}
+                        <div class="fs-5 mb-2">
+                            <span class="badge bg-danger">En rupture de stock</span>
+                        </div>
+                    {% endif %}
                     <p class="product-description">
                         {{ product.description }}
                     </p>
@@ -31,7 +39,7 @@
                         <a href="#"><p>{{ product.brand.name }}</p></a>
                         <a href="#"><p>{{ product.category.nameCategory }}</p></a>
                     </div>
-
+                    {% if product.stock.quantity > 0 %}
                     <div class="d-flex align-items-center">
                         {{ form_start(form, {'attr': {'class': 'form_inline'}}) }}
                         {{ form_widget(form.quantity) }}
@@ -39,6 +47,7 @@
                             <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
                         </button>
                         {{ form_end(form) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>
