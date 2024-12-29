@@ -24,11 +24,11 @@
                     </div>
                     {% if product.stock.quantity <= product.stock.alert and product.stock.quantity > 0 %}
                         <div class="fs-5 mb-2">
-                            <span class="badge bg-danger">Il en reste {{ product.stock.quantity }} !</span>
+                            <span class="badge bg-warning text-black"> <i class="fas fa-warning"></i> Il en reste {{ product.stock.quantity }} !</span>
                         </div>
                     {% elseif  product.stock.quantity == 0 %}
                         <div class="fs-5 mb-2">
-                            <span class="badge bg-danger">En rupture de stock</span>
+                            <span class="badge bg-danger"> <i class="fas fa-xmark"></i>    En rupture de stock</span>
                         </div>
                     {% endif %}
                     <p class="product-description">
