@@ -166,7 +166,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'Modifier',
+                'label' => 'Modifier mes informations',
                 'attr' => [
                     'class' => 'btn btn-custom w-100 mt-3',
                 ],
