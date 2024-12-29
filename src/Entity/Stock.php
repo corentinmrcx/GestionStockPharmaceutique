@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use App\Repository\StockRepository;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: StockRepository::class)]
 class Stock
@@ -16,9 +17,11 @@ class Stock
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero(message: 'La quantité doit être un nombre positif ou zéro.')]
     private ?int $quantity = null;
 
     #[ORM\Column]
+    #[Assert\PositiveOrZero(message: 'Le seuil d\'alerte doit être un nombre positif ou zéro.')]
     private ?int $alert = null;
 
     /**
@@ -27,16 +30,9 @@ class Stock
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'stock', orphanRemoval: true)]
     private Collection $products;
 
-    /**
-     * @var Collection<int, Inventory>
-     */
-    #[ORM\OneToMany(targetEntity: Inventory::class, mappedBy: 'stock', orphanRemoval: true)]
-    private Collection $inventories;
-
     public function __construct()
     {
         $this->products = new ArrayCollection();
-        $this->inventories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -92,36 +88,6 @@ class Stock
             // set the owning side to null (unless already changed)
             if ($product->getStock() === $this) {
                 $product->setStock(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Inventory>
-     */
-    public function getInventories(): Collection
-    {
-        return $this->inventories;
-    }
-
-    public function addInventory(Inventory $inventory): static
-    {
-        if (!$this->inventories->contains($inventory)) {
-            $this->inventories->add($inventory);
-            $inventory->setStock($this);
-        }
-
-        return $this;
-    }
-
-    public function removeInventory(Inventory $inventory): static
-    {
-        if ($this->inventories->removeElement($inventory)) {
-            // set the owning side to null (unless already changed)
-            if ($inventory->getStock() === $this) {
-                $inventory->setStock(null);
             }
         }
 
