@@ -59,7 +59,7 @@
                         </ul>
                     </div>
                     <div class="action-buttons" id="action-buttons-in">
-                        <a href="{{ app.user ? path('app_login') : path('app_login') }}" class="btn">
+                        <a href="{{ app.user ? path('app_user_dashboard') : path('app_login') }}" class="btn">
                             <i class="fas fa-user"></i>
                             {{ app.user ? app.user.firstName : 'Se connecter' }}
                         </a>
@@ -72,7 +72,7 @@
                 </div>
 
                 <div class="action-buttons" id="action-buttons-out">
-                    <a href="{{ app.user ? path('app_login') : path('app_login') }}" class="btn">
+                    <a href="{{ app.user ? path('app_user_dashboard') : path('app_login') }}" class="btn">
                         <i class="fas fa-user"></i>
                         {{ app.user ? app.user.firstName : 'Se connecter' }}
                     </a>
@@ -86,10 +86,7 @@
         <div class="banner">
             Livraison en 24/48h, offerte dès 59€ d'achat !
         </div>
-
-        {% block body %}
-
-        {% endblock %}
+        <main>{% block body %}{% endblock %}</main>
     </body>
     <footer class="footer py-4">
         <div class="footer-container text-center">

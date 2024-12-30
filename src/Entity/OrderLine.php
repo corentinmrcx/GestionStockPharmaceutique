@@ -21,11 +21,16 @@ class OrderLine
 
     #[ORM\ManyToOne(inversedBy: 'orderLines')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Order $order = null;
+    private ?Orders $order = null;
 
     #[ORM\ManyToOne(inversedBy: 'orderLines')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Product $product = null;
+
+    public function __toString(): string
+    {
+        return $this->product->getName().' (Quantité : '.$this->quantity.' | Prix unitaire : '.$this->unitPrice.'€)';
+    }
 
     public function getId(): ?int
     {
@@ -56,12 +61,12 @@ class OrderLine
         return $this;
     }
 
-    public function getOrder(): ?Order
+    public function getOrder(): ?Orders
     {
         return $this->order;
     }
 
-    public function setOrder(?Order $order): static
+    public function setOrder(?Orders $order): static
     {
         $this->order = $order;
 

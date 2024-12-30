@@ -8,15 +8,12 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
-class Order
+class Orders
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column]
-    private ?int $orderNumber = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $orderDate = null;
@@ -44,18 +41,6 @@ class Order
     public function setIdOrder(int $idOrder): static
     {
         $this->id = $idOrder;
-
-        return $this;
-    }
-
-    public function getOrderNumber(): ?int
-    {
-        return $this->orderNumber;
-    }
-
-    public function setOrderNumber(int $orderNumber): static
-    {
-        $this->orderNumber = $orderNumber;
 
         return $this;
     }
