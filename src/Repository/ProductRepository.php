@@ -53,6 +53,18 @@ class ProductRepository extends ServiceEntityRepository
         return $qb->orderBy('p.name', 'ASC');
     }
 
+    public function findRecommendedProducts(int $limit): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.isRecommended = :isRecommended')
+            ->setParameter('isRecommended', true)
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 
 }
