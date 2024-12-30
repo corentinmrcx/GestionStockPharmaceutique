@@ -20,7 +20,7 @@ class IndexController extends AbstractController
     #[Route('/', name: 'app_index')]
     public function index(ProductRepository $productRepository): Response
     {
-        $recommendedProducts = $productRepository->findBy(['isRecommended' => true]);
+        $recommendedProducts = $productRepository->findRecommendedProducts(6);
 
         foreach ($recommendedProducts as $product) {
             $form = $this->createFormBuilder()
