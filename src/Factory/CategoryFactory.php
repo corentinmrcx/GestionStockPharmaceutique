@@ -33,7 +33,7 @@ final class CategoryFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'nameCategory' => mb_convert_case(self::faker()->word, MB_CASE_TITLE),
+            'nameCategory' => mb_convert_case(self::faker()->word(), MB_CASE_TITLE),
         ];
     }
 
