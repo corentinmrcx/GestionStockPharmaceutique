@@ -5,7 +5,9 @@
 {% block body %}
 
     <h1>Panier</h1>
+
     <ul class="list-group list-group-flush">
+        {% if cartLines is not empty %}
         {% for cartLine in cartLines %}
 
             <li class="list-group-item">
@@ -25,14 +27,30 @@
                             {{ form_widget(deleteForms[cartLine.id]) }}
                             {{ form_end(deleteForms[cartLine.id]) }}
                     </span>
-
+                    {% if cartLine.quantity > cartLine.product.stock.quantity %}
+                    <span class="avertissement">
+                        <i class="fas fa-warning"></i>
+                    </span>
+                    {% endif %}
                 </div>
             </li>
         {% endfor %}
     </ul>
-    {% if cartLines %}
+    {% if canValidate == true  %}
     {{ form_start(validateCart) }}
-    <button type="submit" class="btn btn-success">Valider le panier</button>
+        <div class="text-end mt-4">
+            <button type="submit" class="btn btn-success">Valider le panier</button>
+        </div>
+
     {{ form_end(validateCart) }}
+    {% else %}
+        <div class="text-center mt-4">
+            <p class="text-danger">Impossible de valider le panier : un ou plusieurs articles ont une quantité demandée supérieure au stock disponible.</p>
+        </div>
+    {% endif %}
+    {% else %}
+        <div class="text-center mt-4">
+            <p class="text-black-50">Votre panier est vide</p>
+        </div>
     {% endif %}
 {% endblock %}

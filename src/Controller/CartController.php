@@ -25,8 +25,10 @@ class CartController extends AbstractController
         $cartLines = $cartLineRepository->findByUser($user->getId());
 
         $deleteForms = [];
+        $canValidate = true;
 
         foreach ($cartLines as $cartLine) {
+
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_cart_delete', ['id' => $cartLine->getId()]))
                 ->setMethod('POST')
@@ -36,13 +38,17 @@ class CartController extends AbstractController
                 ])
                 ->getForm();
             $deleteForms[$cartLine->getId()] = $form->createView();
+
+            if ($cartLine->getQuantity() > $cartLine->getProduct()->getStock()->getQuantity()) {
+                $canValidate = false;
+            }
         }
         $formValidate = $this->createFormBuilder()
             ->setAction($this->generateUrl('app_cart_validate'))
             ->getForm();
         $validateCart = $formValidate->createView();
 
-        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart]);
+        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart, 'canValidate' => $canValidate,]);
     }
 
     #[Route('/cart/delete/{id}', name: 'app_cart_delete', methods: ['POST'])]
@@ -59,28 +65,19 @@ class CartController extends AbstractController
     {
         $user = $this->getUser();
         $cartLines = $cartLineRepository->findByUser($user->getId());
-
-
         foreach ($cartLines as $cartLine) {
             $product = $cartLine->getProduct();
             $quantityInCart = $cartLine->getQuantity();
 
-
             $currentStock = $product->getStock()->getQuantity();
             if ($currentStock < $quantityInCart) {
-                $this->addFlash('error', sprintf(
-                    'Le stock du produit "%s" est insuffisant. Disponible : %d, demandé : %d.',
-                    $product->getName(),
-                    $currentStock,
-                    $quantityInCart
-                ));
                 return $this->redirectToRoute('app_cart_index');
             }
             $product->getStock()->setQuantity($currentStock - $quantityInCart);
             $entityManager->remove($cartLine);
         }
         $entityManager->flush();
-        $this->addFlash('success', 'Votre panier a été validé avec succès et le stock a été mis à jour.');
+
 
         return $this->redirectToRoute('app_cart_index');
     }
