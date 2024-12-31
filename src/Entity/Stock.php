@@ -18,6 +18,9 @@ class Stock
 
     #[ORM\Column]
     #[Assert\PositiveOrZero(message: 'La quantité doit être un nombre positif ou zéro.')]
+    /**
+     * @ORM\Column(type="integer", options={"unsigned": true, "check": "quantity >= 0"})
+     */
     private ?int $quantity = null;
 
     #[ORM\Column]
