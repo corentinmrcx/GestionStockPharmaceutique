@@ -28,7 +28,6 @@ class CartController extends AbstractController
         $canValidate = true;
 
         foreach ($cartLines as $cartLine) {
-
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_cart_delete', ['id' => $cartLine->getId()]))
                 ->setMethod('POST')
@@ -48,7 +47,7 @@ class CartController extends AbstractController
             ->getForm();
         $validateCart = $formValidate->createView();
 
-        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart, 'canValidate' => $canValidate,]);
+        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart, 'canValidate' => $canValidate]);
     }
 
     #[Route('/cart/delete/{id}', name: 'app_cart_delete', methods: ['POST'])]
@@ -77,7 +76,6 @@ class CartController extends AbstractController
             $entityManager->remove($cartLine);
         }
         $entityManager->flush();
-
 
         return $this->redirectToRoute('app_cart_index');
     }
