@@ -19,7 +19,6 @@ class CartController extends AbstractController
     public function index(CartLineRepository $cartLineRepository, EntityManagerInterface $entityManager, Request $request): Response
     {
         $user = $this->getUser();
-
         if (!$user) {
             return $this->redirectToRoute('app_login');
         }
@@ -40,10 +39,6 @@ class CartController extends AbstractController
         }
         $formValidate = $this->createFormBuilder()
             ->setAction($this->generateUrl('app_cart_validate'))
-            ->add('Validate', SubmitType::class, [
-                'label' => 'Valider le panier !',
-
-            ])
             ->getForm();
         $validateCart = $formValidate->createView();
 
@@ -60,8 +55,32 @@ class CartController extends AbstractController
     }
 
     #[Route('/cart/validate', name: 'app_cart_validate', methods: ['POST'])]
-    public function validate(EntityManagerInterface $entityManager): Response
+    public function validate(CartLineRepository $cartLineRepository, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+        $cartLines = $cartLineRepository->findByUser($user->getId());
+
+
+        foreach ($cartLines as $cartLine) {
+            $product = $cartLine->getProduct();
+            $quantityInCart = $cartLine->getQuantity();
+
+
+            $currentStock = $product->getStock()->getQuantity();
+            if ($currentStock < $quantityInCart) {
+                $this->addFlash('error', sprintf(
+                    'Le stock du produit "%s" est insuffisant. Disponible : %d, demandé : %d.',
+                    $product->getName(),
+                    $currentStock,
+                    $quantityInCart
+                ));
+                return $this->redirectToRoute('app_cart_index');
+            }
+            $product->getStock()->setQuantity($currentStock - $quantityInCart);
+            $entityManager->remove($cartLine);
+        }
+        $entityManager->flush();
+        $this->addFlash('success', 'Votre panier a été validé avec succès et le stock a été mis à jour.');
 
         return $this->redirectToRoute('app_cart_index');
     }
