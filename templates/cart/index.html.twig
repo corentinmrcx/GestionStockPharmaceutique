@@ -30,4 +30,13 @@
             </li>
         {% endfor %}
     </ul>
+    {{ form_start(validateCart) }}
+    {{ form_row(validateCart) }}
+    {{ form_end(validateCart) }}
+
+
+
+    // Valider le panier, dans un premier déduire les stocks, puis dans un second temps voir comment enregistrer la commande dans les orders Lines pour avoir un historique
+
+
 {% endblock %}

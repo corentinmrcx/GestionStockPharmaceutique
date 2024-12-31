@@ -38,8 +38,16 @@ class CartController extends AbstractController
                 ->getForm();
             $deleteForms[$cartLine->getId()] = $form->createView();
         }
+        $formValidate = $this->createFormBuilder()
+            ->setAction($this->generateUrl('app_cart_validate'))
+            ->add('Validate', SubmitType::class, [
+                'label' => 'Valider le panier !',
 
-        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms]);
+            ])
+            ->getForm();
+        $validateCart = $formValidate->createView();
+
+        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart]);
     }
 
     #[Route('/cart/delete/{id}', name: 'app_cart_delete', methods: ['POST'])]
@@ -51,4 +59,10 @@ class CartController extends AbstractController
         return $this->redirectToRoute('app_cart_index');
     }
 
+    #[Route('/cart/validate', name: 'app_cart_validate', methods: ['POST'])]
+    public function validate(EntityManagerInterface $entityManager): Response
+    {
+
+        return $this->redirectToRoute('app_cart_index');
+    }
 }
