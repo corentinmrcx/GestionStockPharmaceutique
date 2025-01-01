@@ -40,4 +40,14 @@ class OrderRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function findByUser(int $userId): array
+    {
+        return $this->createQueryBuilder('order')
+            ->innerJoin('c.user', 'u')
+            ->where('u.id = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getResult();
+    }
 }
