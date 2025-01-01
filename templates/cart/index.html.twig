@@ -18,7 +18,8 @@
                         {% else %}
                             {{ asset('images/products/default_image.png') }}
                         {% endif %}" alt="{{ cartLine.product.name }}" style="width: 70px; height: 70px;">
-                    <span class="product.name"> {{ cartLine.product.name }}</span>
+
+                    <a class="text-decoration-underline text-black" href="{{ path('cart_add_show', {'id' : cartLine.product.id}) }}"> <span class="product.name"> {{ cartLine.product.name }}</span></a>
                     <span class="quantity">, {{ cartLine.quantity }}</span>
                     <span class="username">, {{ cartLine.cart.user.firstname }}</span>
                     <span class="price.cartLine"> : {{ cartLine.product.price * cartLine.quantity }} €</span>
