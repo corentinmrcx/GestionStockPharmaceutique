@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\CartLine;
+use App\Entity\OrderLine;
+use App\Entity\Orders;
 use App\Repository\CartLineRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
@@ -64,6 +65,11 @@ class CartController extends AbstractController
     {
         $user = $this->getUser();
         $cartLines = $cartLineRepository->findByUser($user->getId());
+
+        $order = new Orders();
+        $order->setUser($user);
+        $order->setOrderDate(new \DateTimeImmutable());
+
         foreach ($cartLines as $cartLine) {
             $product = $cartLine->getProduct();
             $quantityInCart = $cartLine->getQuantity();
@@ -73,8 +79,19 @@ class CartController extends AbstractController
                 return $this->redirectToRoute('app_cart_index');
             }
             $product->getStock()->setQuantity($currentStock - $quantityInCart);
+
+            $orderLine = new OrderLine();
+            $orderLine->setOrder($order);
+            $orderLine->setProduct($product);
+            $orderLine->setQuantity($cartLine->getQuantity());
+            $orderLine->setUnitPrice($cartLine->getProduct()->getPrice());
+
+            $order->addOrderLine($orderLine);
+
+            $entityManager->persist($orderLine);
             $entityManager->remove($cartLine);
         }
+        $entityManager->persist($order);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_cart_index');

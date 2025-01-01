@@ -21,7 +21,7 @@ class Orders
     /**
      * @var Collection<int, OrderLine>
      */
-    #[ORM\OneToMany(targetEntity: OrderLine::class, mappedBy: 'order', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: OrderLine::class, mappedBy: 'order', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $orderLines;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
@@ -31,6 +31,7 @@ class Orders
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
+        $this->orderDate = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
