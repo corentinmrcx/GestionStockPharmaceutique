@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Commande
+{% endblock %}
+{% block body %}
+
+    <h1>Détail de la commande n° {{ orders.id }}</h1>
+    <p class="text-black-50">Commandée le : {{ orders.orderDate|date('d/m/Y H:i') }}</p>
+    <ul class="list-group list-group-flush">
+    {% for orderLine in orders.orderLines %}
+        <li class="list-group-item">
+            <img src=
+                 {% if orderLine.product.imageName %}
+                            {{ vich_uploader_asset(orderLine.product, 'imageFile') }}
+                        {% else %}
+                            {{ asset('images/products/default_image.png') }}
+                 {% endif %} alt="{{ orderLine.product.name }}" style="width: 70px; height: 70px;" >
+            {{ orderLine.product.name }} - Quantité : {{ orderLine.quantity }} - Prix de la ligne : {{ orderLine.unitPrice * orderLine.quantity }}€
+        </li>
+    {% endfor %}
+    </ul>
+    <h2>Prix total de la commande : </h2>
+{% endblock %}

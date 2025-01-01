@@ -11,8 +11,7 @@
 
             <li class="list-group-item">
                 <div class="list-group-horizontal-lg d-flex align-items-center" style="flex: auto; gap: 20px;">
-                    <a class="text-decoration-underline text-black" href="#"> <span class="order.name"> {{ order.id }}</span></a>
-
+                    <a class="text-decoration-underline text-black" href="{{ path('app_order_show', {'id' : order.id }) }}"> <span class="order.name"> Commande n°{{ order.id }} datant du {{ order.orderDate|date('d/m/Y H:i') }} </span></a>
 
                 </div>
             </li>
