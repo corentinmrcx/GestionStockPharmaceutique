@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Mes commandes!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <h1>Mon historique de commande !</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <ul class="list-group list-group-flush">
+    {% if orders is not empty %}
+        {% for order in orders %}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/rolob/Documents/BUT INFO/S3/Gestion des SI/SAE/sae3-01/src/Controller/OrderController.php</code></li>
-        <li>Your template at <code>C:/Users/rolob/Documents/BUT INFO/S3/Gestion des SI/SAE/sae3-01/templates/order/index.html.twig</code></li>
-    </ul>
-</div>
+            <li class="list-group-item">
+                <div class="list-group-horizontal-lg d-flex align-items-center" style="flex: auto; gap: 20px;">
+                    <a class="text-decoration-underline text-black" href="#"> <span class="order.name"> {{ order.id }}</span></a>
+
+
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <div class="text-center mt-4">
+            <p class="text-black-50">Vous n'avez pas de commande !</p>
+        </div>
+    {% endif %}
 {% endblock %}
