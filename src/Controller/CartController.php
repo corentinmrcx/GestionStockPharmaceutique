@@ -96,6 +96,6 @@ class CartController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_cart_index');
+        return $this->redirectToRoute('app_order_show', ['id' => $order->getId()]);
     }
 }
