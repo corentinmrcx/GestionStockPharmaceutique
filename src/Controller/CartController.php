@@ -70,6 +70,9 @@ class CartController extends AbstractController
         $order->setUser($user);
         $order->setOrderDate(new \DateTimeImmutable());
 
+        $entityManager->persist($order);
+        $entityManager->flush();
+
         foreach ($cartLines as $cartLine) {
             $product = $cartLine->getProduct();
             $quantityInCart = $cartLine->getQuantity();
@@ -87,11 +90,10 @@ class CartController extends AbstractController
             $orderLine->setUnitPrice($cartLine->getProduct()->getPrice());
 
             $order->addOrderLine($orderLine);
-
             $entityManager->persist($orderLine);
             $entityManager->remove($cartLine);
         }
-        $entityManager->persist($order);
+
         $entityManager->flush();
 
         return $this->redirectToRoute('app_cart_index');
