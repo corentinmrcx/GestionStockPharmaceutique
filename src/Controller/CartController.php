@@ -16,7 +16,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 class CartController extends AbstractController
 {
     #[Route('/cart', name: 'app_cart_index', methods : ['POST', 'GET'])]
-    public function index(CartLineRepository $cartLineRepository, EntityManagerInterface $entityManager, Request $request): Response
+    public function index(CartLineRepository $cartLineRepository): Response
     {
         $user = $this->getUser();
         if (!$user) {
