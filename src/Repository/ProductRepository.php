@@ -15,7 +15,8 @@ class ProductRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Product::class);
     }
-    public function search(?string $txt)
+
+    public function search(?string $txt, array $filters = [])
     {
         $qb = $this->createQueryBuilder('p')
             ->leftJoin('p.category', 'cat')
@@ -29,6 +30,29 @@ class ProductRepository extends ServiceEntityRepository
                 ->setParameter('txt', "%$txt%");
         }
 
+        if (!empty($filters['category'])) {
+            $qb->andWhere('cat.id = :category')
+                ->setParameter('category', $filters['category']);
+        }
+
+        if (!empty($filters['brand'])) {
+            $qb->andWhere('brand.id = :brand')
+                ->setParameter('brand', $filters['brand']);
+        }
+
+        if (!empty($filters['priceMin']) && is_numeric($filters['priceMin'])) {
+            $qb->andWhere('p.price >= :priceMin')
+                ->setParameter('priceMin', $filters['priceMin']);
+        }
+
+        if (!empty($filters['priceMax']) && is_numeric($filters['priceMax'])) {
+            $qb->andWhere('p.price <= :priceMax')
+                ->setParameter('priceMax', $filters['priceMax']);
+        }
+
         return $qb->orderBy('p.name', 'ASC');
     }
+
+
+
 }

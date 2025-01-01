@@ -10,20 +10,25 @@
             {% else %}
                 <h1 class="text-center mb-4">Résultats de recherche pour "{{ search }}"</h1>
             {% endif %}
-                <div class="row">
+
+            {% include '/product/_filters.html.twig' with { 'formFilters': formFilters, 'search': search } %}
+
+            <p>&nbsp;</p>
+
+            <div class="row">
                 {% for product in products %}
-                <div class="col-md-4">
-                    <div class="product-card">
-                        <img src="
+                    <div class="col-md-4">
+                        <div class="product-card">
+                            <img src="
                         {% if product.imageName %}
                             {{ vich_uploader_asset(product, 'imageFile') }}
                         {% else %}
                             {{ asset('images/products/default_image.png') }}
                         {% endif %}" alt="{{ product.name }}">
                         <a href="{{ path('cart_add_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
-                        <p>{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
+                        <p class="mt-2">{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
 
-                        <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
+                            <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
 
                         {% if product.stock.quantity > product.stock.alert %}
                             {{ form_start(addCart[product.id]) }}
@@ -47,7 +52,6 @@
                             </button>
                         {% endif %}
                     </div>
-                </div>
                 {% endfor %}
             </div>
             <div class="d-flex justify-content-center mt-4">
