@@ -2,22 +2,22 @@
 
 namespace App\Repository;
 
-use App\Entity\Commande;
+use App\Entity\Orders;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Commande>
+ * @extends ServiceEntityRepository<Orders>
  */
 class OrderRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Commande::class);
+        parent::__construct($registry, Orders::class);
     }
 
     //    /**
-    //     * @return Commande[] Returns an array of Commande objects
+    //     * @return Orders[] Returns an array of Orders objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -31,10 +31,10 @@ class OrderRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Commande
+    //    public function findOneBySomeField($value): ?Orders
     //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
+    //        return $this->createQueryBuilder('o')
+    //            ->andWhere('o.exampleField = :val')
     //            ->setParameter('val', $value)
     //            ->getQuery()
     //            ->getOneOrNullResult()
@@ -43,8 +43,8 @@ class OrderRepository extends ServiceEntityRepository
 
     public function findByUser(int $userId): array
     {
-        return $this->createQueryBuilder('order')
-            ->innerJoin('c.user', 'u')
+        return $this->createQueryBuilder('o')
+            ->innerJoin('o.user', 'u')
             ->where('u.id = :userId')
             ->setParameter('userId', $userId)
             ->getQuery()
