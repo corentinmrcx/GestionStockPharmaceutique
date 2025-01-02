@@ -65,7 +65,16 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-
-
+    public function findSimilarProducts($category, $excludedProductId, $limit = 4)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.category = :category')
+            ->andWhere('p.id != :productId')
+            ->setParameter('category', $category)
+            ->setParameter('productId', $excludedProductId)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
 }
