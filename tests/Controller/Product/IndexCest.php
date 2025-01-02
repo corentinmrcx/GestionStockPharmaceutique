@@ -211,4 +211,25 @@ class IndexCest
         $I->see('Produit Beauté A', '.product-card h5');
     }
 
+    public function searchWithFiltersDisplaysCorrectProducts(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne(['nameCategory' => 'Beauté']);
+        $brand = BrandFactory::createOne(['name' => 'Marque A']);
+
+        ProductFactory::createOne(['name' => 'Produit Cheveux', 'category' => $category, 'brand' => $brand]);
+        ProductFactory::createOne(['name' => 'Produit Peau', 'category' => $category, 'brand' => $brand]);
+
+        $I->amOnPage('/product');
+        $I->fillField('.search-input', 'Cheveux');
+        $I->click('.search-bar-icon');
+
+        $I->click('//button[contains(., "Filtrer")]');
+        $I->selectOption('select[name="product_filters[category]"]', 'Beauté');
+        $I->click('//button[contains(., "Valider")]');
+
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(1, $I->grabMultiple('.product-card'));
+        $I->see('Produit Cheveux', '.product-card h5');
+
+    }
 }
