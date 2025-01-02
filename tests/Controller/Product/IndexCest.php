@@ -131,7 +131,6 @@ class IndexCest
         $I->see('Produit B', '.product-card h5');
     }
 
-
     public function searchReturnsNoResultsWhenNoProductsMatch(ControllerTester $I): void
     {
         $category = CategoryFactory::createOne();
@@ -146,4 +145,46 @@ class IndexCest
         $I->see('Désolé, aucun produit ne correspond à votre recherche.');
     }
 
+    public function FiltersDisplayCorrectProducts(ControllerTester $I): void
+    {
+        $category1 = CategoryFactory::createOne(['nameCategory' => 'Beauté']);
+        $category2 = CategoryFactory::createOne(['nameCategory' => 'Hygiène']);
+        $brand1 = BrandFactory::createOne(['name' => 'Marque A']);
+        $brand2 = BrandFactory::createOne(['name' => 'Marque B']);
+
+        ProductFactory::createOne(['name' => 'Produit Beauté A', 'price' => 30, 'category' => $category1, 'brand' => $brand1]);
+        ProductFactory::createOne(['name' => 'Produit Beauté B', 'price' => 70, 'category' => $category1, 'brand' => $brand2]);
+        ProductFactory::createOne(['name' => 'Produit Hygiène A', 'price' => 50, 'category' => $category2, 'brand' => $brand1]);
+
+        // Filtres par catégorie
+        $I->amOnPage('/product');
+        $I->click('//button[contains(., "Filtrer")]');
+        $I->selectOption('select[name="product_filters[category]"]', 'Beauté');
+        $I->click('//button[contains(., "Valider")]');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(2, $I->grabMultiple('.product-card'));
+        $I->see('Produit Beauté A', '.product-card h5');
+        $I->see('Produit Beauté B', '.product-card h5');
+
+        // Filtres par marque
+        $I->amOnPage('/product');
+        $I->click('//button[contains(., "Filtrer")]');
+        $I->selectOption('select[name="product_filters[brand]"]', 'Marque A');
+        $I->click('//button[contains(., "Valider")]');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(2, $I->grabMultiple('.product-card'));
+        $I->see('Produit Beauté A', '.product-card h5');
+        $I->see('Produit Hygiène A', '.product-card h5');
+
+        // Filtres par prix
+        $I->amOnPage('/product');
+        $I->click('//button[contains(., "Filtrer")]');
+        $I->fillField('input[name="product_filters[priceMin]"]', '30');
+        $I->fillField('input[name="product_filters[priceMax]"]', '50');
+        $I->click('//button[contains(., "Valider")]');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(2, $I->grabMultiple('.product-card'));
+        $I->see('Produit Beauté A', '.product-card h5');
+        $I->see('Produit Hygiène A', '.product-card h5');
+    }
 }
