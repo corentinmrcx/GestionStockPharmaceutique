@@ -187,4 +187,28 @@ class IndexCest
         $I->see('Produit Beauté A', '.product-card h5');
         $I->see('Produit Hygiène A', '.product-card h5');
     }
+
+    public function combinedFiltersDisplayCorrectProducts(ControllerTester $I): void
+    {
+        $category1 = CategoryFactory::createOne(['nameCategory' => 'Beauté']);
+        $brand1 = BrandFactory::createOne(['name' => 'Marque A']);
+        $brand2 = BrandFactory::createOne(['name' => 'Marque B']);
+
+        ProductFactory::createOne(['name' => 'Produit Beauté A', 'price' => 30, 'category' => $category1, 'brand' => $brand1]);
+        ProductFactory::createOne(['name' => 'Produit Beauté B', 'price' => 70, 'category' => $category1, 'brand' => $brand2]);
+        ProductFactory::createOne(['name' => 'Produit Beauté C', 'price' => 60, 'category' => $category1, 'brand' => $brand1]);
+
+        $I->amOnPage('/product');
+        $I->click('//button[contains(., "Filtrer")]');
+        $I->selectOption('select[name="product_filters[category]"]', 'Beauté');
+        $I->selectOption('select[name="product_filters[brand]"]', 'Marque A');
+        $I->fillField('input[name="product_filters[priceMin]"]', '30');
+        $I->fillField('input[name="product_filters[priceMax]"]', '50');
+        $I->click('//button[contains(., "Valider")]');
+
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(1, $I->grabMultiple('.product-card'));
+        $I->see('Produit Beauté A', '.product-card h5');
+    }
+
 }
