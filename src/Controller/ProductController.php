@@ -44,6 +44,7 @@ class ProductController extends AbstractController
             12
         );
 
+        $addCart = [];
         foreach ($products as $product) {
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_product_add', ['id' => $product->getId()]))
