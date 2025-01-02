@@ -33,8 +33,12 @@ class CartController extends AbstractController
                 ->setAction($this->generateUrl('app_cart_delete', ['id' => $cartLine->getId()]))
                 ->setMethod('POST')
                 ->add('delete', SubmitType::class, [
-                    'label' => ' ',
-                    'attr' => ['class' => 'fa-solid fa-trash'],
+                    'label' => '<i class="fa-solid fa-trash"></i>',
+                    'attr' => [
+                        'class' => 'btn btn-danger',
+                        'style' => 'display: inline-flex; align-items: center; justify-content: center;',
+                    ],
+                    'label_html' => true,
                 ])
                 ->getForm();
             $deleteForms[$cartLine->getId()] = $form->createView();

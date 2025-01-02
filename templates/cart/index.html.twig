@@ -4,34 +4,41 @@
 {% endblock %}
 {% block body %}
 
-    <h1>Panier</h1>
+    <h1 class="title_cart">Panier</h1>
 
     <ul class="list-group list-group-flush">
         {% if cartLines is not empty %}
+            <div class="category_cart" style="flex: auto; gap: 20px; flex-grow: 1">
+                <div>Produit</div>
+                <div>Quantité</div>
+                <div>Prix</div>
+                <div>Supprimer</div>
+            </div>
         {% for cartLine in cartLines %}
 
             <li class="list-group-item">
-                <div class="list-group-horizontal-lg d-flex align-items-center" style="flex: auto; gap: 20px;">
-                    <img src=
+                <div class="cart_line">
+                    <div class="product_img_name">
+                        <img src=
                         {% if cartLine.product.imageName %}
                             {{ vich_uploader_asset(cartLine.product, 'imageFile') }}
                         {% else %}
                             {{ asset('images/products/default_image.png') }}
                         {% endif %}" alt="{{ cartLine.product.name }}" style="width: 70px; height: 70px;">
 
-                    <a class="text-decoration-underline text-black" href="{{ path('cart_add_show', {'id' : cartLine.product.id}) }}"> <span class="product.name"> {{ cartLine.product.name }}</span></a>
-                    <span class="quantity">, {{ cartLine.quantity }}</span>
-                    <span class="username">, {{ cartLine.cart.user.firstname }}</span>
-                    <span class="price.cartLine"> : {{ cartLine.product.price * cartLine.quantity }} €</span>
-                    <span class="delete.cartLine">
+                    <a class="product_name" href="{{ path('cart_add_show', {'id' : cartLine.product.id}) }}"> <span> {{ cartLine.product.name }}</span></a>
+                    </div>
+                    <div class="cart_line_quantity"> {{ cartLine.quantity }}</div>
+                    <div class="price_cartLine">  {{ cartLine.product.price * cartLine.quantity }} €</div>
+                    <div class="delete_cartLine">
                             {{ form_start(deleteForms[cartLine.id]) }}
-                            {{ form_widget(deleteForms[cartLine.id]) }}
+                            <i class="btn-link-danger">{{ form_widget(deleteForms[cartLine.id]) }}</i>
                             {{ form_end(deleteForms[cartLine.id]) }}
-                    </span>
+                    </div>
                     {% if cartLine.quantity > cartLine.product.stock.quantity %}
-                    <span class="avertissement">
+                    <div class="avertissement">
                         <i class="fas fa-warning"></i>
-                    </span>
+                    </div>
                     {% endif %}
                 </div>
             </li>
@@ -39,7 +46,7 @@
     </ul>
     {% if canValidate == true  %}
     {{ form_start(validateCart) }}
-        <div class="text-end mt-4">
+        <div class="cart_submit">
             <button type="submit" class="btn btn-success">Valider le panier</button>
         </div>
 
