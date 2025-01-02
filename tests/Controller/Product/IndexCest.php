@@ -45,4 +45,21 @@ class IndexCest
         $I->see('Description test produit', '.product-card p');
         $I->see('49,99 €', '.product-card .price');
     }
+
+    public function ClickOnProductRedirectsToDetailsPage(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne();
+        $brand = BrandFactory::createOne();
+
+        $product = ProductFactory::createOne([
+            'name' => 'Produit Test',
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+
+        $I->amOnPage('/product');
+        $I->click('Produit Test');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->seeCurrentRouteIs('cart_add_show', ['id' => $product->getId()]);
+    }
 }
