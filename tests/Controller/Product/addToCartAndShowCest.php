@@ -91,4 +91,34 @@ class addToCartAndShowCest
         $I->see(' Produit Test', 'span');
         $I->see(' 2', 'span');
     }
+
+    public function similarProductButtonRedirectsToShowPage(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne(['nameCategory' => 'Beauté']);
+        $brand = BrandFactory::createOne(['name' => 'Marque A']);
+
+        $product = ProductFactory::createOne([
+            'name' => 'Produit Principal',
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+        $similarProduct = ProductFactory::createOne([
+            'name' => 'Produit Similaire',
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+
+        $I->amOnPage('/product/' . $product->getId());
+        $I->seeResponseCodeIsSuccessful(200);
+
+        $I->see('Produit Similaire', '.similar-product-card .card-title');
+        $I->seeElement('.similar-product-card a.btn-custom');
+
+        $I->click('Voir le produit', '.similar-product-card');
+        $I->seeResponseCodeIsSuccessful(200);
+
+        $I->seeCurrentUrlEquals('/product/' . $similarProduct->getId());
+        $I->see('Produit Similaire', 'h1.product-title');
+    }
+
 }
