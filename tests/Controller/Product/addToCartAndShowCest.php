@@ -51,4 +51,20 @@ class addToCartAndShowCest
         $I->seeResponseCodeIsSuccessful(200);
         $I->seeNumberOfElements('.similar-product-card', 4);
     }
+
+    public function showDisplaysNoSimilarProductsIfNoneExist(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne(['nameCategory' => 'Hygiène']);
+        $brand = BrandFactory::createOne();
+
+        $product = ProductFactory::createOne([
+            'name' => 'Produit Principal',
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+
+        $I->amOnPage('/product/'.$product->getId());
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->dontSeeElement('.similar-product-card');
+    }
 }
