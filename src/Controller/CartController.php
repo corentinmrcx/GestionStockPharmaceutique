@@ -27,8 +27,10 @@ class CartController extends AbstractController
 
         $deleteForms = [];
         $canValidate = true;
+        $totalPrice = 0;
 
         foreach ($cartLines as $cartLine) {
+            $totalPrice += $cartLine->getProduct()->getPrice() * $cartLine->getQuantity();
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_cart_delete', ['id' => $cartLine->getId()]))
                 ->setMethod('POST')
@@ -52,7 +54,7 @@ class CartController extends AbstractController
             ->getForm();
         $validateCart = $formValidate->createView();
 
-        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart, 'canValidate' => $canValidate]);
+        return $this->render('cart/index.html.twig', ['cartLines' => $cartLines, 'deleteForms' => $deleteForms, 'validateCart' => $validateCart, 'canValidate' => $canValidate, 'totalPrice' => $totalPrice]);
     }
 
     #[Route('/cart/delete/{id}', name: 'app_cart_delete', methods: ['POST'])]
@@ -74,6 +76,7 @@ class CartController extends AbstractController
         $order->setUser($user);
         $order->setOrderDate(new \DateTimeImmutable());
 
+        $totalPrice = 0.0;
         $entityManager->persist($order);
         $entityManager->flush();
 
@@ -93,11 +96,15 @@ class CartController extends AbstractController
             $orderLine->setQuantity($cartLine->getQuantity());
             $orderLine->setUnitPrice($cartLine->getProduct()->getPrice());
 
+            $totalPrice += $orderLine->getUnitPrice() * $orderLine->getQuantity();
+
             $order->addOrderLine($orderLine);
             $entityManager->persist($orderLine);
             $entityManager->remove($cartLine);
         }
 
+        $order->setTotalPrice($totalPrice);
+        $entityManager->persist($order);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_order_show', ['id' => $order->getId()]);

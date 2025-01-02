@@ -45,6 +45,9 @@
         {% endfor %}
     </ul>
     {% if canValidate == true  %}
+        <div class="text-end mt-4">
+            <h3>Prix total : {{ totalPrice }} €</h3>
+        </div>
     {{ form_start(validateCart) }}
         <div class="cart_submit">
             <button type="submit" class="btn btn-success">Valider le panier</button>
