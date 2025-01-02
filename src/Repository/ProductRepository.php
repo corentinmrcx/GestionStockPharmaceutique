@@ -25,6 +25,7 @@ class ProductRepository extends ServiceEntityRepository
 
         if (!empty($txt)) {
             $qb->where('p.name LIKE :txt')
+                ->orWhere('p.description LIKE :txt')
                 ->orWhere('cat.nameCategory LIKE :txt')
                 ->orWhere('brand.name LIKE :txt')
                 ->setParameter('txt', "%$txt%");
