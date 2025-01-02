@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Product;
 use App\Factory\BrandFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\ProductFactory;
+use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
 class IndexCest
@@ -230,6 +231,28 @@ class IndexCest
         $I->seeResponseCodeIsSuccessful(200);
         $I->assertCount(1, $I->grabMultiple('.product-card'));
         $I->see('Produit Cheveux', '.product-card h5');
+    }
 
+    public function addToCartWorksForAuthenticatedUser(ControllerTester $I): void
+    {
+        $user = UserFactory::createOne(['email' => 'user@example.com', 'password' => 'test']);
+
+        $category = CategoryFactory::createOne();
+        $brand = BrandFactory::createOne();
+        ProductFactory::createOne(['name' => 'Produit Test', 'category' => $category, 'brand' => $brand]);
+
+        $I->amOnPage('/login');
+        $I->fillField('email', $user->getEmail());
+        $I->fillField('password', 'test');
+        $I->click('Connexion');
+        $I->seeResponseCodeIsSuccessful(200);
+
+        $I->amOnPage('/product');
+        $I->click('//button[contains(., "Ajouter au panier")]');
+        $I->seeResponseCodeIsSuccessful(200);
+
+        $I->amOnPage('/cart');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->see(' Produit Test', 'span');
     }
 }
