@@ -131,4 +131,19 @@ class IndexCest
         $I->see('Produit B', '.product-card h5');
     }
 
+
+    public function searchReturnsNoResultsWhenNoProductsMatch(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne();
+        $brand = BrandFactory::createOne();
+
+        ProductFactory::createOne(['name' => 'Produit A', 'description' => 'Produit pour les cheveux', 'category' => $category, 'brand' => $brand]);
+        ProductFactory::createOne(['name' => 'Produit B', 'description' => 'Produit pour la peau', 'category' => $category, 'brand' => $brand]);
+
+        $I->amOnPage('/product');
+        $I->fillField('.search-input', 'Produit C');
+        $I->click('.search-bar-icon');
+        $I->see('Désolé, aucun produit ne correspond à votre recherche.');
+    }
+
 }
