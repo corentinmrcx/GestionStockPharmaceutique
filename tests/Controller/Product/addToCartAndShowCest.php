@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Product;
 use App\Factory\BrandFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\ProductFactory;
+use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
 class addToCartAndShowCest
@@ -66,5 +67,28 @@ class addToCartAndShowCest
         $I->amOnPage('/product/'.$product->getId());
         $I->seeResponseCodeIsSuccessful(200);
         $I->dontSeeElement('.similar-product-card');
+    }
+
+    public function addToCartFromShowPageForAuthenticatedUser(ControllerTester $I): void
+    {
+        $user = UserFactory::createOne(['email' => 'user@example.com', 'password' => 'password']);
+        $category = CategoryFactory::createOne();
+        $brand = BrandFactory::createOne();
+        $product = ProductFactory::createOne(['name' => 'Produit Test', 'category' => $category, 'brand' => $brand]);
+
+        $I->amOnPage('/login');
+        $I->fillField('email', $user->getEmail());
+        $I->fillField('password', 'password');
+        $I->click('Connexion');
+        $I->seeResponseCodeIsSuccessful(200);
+
+        $I->amOnPage('/product/'.$product->getId());
+        $I->fillField('input[name="cart_line[quantity]"]', 2);
+        $I->click('//button[contains(., "Ajouter au panier")]');
+
+        $I->amOnPage('/cart');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->see(' Produit Test', 'span');
+        $I->see(' 2', 'span');
     }
 }
