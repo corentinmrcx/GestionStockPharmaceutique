@@ -96,7 +96,10 @@ class IndexCest
         ProductFactory::createOne(['name' => 'Produit A', 'description' => 'Produit pour les cheveux', 'category' => $category, 'brand' => $brand]);
         ProductFactory::createOne(['name' => 'Produit B', 'description' => 'Produit pour la peau', 'category' => $category, 'brand' => $brand]);
 
-        $I->amOnPage('/product?search=cheveux');
+        $I->amOnPage('/product');
+        $I->fillField('.search-input', 'cheveux');
+        $I->click('.search-bar-icon');
+
         $I->seeResponseCodeIsSuccessful(200);
         $I->assertCount(1, $I->grabMultiple('.product-card'));
         $I->see('Produit A', '.product-card h5');
