@@ -148,11 +148,12 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('app_cart_index');
         }
 
-        $similarProducts = $productRepository->findBy(
-            ['category' => $product->getCategory()],
-            null,
+        $similarProducts = $productRepository->findSimilarProducts(
+            $product->getCategory(),
+            $product->getId(),
             4
         );
+
 
         return $this->render('product/show.html.twig', [
             'form' => $form->createView(),
