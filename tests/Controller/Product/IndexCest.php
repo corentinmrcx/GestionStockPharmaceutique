@@ -87,4 +87,19 @@ class IndexCest
         $I->seeResponseCodeIsSuccessful(200);
         $I->seeNumberOfElements('.product-card', 12);
     }
+
+    public function searchDisplaysCorrectProducts(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne();
+        $brand = BrandFactory::createOne();
+
+        ProductFactory::createOne(['name' => 'Produit A', 'description' => 'Produit pour les cheveux', 'category' => $category, 'brand' => $brand]);
+        ProductFactory::createOne(['name' => 'Produit B', 'description' => 'Produit pour la peau', 'category' => $category, 'brand' => $brand]);
+
+        $I->amOnPage('/product?search=cheveux');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(1, $I->grabMultiple('.product-card'));
+        $I->see('Produit A', '.product-card h5');
+    }
+
 }
