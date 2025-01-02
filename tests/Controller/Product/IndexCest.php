@@ -88,21 +88,47 @@ class IndexCest
         $I->seeNumberOfElements('.product-card', 12);
     }
 
-    public function searchDisplaysCorrectProducts(ControllerTester $I): void
+    public function searchWithMultipleCriteriaDisplaysMatchingProducts(ControllerTester $I): void
     {
-        $category = CategoryFactory::createOne();
-        $brand = BrandFactory::createOne();
+        $category1 = CategoryFactory::createOne(['nameCategory' => 'Parapharmacie']);
+        $category2 = CategoryFactory::createOne();
+        $brand1 = BrandFactory::createOne(['name' => 'Marque A']);
+        $brand2 = BrandFactory::createOne();
 
-        ProductFactory::createOne(['name' => 'Produit A', 'description' => 'Produit pour les cheveux', 'category' => $category, 'brand' => $brand]);
-        ProductFactory::createOne(['name' => 'Produit B', 'description' => 'Produit pour la peau', 'category' => $category, 'brand' => $brand]);
+        ProductFactory::createOne(['name' => 'Produit A', 'description' => 'Produit pour les cheveux', 'category' => $category2, 'brand' => $brand2]);
+        ProductFactory::createOne(['name' => 'Produit B', 'description' => 'Produit pour la peau', 'category' => $category1, 'brand' => $brand1]);
 
+        // Recherche par nom
         $I->amOnPage('/product');
-        $I->fillField('.search-input', 'cheveux');
+        $I->fillField('.search-input', 'Produit A');
         $I->click('.search-bar-icon');
-
         $I->seeResponseCodeIsSuccessful(200);
         $I->assertCount(1, $I->grabMultiple('.product-card'));
         $I->see('Produit A', '.product-card h5');
+
+        // Recherche par description
+        $I->amOnPage('/product');
+        $I->fillField('.search-input', 'cheveux');
+        $I->click('.search-bar-icon');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(1, $I->grabMultiple('.product-card'));
+        $I->see('Produit A', '.product-card h5');
+
+        // Recherche par catégorie
+        $I->amOnPage('/product');
+        $I->fillField('.search-input', 'Parap');
+        $I->click('.search-bar-icon');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(1, $I->grabMultiple('.product-card'));
+        $I->see('Produit B', '.product-card h5');
+
+        // Recherche par marque
+        $I->amOnPage('/product');
+        $I->fillField('.search-input', 'Marq');
+        $I->click('.search-bar-icon');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->assertCount(1, $I->grabMultiple('.product-card'));
+        $I->see('Produit B', '.product-card h5');
     }
 
 }
