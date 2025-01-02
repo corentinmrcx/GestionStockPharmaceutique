@@ -33,4 +33,22 @@ class addToCartAndShowCest
         $I->see('Marque A', '.brand p:first-of-type');
         $I->see('Beauté', '.brand p:last-of-type');
     }
+
+    public function showDisplaysSimilarProducts(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne(['nameCategory' => 'Hygiène']);
+        $brand = BrandFactory::createOne();
+
+        $product = ProductFactory::createOne([
+            'name' => 'Produit Principal',
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+
+        ProductFactory::createMany(4, ['category' => $category]);
+
+        $I->amOnPage('/product/'.$product->getId());
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->seeNumberOfElements('.similar-product-card', 4);
+    }
 }
