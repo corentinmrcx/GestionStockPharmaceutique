@@ -15,6 +15,7 @@
                 <div class="d-flex justify-content-center">
                     <div style="width: 100%;">
                         {{ form_start(formFilters, {'attr': {'class': 'row g-3'}}) }}
+                        <input type="hidden" name="search" value="{{ search }}">
                         <div class="row">
                             <div class="col-md-3">
                                 {{ form_row(formFilters.category, {
