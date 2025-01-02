@@ -28,6 +28,9 @@ class Orders
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?float $totalPrice = null;
+
     public function __construct()
     {
         $this->orderLines = new ArrayCollection();
@@ -96,6 +99,18 @@ class Orders
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
 
         return $this;
     }
