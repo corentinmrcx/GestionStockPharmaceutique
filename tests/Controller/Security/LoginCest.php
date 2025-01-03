@@ -30,4 +30,17 @@ class LoginCest
         $I->click('Connexion');
         $I->see('Identifiants invalides');
     }
+
+    public function NormalUserCannotAccessAdminPage(ControllerTester $I): void
+    {
+        $userTest = UserFactory::createOne(['roles' => ['ROLE_CUSTOMER']]);
+        $user = $userTest->_real();
+
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/admin');
+        $I->seeResponseCodeIs(403);
+        $I->see('Access Denied');
+    }
+
+
 }
