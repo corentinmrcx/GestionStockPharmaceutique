@@ -24,8 +24,8 @@ class IndexCest
         $I->see('Nos produits conseils du mois', 'h1');
         $I->seeNumberOfElements('.product-card', 6);
 
-        $product = ProductFactory::random();
-        $I->see($product->getName(), '.product-card h5');
-        $I->see(number_format($product->getPrice(), 2, ',', ' ').' €', '.product-card .price');
+        $recommendedProduct = ProductFactory::last();
+        $I->see($recommendedProduct->getName(), '.product-card h5');
+        $I->see(number_format($recommendedProduct->getPrice(), 2, ',', ' ').' €', '.product-card .price');
     }
 }
