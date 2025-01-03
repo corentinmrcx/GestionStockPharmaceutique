@@ -42,4 +42,22 @@ class ShowCest
         $I->seeResponseCodeIsSuccessful(200);
         $I->seeNumberOfElements('.product-card', 12);
     }
+
+    public function ClickOnCategoryProductRedirectsToDetailsPage(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne();
+        $brand = BrandFactory::createOne();
+
+        $product = ProductFactory::createOne([
+            'name' => 'Produit Test',
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+
+        $I->amOnPage('/category/'.$category->getId());
+        $I->click('Produit Test');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->seeCurrentRouteIs('cart_add_show', ['id' => $product->getId()]);
+    }
+
 }
