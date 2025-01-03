@@ -52,4 +52,25 @@ class IndexCest
         $I->amOnPage('/cart');
         $I->see($product->getName(), 'span');
     }
+
+    public function recommendedProductRedirectsToDetailPage(ControllerTester $I): void
+    {
+        $category = CategoryFactory::createOne(['nameCategory' => 'Beauté']);
+        $brand = BrandFactory::createOne(['name' => 'Marque A']);
+
+        $product = ProductFactory::createOne([
+            'name' => 'Produit Test',
+            'isRecommended' => true,
+            'category' => $category,
+            'brand' => $brand,
+        ]);
+
+        $I->amOnPage('/');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->see('Produit Test', '.product-card h5');
+        $I->click('Produit Test', '.product-card a');
+        $I->seeResponseCodeIsSuccessful(200);
+        $I->seeCurrentUrlEquals('/product/'.$product->getId());
+        $I->see('Produit Test', 'h1.product-title');
+    }
 }
