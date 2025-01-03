@@ -65,7 +65,8 @@ class UserDashboardController extends AbstractController
     }
 
     #[Route('/editprofile/password/{id}', name: 'app_user_edit_password', methods: ['GET', 'POST'])]
-    public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response{
+    public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
+    {
         if (!$this->getUser()) {
             return $this->redirectToRoute('app_login');
         }
@@ -85,11 +86,11 @@ class UserDashboardController extends AbstractController
                 $manager->flush();
 
                 return $this->redirectToRoute('app_user_dashboard');
-            }
-            else{
+            } else {
                 $this->addFlash('warning', 'Le mot de passe renseigné est incorrect.');
             }
         }
+
         return $this->render('user_dashboard/editPassword.html.twig', [
             'form' => $form->createView(),
         ]);
