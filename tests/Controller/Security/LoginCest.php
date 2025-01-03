@@ -42,5 +42,14 @@ class LoginCest
         $I->see('Access Denied');
     }
 
+    public function NormalUserCannotAccessManagerPage(ControllerTester $I): void
+    {
+        $userTest = UserFactory::createOne(['roles' => ['ROLE_CUSTOMER']]);
+        $user = $userTest->_real();
 
+        $I->amLoggedInAs($user);
+        $I->amOnPage('/manager');
+        $I->seeResponseCodeIs(403);
+        $I->see('Access Denied');
+    }
 }
