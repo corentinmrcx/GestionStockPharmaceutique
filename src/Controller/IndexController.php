@@ -22,6 +22,7 @@ class IndexController extends AbstractController
     {
         $recommendedProducts = $productRepository->findRecommendedProducts(6);
 
+        $addCartIndex = [];
         foreach ($recommendedProducts as $product) {
             $form = $this->createFormBuilder()
                 ->setAction($this->generateUrl('app_index_addcartindex', ['id' => $product->getId()]))
