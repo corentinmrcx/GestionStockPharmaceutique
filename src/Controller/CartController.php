@@ -96,14 +96,14 @@ class CartController extends AbstractController
             $orderLine->setQuantity($cartLine->getQuantity());
             $orderLine->setUnitPrice($cartLine->getProduct()->getPrice());
 
-            $totalPrice += $orderLine->getUnitPrice() * $orderLine->getQuantity();
+
 
             $order->addOrderLine($orderLine);
             $entityManager->persist($orderLine);
             $entityManager->remove($cartLine);
         }
 
-        $order->setTotalPrice($totalPrice);
+
         $entityManager->persist($order);
         $entityManager->flush();
 
