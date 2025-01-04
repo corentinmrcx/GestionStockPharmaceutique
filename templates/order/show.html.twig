@@ -19,5 +19,11 @@
         </li>
     {% endfor %}
     </ul>
-    <h2>Prix total de la commande : {{ orders.totalPrice }}</h2>
+    <h2>Prix total de la commande :
+        {% set totalPrice = 0 %}
+        {% for line in orders.orderLines %}
+            {% set totalPrice = totalPrice + (line.product.price * line.quantity) %}
+        {% endfor %}
+        {{ totalPrice|number_format(2, '.', ',') }} €
+        €</h2>
 {% endblock %}
