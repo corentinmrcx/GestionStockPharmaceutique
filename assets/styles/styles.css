@@ -295,8 +295,8 @@ a:hover::after {
 
 /* --------------- Show Product --------------- */
 
-.py-5{
-    padding: 0 50px;
+.product-show{
+    padding: 50px;
 }
 
 .details-container {
@@ -306,9 +306,10 @@ a:hover::after {
     padding: 20px;
 }
 
-.details-container img {
-    width: 500px;
-    height: 500px;
+.details-container img.product-image {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
     object-fit: contain;
 }
 
@@ -584,6 +585,24 @@ h4{
         text-align: center;
     }
 
+    /* Product Show*/
+    .product-show{
+        padding: 30px 10px;
+    }
+
+    .product-show .details-container .row{
+        gap: 15px;
+    }
+
+    .product-title{
+        font-size: 1.5rem;
+    }
+
+    .brand{
+        align-items: center;
+    }
+
+    /* Cart */
     .cart_line{
         flex-direction: column;
         gap: 10px;
@@ -596,10 +615,12 @@ h4{
     .product_img_name img{
         margin-right: 0;
     }
+
     .recap{
         background-color: var(--primary-color);
     }
 
+    /* Footer */
     .footer-links{
         flex-direction: column;
         gap: 10px;
