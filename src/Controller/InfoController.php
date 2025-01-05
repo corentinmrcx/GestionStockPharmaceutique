@@ -16,4 +16,12 @@ class InfoController extends AbstractController
         ]);
     }
 
+    #[Route('/apropos', name: 'app_apropos')]
+    public function apropos(): Response
+    {
+        return $this->render('info/apropos.html.twig', [
+            'controller_name' => 'InfoController',
+        ]);
+    }
+
 }
