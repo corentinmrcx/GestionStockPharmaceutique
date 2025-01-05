@@ -306,10 +306,10 @@ a:hover::after {
     padding: 20px;
 }
 
-.details-container img.product-image {
+.details-container img {
     width: 100%;
     max-width: 500px;
-    height: auto;
+    max-height: 500px;
     object-fit: contain;
 }
 
