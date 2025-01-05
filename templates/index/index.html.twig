@@ -18,12 +18,27 @@
                     <a href="{{ path('cart_add_show', {'id': product.id}) }}"><h5>{{ product.name }}</h5></a>
                     <p class="mt-2">{{ product.description|slice(0, 70) ~ (product.description|length > 70 ? '...' : '') }}</p>
                     <p class="price">{{ product.price|number_format(2, ',', ' ') }} €</p>
-                    {{ form_start(addCartIndex[product.id]) }}
-                    {{ form_widget(addCartIndex[product.id]) }}
-                    <button type="submit" class="btn-custom">
-                        <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
-                    </button>
-                    {{ form_end(addCartIndex[product.id]) }}
+                    {% if product.stock.quantity > product.stock.alert %}
+                        {{ form_start(addCartIndex[product.id]) }}
+                        {{ form_widget(addCartIndex[product.id]) }}
+                        <button type="submit" class="btn btn-custom flex-shrink-0">
+                            <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
+                        </button>
+                        {{ form_end(addCartIndex[product.id]) }}
+                    {% elseif product.stock.quantity <= product.stock.alert and product.stock.quantity > 0 %}
+                        {{ form_start(addCartIndex[product.id]) }}
+                        {{ form_widget(addCartIndex[product.id]) }}
+                        <div class="fs-5 mb-2">
+                            <button type="submit" class="btn btn-custom flex-shrink-0 bg-warning">
+                                <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Il en reste {{ product.stock.quantity }}
+                            </button>
+                        </div>
+                        {{ form_end(addCartIndex[product.id]) }}
+                    {% elseif  product.stock.quantity == 0 %}
+                        <button type="submit" class="btn btn-custom flex-shrink-0 bg-danger text-white">
+                            <i class="fas fa-xmark"></i>&nbsp;&nbsp;&nbsp;En rupture de stock
+                        </button>
+                    {% endif %}
                 </div>
             </div>
             {% endfor %}

@@ -19,7 +19,7 @@ class OrderLine
     #[ORM\Column]
     private ?float $unitPrice = null;
 
-    #[ORM\ManyToOne(inversedBy: 'orderLines')]
+    #[ORM\ManyToOne(targetEntity: Orders::class, inversedBy: 'orderLines')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Orders $order = null;
 

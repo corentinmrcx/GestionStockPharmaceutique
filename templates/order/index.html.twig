@@ -1,20 +1,39 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello OrderController!{% endblock %}
+{% block title %}Historique des commandes{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/rolob/Documents/BUT INFO/S3/Gestion des SI/SAE/sae3-01/src/Controller/OrderController.php</code></li>
-        <li>Your template at <code>C:/Users/rolob/Documents/BUT INFO/S3/Gestion des SI/SAE/sae3-01/templates/order/index.html.twig</code></li>
-    </ul>
-</div>
+<div class="orderHistory-container my-5">
+    <h1 class="text-center mb-4">Mon historique de commandes</h1>
+    <div class="order_container d-flex justify-content-center">
+        <div class="row w-100 justify-content-center">
+            <div class="col-lg-8">
+                {% if orders is not empty %}
+                    <div class="order-list">
+                        {% for order in orders %}
+                            <div class="order-item mb-3 p-3 border rounded shadow-sm">
+                                <div class="d-flex justify-content-between align-items-center" style="gap: 10px;">
+                                    <div>
+                                        <a href="{{ path('app_order_show', {'id': order.id }) }}" class="order-link">
+                                            Commande n°{{ order.id }}
+                                        </a>
+                                        <p class="mb-0 mt-2">
+                                            Passée le {{ order.orderDate|date('d/m/Y à H:i') }}
+                                        </p>
+                                    </div>
+                                    <div class="order-actions">
+                                        <button class="btn btn-custom" onclick='window.location.href="{{ path('app_order_show', {'id': order.id }) }}"'>Voir les détails</button>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <div class="text-center mt-4">
+                        <p class="text-muted">Vous n'avez pas encore passé de commande.</p>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
 {% endblock %}

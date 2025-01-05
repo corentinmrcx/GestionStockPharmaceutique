@@ -1,33 +1,68 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}
     Panier
 {% endblock %}
+
 {% block body %}
-
-    <h1>Panier</h1>
-    <ul class="list-group list-group-flush">
-        {% for cartLine in cartLines %}
-
-            <li class="list-group-item">
-                <div class="list-group-horizontal-lg d-flex align-items-center" style="flex: auto; gap: 20px;">
-                    <img src=
-                        {% if cartLine.product.imageName %}
-                            {{ vich_uploader_asset(cartLine.product, 'imageFile') }}
-                        {% else %}
-                            {{ asset('images/products/default_image.png') }}
-                        {% endif %}" alt="{{ cartLine.product.name }}" style="width: 70px; height: 70px;">
-                    <span class="product.name"> {{ cartLine.product.name }}</span>
-                    <span class="quantity">, {{ cartLine.quantity }}</span>
-                    <span class="username">, {{ cartLine.cart.user.firstname }}</span>
-                    <span class="price.cartLine"> : {{ cartLine.product.price * cartLine.quantity }} €</span>
-                    <span class="delete.cartLine">
-                            {{ form_start(deleteForms[cartLine.id]) }}
-                            {{ form_widget(deleteForms[cartLine.id]) }}
-                            {{ form_end(deleteForms[cartLine.id]) }}
-                    </span>
-
+    <div class="product-container my-5">
+        <h1 class="text-center mb-4">Votre Panier</h1>
+        <div class="cart_container d-flex justify-content-center">
+            <div class="row g-5" style="max-width: 1200px; width: 100%;">
+                <div class="col-md-8">
+                    {% if cartLines is not empty %}
+                        {% for cartLine in cartLines %}
+                            <div class="cart_line d-flex align-items-center justify-content-between border p-3 rounded mb-3">
+                                <div class="product_img_name d-flex align-items-center">
+                                    <img src="
+                                    {% if cartLine.product.imageName %}
+                                        {{ vich_uploader_asset(cartLine.product, 'imageFile') }}
+                                    {% else %}
+                                        {{ asset('images/products/default_image.png') }}
+                                    {% endif %}"
+                                         alt="{{ cartLine.product.name }}" style="width: 70px; height: 70px; object-fit: contain;">
+                                    <a class="product_name text-decoration-none text-dark fw-bold" href="{{ path('cart_add_show', {'id' : cartLine.product.id}) }}">
+                                        {{ cartLine.product.name }}
+                                    </a>
+                                </div>
+                                <div class="cart_line_quantity text-center">x{{ cartLine.quantity }}</div>
+                                <div class="price_cartLine text-center">{{ (cartLine.product.price * cartLine.quantity) | number_format(2, ',', ' ') }} €</div>
+                                <div class="delete_cartLine">
+                                    {{ form_start(deleteForms[cartLine.id]) }}{{ form_end(deleteForms[cartLine.id]) }}
+                                </div>
+                            </div>
+                            {% if cartLine.quantity > cartLine.product.stock.quantity %}
+                                <div class="text-danger mt-2">
+                                    <i class="fas fa-warning"></i> Quantité demandée supérieure au stock disponible !
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        <div class="text-center mt-4">
+                            <p class="text-black-50">Votre panier est vide</p>
+                        </div>
+                    {% endif %}
                 </div>
-            </li>
-        {% endfor %}
-    </ul>
+
+                <div class="col-md-4">
+                    <div class="recap p-4 rounded shadow-sm">
+                        <h4 class="text-center mb-4">Récapitulatif</h4>
+                        {% if cartLines is not empty %}
+                            <p class="mb-2">Nombre d'articles : <span class="fw-bold">{{ cartLines|length }}</span></p>
+                            <p class="mb-4">Prix total :  <span class="fw-bold">{{ totalPrice | number_format(2, ',', ' ') }} €</span></p>
+                            {% if canValidate %}
+                                {{ form_start(validateCart) }}
+                                <button type="submit" class="btn btn-custom w-100">Valider le panier</button>
+                                {{ form_end(validateCart) }}
+                            {% else %}
+                                <p class="text-danger mt-3">Impossible de valider : quantité insuffisante.</p>
+                            {% endif %}
+                        {% else %}
+                            <p class="text-center text-black-50">Aucun article</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

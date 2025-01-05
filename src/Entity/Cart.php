@@ -93,5 +93,4 @@ class Cart
         return $this;
     }
 
-
 }

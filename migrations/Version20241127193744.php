@@ -38,7 +38,6 @@ final class Version20241127193744 extends AbstractMigration
         $this->addSql('ALTER TABLE inventory ADD CONSTRAINT FK_B12D4A368C03F15C FOREIGN KEY (employee_id) REFERENCES employee (id)');
         $this->addSql('ALTER TABLE inventory ADD CONSTRAINT FK_B12D4A36DCD6110 FOREIGN KEY (stock_id) REFERENCES stock (id)');
         $this->addSql('ALTER TABLE `order` ADD CONSTRAINT FK_F52993989395C3F3 FOREIGN KEY (customer_id) REFERENCES customer (id)');
-        $this->addSql('ALTER TABLE order_line ADD CONSTRAINT FK_9CE58EE18D9F6D38 FOREIGN KEY (order_id) REFERENCES `order` (id)');
         $this->addSql('ALTER TABLE order_line ADD CONSTRAINT FK_9CE58EE14584665A FOREIGN KEY (product_id) REFERENCES product (id)');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04AD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
         $this->addSql('ALTER TABLE product ADD CONSTRAINT FK_D34A04ADDCD6110 FOREIGN KEY (stock_id) REFERENCES stock (id)');
@@ -56,7 +55,6 @@ final class Version20241127193744 extends AbstractMigration
         $this->addSql('ALTER TABLE inventory DROP FOREIGN KEY FK_B12D4A368C03F15C');
         $this->addSql('ALTER TABLE inventory DROP FOREIGN KEY FK_B12D4A36DCD6110');
         $this->addSql('ALTER TABLE `order` DROP FOREIGN KEY FK_F52993989395C3F3');
-        $this->addSql('ALTER TABLE order_line DROP FOREIGN KEY FK_9CE58EE18D9F6D38');
         $this->addSql('ALTER TABLE order_line DROP FOREIGN KEY FK_9CE58EE14584665A');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04AD12469DE2');
         $this->addSql('ALTER TABLE product DROP FOREIGN KEY FK_D34A04ADDCD6110');

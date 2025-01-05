@@ -3,7 +3,7 @@
 {% block title %}Produit{% endblock %}
 
 {% block body %}
-    <section class="py-5">
+    <section class="product-show">
         <div class="details-container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6" style="display: flex; justify-content: center" >
@@ -22,16 +22,24 @@
                     <div class="fs-5 mb-2">
                         <span class="price">{{ product.price }}&euro;</span>
                     </div>
-
+                    {% if product.stock.quantity <= product.stock.alert and product.stock.quantity > 0 %}
+                        <div class="fs-5 mb-2">
+                            <span class="badge bg-warning text-black"> <i class="fas fa-warning"></i> Il en reste {{ product.stock.quantity }} !</span>
+                        </div>
+                    {% elseif  product.stock.quantity == 0 %}
+                        <div class="fs-5 mb-2">
+                            <span class="badge bg-danger"> <i class="fas fa-xmark"></i>    En rupture de stock</span>
+                        </div>
+                    {% endif %}
                     <p class="product-description">
                         {{ product.description }}
                     </p>
 
                     <div class="brand mb-3">
-                        <a href="#"><p>{{ product.brand.name }}</p></a>
-                        <a href="#"><p>{{ product.category.nameCategory }}</p></a>
+                        <a href="{{ path('app_product', {'product_filters[brand]': product.brand.id}) }}"><p>{{ product.brand.name }}</p></a>
+                        <a href="{{ path('app_category_show', {id : product.category.id}) }}"><p>{{ product.category.nameCategory }}</p></a>
                     </div>
-
+                    {% if product.stock.quantity > 0 %}
                     <div class="d-flex align-items-center">
                         {{ form_start(form, {'attr': {'class': 'form_inline'}}) }}
                         {{ form_widget(form.quantity) }}
@@ -39,6 +47,7 @@
                             <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
                         </button>
                         {{ form_end(form) }}
+                        {% endif %}
                     </div>
                 </div>
             </div>

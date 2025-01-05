@@ -64,8 +64,8 @@ class ProductController extends AbstractController
 
 
     #[IsGranted('IS_AUTHENTICATED_FULLY')]
-    #[Route('/product/addCartIndex/{id}', name: 'app_product_add', methods: ['POST'])]
-    public function addCartIndex(CartRepository $cartRepository, EntityManagerInterface $entityManager, CartLineRepository $cartLineRepository, Product $product): Response
+    #[Route('/product/addCartProduct/{id}', name: 'app_product_add', methods: ['POST'])]
+    public function addCartProduct(CartRepository $cartRepository, EntityManagerInterface $entityManager, CartLineRepository $cartLineRepository, Product $product): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -105,14 +105,10 @@ class ProductController extends AbstractController
     {
         $user = $this->getUser();
 
-        if (!$user) {
-            $isConnected = false;
-        } else {
-            $isConnected = true;
-        }
+        $currentStock = $product->getStock()->getQuantity();
 
         $cartLine = new CartLine();
-        $form = $this->createForm(CartLineType::class, $cartLine);
+        $form = $this->createForm(CartLineType::class, $cartLine, ['max_stock' => $currentStock]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
