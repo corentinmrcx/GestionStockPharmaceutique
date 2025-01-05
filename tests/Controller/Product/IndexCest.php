@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Product;
 use App\Factory\BrandFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\ProductFactory;
+use App\Factory\StockFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
@@ -239,7 +240,8 @@ class IndexCest
 
         $category = CategoryFactory::createOne();
         $brand = BrandFactory::createOne();
-        ProductFactory::createOne(['name' => 'Produit Test', 'category' => $category, 'brand' => $brand]);
+        $stock = StockFactory::createOne(['quantity' => 15, 'alert' => 3]);
+        ProductFactory::createOne(['name' => 'Produit Test', 'category' => $category, 'brand' => $brand, 'stock' => $stock]);
 
         $I->amOnPage('/login');
         $I->fillField('email', $user->getEmail());
@@ -248,11 +250,11 @@ class IndexCest
         $I->seeResponseCodeIsSuccessful(200);
 
         $I->amOnPage('/product');
-        $I->click('//button[contains(., "Ajouter au panier")]');
+        $I->click('.product-card .btn-custom');
         $I->seeResponseCodeIsSuccessful(200);
 
         $I->amOnPage('/cart');
         $I->seeResponseCodeIsSuccessful(200);
-        $I->see(' Produit Test', 'span');
+        $I->see('Produit Test', 'a.product_name');
     }
 }
