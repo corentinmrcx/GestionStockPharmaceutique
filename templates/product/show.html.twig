@@ -36,7 +36,7 @@
                     </p>
 
                     <div class="brand mb-3">
-                        <a href="#"><p>{{ product.brand.name }}</p></a>
+                        <a href="{{ path('app_product', {'product_filters[brand]': product.brand.id}) }}"><p>{{ product.brand.name }}</p></a>
                         <a href="{{ path('app_category_show', {id : product.category.id}) }}"><p>{{ product.category.nameCategory }}</p></a>
                     </div>
                     {% if product.stock.quantity > 0 %}
