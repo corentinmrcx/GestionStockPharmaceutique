@@ -593,40 +593,32 @@ h4{
 }
 
 /* --------------- A propos --------------- */
-.about-section {
-    margin-top: 2rem;
-    padding: 2rem 3rem;;
-}
-.about-section h2 {
-    margin-bottom: 1rem;
-
-}
-.about-section p {
-    text-align: justify;
+.apropos-container{
+    padding: 0 50px 50px 50px;
 }
 
-.about-section .row {
+.apropos-container .row{
     display: flex;
-    flex-wrap: nowrap;
     gap: 2rem;
 }
-.about-section .col {
-    flex: 1;
-    padding : 3rem;
-}
 
+.valuesRow{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
 
 .apropos-card {
     border: 3px solid var(--secondary-color);
     border-radius: 15px;
     background-color: var(--primary-color);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
     width:auto;
     margin: 1rem;
     padding: 1rem;
     height: 200px;
-
 }
 
 .apropos-card .card-title {
@@ -657,6 +649,9 @@ h4{
         display: none;
     }
 
+    .apropos-container .row {
+        flex-direction: column;
+    }
 
     #link_nav{
         width: 100%;

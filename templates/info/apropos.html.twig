@@ -1,12 +1,14 @@
 {% extends 'base.html.twig' %}
+
 {% block title %}À propos{% endblock %}
+
 {% block body %}
-<div class="product-container my-5" style="padding: 1rem 4rem ;">
+<div class="apropos-container my-5" >
     <h1 class="text-center">À propos de nous</h1>
-        <div class="row">
+        <div class="row mt-5">
             <div class="col">
                 <h2 class="text-center">Notre mission</h2>
-                <p class="text-black">
+                <p class="text-black text-center">
                     Chez <strong>[Nom de la pharmacie]</strong>, notre mission est de vous accompagner dans la gestion de votre santé en offrant des produits de qualité, des conseils personnalisés et des services accessibles.
                     Nous nous engageons à placer votre bien-être au cœur de nos priorités, en vous garantissant une expérience agréable et sécurisée.
                 </p>
@@ -14,14 +16,14 @@
 
             <div class="col" >
                 <h2 class="text-center">Qui sommes-nous ?</h2>
-                <p class="text-black text-end">
+                <p class="text-black text-center">
                     Nous sommes une pharmacie <strong>en ligne et installée</strong> reconnue pour notre expertise et notre engagement envers nos patients depuis <strong>2015</strong>.
                     Nos équipes de pharmaciens et de préparateurs qualifiés mettent tout en œuvre pour répondre à vos besoins de santé et de bien-être, avec un accompagnement personnalisé.
                 </p>
             </div>
         </div>
-    <h2 class="text-center">Nos valeurs fondamentales</h2>
-    <div class="row g-4">
+    <h2 class="text-center mt-5">Nos valeurs fondamentales</h2>
+    <div class="valuesRow">
         <div class="col-md-4">
                 <div class="apropos-card card">
                     <div class="card-body text-center">
@@ -68,8 +70,8 @@
             </div>
         </div>
         <div>
-            <h2 class="text-center">Notre histoire</h2>
-            <div class="text-black">
+            <h2 class="text-center mt-5">Notre histoire</h2>
+            <div class="text-black mt-3">
                 <p class="text-center text-black">Fondée en <strong>2015</strong>, <strong>[Nom de la pharmacie]</strong> est née de la volonté d'offrir un accès simplifié et fiable à des produits de santé de qualité. Dès ses débuts, notre équipe a travaillé sans relâche pour bâtir une relation de confiance avec nos patients, en proposant non seulement des médicaments, mais également des conseils avisés et un accompagnement personnalisé. Grâce à une combinaison unique d'expertise pharmaceutique et de services adaptés aux besoins modernes, nous avons rapidement gagné la reconnaissance de nos clients et partenaires.
                     <br><br>
                     </p>
@@ -82,6 +84,5 @@
                 </p>
             </div>
         </div>
-
 </div>
 {% endblock %}
