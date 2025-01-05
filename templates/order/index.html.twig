@@ -22,9 +22,7 @@
                                         </p>
                                     </div>
                                     <div class="order-actions">
-                                        <a href="{{ path('app_order_show', {'id': order.id }) }}" class="btn btn-custom">
-                                            Voir les détails
-                                        </a>
+                                        <button class="btn btn-custom" onclick='window.location.href="{{ path('app_order_show', {'id': order.id }) }}"'>Voir les détails</button>
                                     </div>
                                 </div>
                             </div>
