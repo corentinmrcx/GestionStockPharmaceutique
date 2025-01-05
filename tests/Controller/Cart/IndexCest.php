@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Tests\Controller\Cart;
 
 use App\Factory\BrandFactory;
@@ -29,11 +28,11 @@ class IndexCest
         $I->click('//button[contains(., "Ajouter au panier")]');
         $I->amOnPage('/cart');
 
-        $I->see('Produit Test', 'span');
-        $I->see('3', 'span');
+        $I->see('Produit Test', 'a.product_name');
+        $I->see('x3', '.cart_line_quantity');
+        $I->see('300,00 €', '.price_cartLine');
 
-        $priceCartLine = $product->getPrice() * 3;
-        $I->see(' : '.$priceCartLine.' €', 'span');
+        $I->see('1', '.recap p .fw-bold');
+        $I->see('300,00 €', '.recap p.mb-4 .fw-bold');
     }
-
 }
