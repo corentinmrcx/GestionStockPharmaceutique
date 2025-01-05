@@ -25,6 +25,7 @@ class ProductRepository extends ServiceEntityRepository
 
         if (!empty($txt)) {
             $qb->where('p.name LIKE :txt')
+                ->orWhere('p.description LIKE :txt')
                 ->orWhere('cat.nameCategory LIKE :txt')
                 ->orWhere('brand.name LIKE :txt')
                 ->setParameter('txt', "%$txt%");
@@ -53,6 +54,27 @@ class ProductRepository extends ServiceEntityRepository
         return $qb->orderBy('p.name', 'ASC');
     }
 
+    public function findRecommendedProducts(int $limit): array
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.isRecommended = :isRecommended')
+            ->setParameter('isRecommended', true)
+            ->orderBy('p.id', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
+    public function findSimilarProducts($category, $excludedProductId, $limit = 4)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.category = :category')
+            ->andWhere('p.id != :productId')
+            ->setParameter('category', $category)
+            ->setParameter('productId', $excludedProductId)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
 
 }
