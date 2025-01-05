@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Cart;
 use App\Factory\BrandFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\ProductFactory;
+use App\Factory\StockFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
@@ -15,11 +16,13 @@ class IndexCest
         $user = UserFactory::createOne(['email' => 'user@example.com', 'password' => 'password']);
         $category = CategoryFactory::createOne();
         $brand = BrandFactory::createOne();
+        $stock = StockFactory::createOne(['quantity' => 50, 'alert' => 10]);
         $product = ProductFactory::createOne([
             'name' => 'Produit Test',
             'price' => 100,
             'category' => $category,
             'brand' => $brand,
+            'stock' => $stock,
         ]);
 
         $I->amLoggedInAs($user->_real());
