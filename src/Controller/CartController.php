@@ -60,7 +60,12 @@ class CartController extends AbstractController
     #[Route('/cart/delete/{id}', name: 'app_cart_delete', methods: ['POST'])]
     public function delete(CartLine $cartLine, EntityManagerInterface $entityManager): Response
     {
-        $entityManager->remove($cartLine);
+        if ($cartLine->getQuantity() > 1) {
+            $cartLine->setQuantity($cartLine->getQuantity() - 1);
+            $entityManager->persist($cartLine);
+        } else {
+            $entityManager->remove($cartLine);
+        }
         $entityManager->flush();
 
         return $this->redirectToRoute('app_cart_index');
@@ -96,13 +101,10 @@ class CartController extends AbstractController
             $orderLine->setQuantity($cartLine->getQuantity());
             $orderLine->setUnitPrice($cartLine->getProduct()->getPrice());
 
-
-
             $order->addOrderLine($orderLine);
             $entityManager->persist($orderLine);
             $entityManager->remove($cartLine);
         }
-
 
         $entityManager->persist($order);
         $entityManager->flush();
