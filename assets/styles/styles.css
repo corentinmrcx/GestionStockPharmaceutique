@@ -497,6 +497,20 @@ h4{
     background-color: var(--primary-color);
 }
 
+/* --------------- Order --------------- */
+
+.order-item {
+    background-color: var(--primary-color);
+    border: 2px solid var(--secondary-color);
+    border-radius: 15px;
+}
+
+.order-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
 /* --------------- Footer --------------- */
 
 .footer {
