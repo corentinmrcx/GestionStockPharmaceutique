@@ -655,6 +655,23 @@ h4{
     font-family: 'Roboto', sans-serif;
 }
 
+/* --------------- Construction --------------- */
+
+.construction-container {
+    background-color: var(--primary-color);
+    border-bottom: 1px solid var(--secondary-text-color);
+
+    text-align: center;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 20px;
+}
+
 /* --------------- Media Queries --------------- */
 
 @media screen and (max-width: 992px) {
