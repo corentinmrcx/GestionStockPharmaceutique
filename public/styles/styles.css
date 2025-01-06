@@ -574,6 +574,47 @@ h4{
     background-color: var(--primary-color);
 }
 
+/* --------------- F.A.Q --------------- */
+
+.faq-card {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+    padding: 30px;
+    height: 180px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: all 0.3s ease;
+    overflow: hidden;
+    cursor: pointer;
+
+}
+
+.faq-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+    height: max-content;
+}
+
+.faq-title {
+    font-size: 1.5rem;
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+.faq-answer {
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.faq-card:hover .faq-answer {
+    max-height: 500px;
+    opacity: 1;
+}
 
 /* --------------- Media Queries --------------- */
 
