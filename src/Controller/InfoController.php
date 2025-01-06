@@ -11,17 +11,19 @@ class InfoController extends AbstractController
     #[Route('/faq', name: 'app_faq')]
     public function faq(): Response
     {
-        return $this->render('info/faq.html.twig', [
-            'controller_name' => 'InfoController',
-        ]);
+        return $this->render('info/faq.html.twig', []);
     }
 
     #[Route('/apropos', name: 'app_apropos')]
     public function apropos(): Response
     {
-        return $this->render('info/apropos.html.twig', [
-            'controller_name' => 'InfoController',
-        ]);
+        return $this->render('info/apropos.html.twig', []);
+    }
+
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(): Response
+    {
+        return $this->render('info/contact.html.twig', []);
     }
 }
 
