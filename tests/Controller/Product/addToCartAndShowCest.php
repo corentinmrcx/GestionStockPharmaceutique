@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Product;
 use App\Factory\BrandFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\ProductFactory;
+use App\Factory\StockFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
@@ -74,7 +75,8 @@ class addToCartAndShowCest
         $user = UserFactory::createOne(['email' => 'user@example.com', 'password' => 'password']);
         $category = CategoryFactory::createOne();
         $brand = BrandFactory::createOne();
-        $product = ProductFactory::createOne(['name' => 'Produit Test', 'category' => $category, 'brand' => $brand]);
+        $stock = StockFactory::createOne(['quantity' => '30', 'alert' => 10]);
+        $product = ProductFactory::createOne(['name' => 'Produit Test', 'category' => $category, 'brand' => $brand, 'stock' => $stock]);
 
         $I->amOnPage('/login');
         $I->fillField('email', $user->getEmail());
@@ -88,8 +90,8 @@ class addToCartAndShowCest
 
         $I->amOnPage('/cart');
         $I->seeResponseCodeIsSuccessful(200);
-        $I->see(' Produit Test', 'span');
-        $I->see(' 2', 'span');
+        $I->see(' Produit Test', 'a');
+        $I->see(' x2', '.cart_line_quantity');
     }
 
     public function similarProductButtonRedirectsToShowPage(ControllerTester $I): void
@@ -108,7 +110,7 @@ class addToCartAndShowCest
             'brand' => $brand,
         ]);
 
-        $I->amOnPage('/product/' . $product->getId());
+        $I->amOnPage('/product/'.$product->getId());
         $I->seeResponseCodeIsSuccessful(200);
 
         $I->see('Produit Similaire', '.similar-product-card .card-title');
@@ -117,8 +119,7 @@ class addToCartAndShowCest
         $I->click('Voir le produit', '.similar-product-card');
         $I->seeResponseCodeIsSuccessful(200);
 
-        $I->seeCurrentUrlEquals('/product/' . $similarProduct->getId());
+        $I->seeCurrentUrlEquals('/product/'.$similarProduct->getId());
         $I->see('Produit Similaire', 'h1.product-title');
     }
-
 }

@@ -5,6 +5,7 @@ namespace App\Tests\Controller\Index;
 use App\Factory\BrandFactory;
 use App\Factory\CategoryFactory;
 use App\Factory\ProductFactory;
+use App\Factory\StockFactory;
 use App\Factory\UserFactory;
 use App\Tests\Support\ControllerTester;
 
@@ -35,7 +36,8 @@ class IndexCest
         $user = UserFactory::createOne(['email' => 'user@example.com', 'password' => 'password']);
         $category = CategoryFactory::createOne();
         $brand = BrandFactory::createOne();
-        $product = ProductFactory::createOne(['isRecommended' => true, 'category' => $category, 'brand' => $brand]);
+        $stock = StockFactory::createOne(['quantity' => 6, 'alert' => 10]);
+        $product = ProductFactory::createOne(['isRecommended' => true, 'category' => $category, 'brand' => $brand, 'stock' => $stock]);
 
         $I->amOnPage('/login');
         $I->fillField('email', $user->getEmail());
@@ -46,11 +48,11 @@ class IndexCest
         $I->amOnPage('/');
         $I->seeResponseCodeIsSuccessful(200);
 
-        $I->click('//button[contains(., "Ajouter au panier")]');
+        $I->click('//button[contains(@class, "btn-custom")]');
         $I->seeResponseCodeIsSuccessful(200);
 
         $I->amOnPage('/cart');
-        $I->see($product->getName(), 'span');
+        $I->see($product->getName(), 'a.product_name');
     }
 
     public function recommendedProductRedirectsToDetailPage(ControllerTester $I): void

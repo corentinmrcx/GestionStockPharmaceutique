@@ -30,12 +30,12 @@ class DeleteCest
         $I->click('//button[contains(., "Ajouter au panier")]');
 
         $I->amOnPage('/cart');
-        $I->see(' Produit Test', 'span');
-        $I->see(' 2', 'span');
-        $I->see(' : 200 €', 'span');
+        $I->see(' Produit Test', 'a');
+        $I->see(' x2', '.cart_line_quantity');
+        $I->see('200,00 €', 'span');
 
         $I->click('form[action^="/cart/delete"] button');
         $I->amOnPage('/cart');
-        $I->dontSee(' Produit Test', 'span');
+        $I->see(' x1', '.cart_line_quantity');
     }
 }
