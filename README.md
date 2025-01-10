@@ -110,6 +110,7 @@ Les étapes suivantes décrivent le processus d'installation et de configuration
 | Romain Lobreaux  | romain@example.com    | test         | ROLE_ADMIN    |
 | Peter Parker     | user@example.com      | test         | ROLE_CUSTOMER |
 | Tony Stark       | manager@example.com    | test         | ROLE_MANAGER  |
+
 ***
 
 ## 🛠️ Fonctionnalités du projet
@@ -131,5 +132,12 @@ Les étapes suivantes décrivent le processus d'installation et de configuration
    - Si aucune image n'est associée, l'image par défaut est utilisée via Twig.
 
 ***
+## 📋 Autres
+Les fichiers suivants sont disponibles dans le répertoire `files` :
 
-
+1. **Cahier des charges** du projet au format PDF.
+2. **Charte Graphique** de notre application au format PNG.
+3. **MCD** mis à jour pour Doctrine au format PDF. 
+4. **Rapport de progression** de la conception du projet au format PDF.
+5. **PowerPoint** de la soutenance du projet au format PPTX.
+6. **Fichier d'accès à la VM** au format VV.
