@@ -59,7 +59,10 @@ Avant de commencer, assurez-vous d’avoir les éléments suivants installés su
    - Exécutez la commande suivante pour installer les dépendances : `composer install`
 3. **Configurer le fichier .env**
    - Dupliquez le fichier `.env` en `.env.local`
-   - Mettez à jour les variables d’environnement (base de données, etc.) en fonction de votre configuration.
+   - Mettez à jour les variables d’environnement (base de données, etc.) en fonction de votre configuration : 
+     ```
+     DATABASE_URL="mysql://username:password@localhost:3306/dbname"
+     ```
 4. **Installer la base de données**
    - Exécutez les commandes suivantes pour créer et peupler la base de données :
      ```
