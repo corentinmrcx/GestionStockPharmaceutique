@@ -1,0 +1,10 @@
+[virt-viewer]
+type=vnc
+title=SiteGestionPharmaceutique
+host=one-dell2
+port=12995
+proxy=http://one-frontend:29876?token=br6xshgg0g9advplou6d
+fullscreen=0
+toggle-fullscreen=shift+f11
+release-cursor=shift+f12
+secure-attention=ctrl+alt+end
