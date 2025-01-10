@@ -23,10 +23,14 @@
 
 Ce projet a été réalisé dans un contexte académique pour mettre en pratique des compétences en développement full-stack, gestion de projet et travail en équipe.
 
+***
+
 ## 👥 Membres du groupe 
 - Marcoux Corentin **(marc0237)** ou **(corentinmrcx)**
 - Baudat Louis **(baud0157)**
 - Lobreau Romain **(lobr0013)** ou **(RomsLob1)**
+
+***
 
 ## 📝 Notes
 **Machine Virtuelle :**
@@ -35,7 +39,12 @@ Ce projet a été réalisé dans un contexte académique pour mettre en pratique
 - Adresse IP : `10.31.33.115`
 - Site : http://2a4v3-31uvm0371.ad-urca.univ-reims.fr/
 
-## 🛠️ Installation et configuration du projet
+**Hebergement sur serveur web :** 
+- https://pharmatic.corentinmarcoux.fr/
+
+***
+
+## ⚙️ Installation et configuration du projet
 ### 1. Pré-requis
 Avant de commencer, assurez-vous d’avoir les éléments suivants installés sur votre machine :
 - PHP (version 8.2)
@@ -56,7 +65,6 @@ Avant de commencer, assurez-vous d’avoir les éléments suivants installés su
      ```
      php bin/console doctrine:database:create
      php bin/console doctrine:migrations:migrate
-     php bin/console doctrine:fixtures:load
      ```
 5. **Lancer le serveur de développement**
    - Démarrez le serveur Symfony avec : `composer start`
@@ -72,6 +80,28 @@ Avant de commencer, assurez-vous d’avoir les éléments suivants installés su
 - `composer db` : Détruit et recrée la base de données, migre sa structure et regénère les données factices.
 
 ***
+
+## 💻 Déploiement du projet et Création de la VM
+Les étapes suivantes décrivent le processus d'installation et de configuration du projet sur une machine virtuelle, utilisé comme serveur de production. Ces commandes couvrent la mise en place de l'environnement, l'installation des dépendances nécessaires et la configuration des services pour que le projet fonctionne correctement.
+- `sudo apt update && sudo apt upgrade` : Mettre à jour et mettre à niveau les paquets de la machine.
+- `sudo apt install apache2` : Installer le serveur web Apache.
+- `sudo apt install php libapache2-mod-php` : Installer PHP et le module Apache pour PHP.
+- `sudo apt install mysql-server` : Installer le serveur de base de données MySQL.
+- `sudo apt install composer` : Installer Composer pour gérer les dépendances PHP.
+- `git clone <URL_du_dépôt>` : Cloner le dépôt Git contenant le projet sur la machine virtuelle.
+- `composer install` : Installer les dépendances PHP du projet.
+- `php bin/console doctrine:migrations:migrate` : Exécuter les migrations pour configurer la base de données.
+- `sudo nano /etc/apache2/sites-available/000-default.conf` : Configurer un hôte virtuel Apache pour pointer vers le répertoire du projet.
+- `sudo systemctl restart apache2` : Redémarrer Apache pour appliquer les modifications.
+- `sudo ufw allow 80` : Autoriser les connexions HTTP sur le pare-feu (port 80).
+- `sudo systemctl enable apache2` : S'assurer qu'Apache démarre automatiquement au démarrage de la machine.
+- `sudo chmod -R 755 /var/www/html` : Définit les permissions des fichiers pour permettre leur exécution tout en assurant leur sécurité.  
+- `sudo chown -R www-data:www-data /var/www/html` : Attribue les droits utilisateur et groupe au serveur web (www-data) pour accéder aux fichiers du projet.
+- `php bin/console cache:clear` : Vider le cache Symfony pour s’assurer que le déploiement utilise la version la plus récente.
+- `sudo reboot` : Redémarrer la machine virtuelle pour appliquer les changements majeurs.
+
+***
+
 ## 🙋‍♂️ Comptes et Authentification
 | **Prénom - Nom** | **Email**                | **Mot de passe** | **Rôle**          |
 |------------------|----------------------|--------------|---------------|
@@ -82,7 +112,7 @@ Avant de commencer, assurez-vous d’avoir les éléments suivants installés su
 | Tony Stark       | manager@example.com    | test         | ROLE_MANAGER  |
 ***
 
-## Fonctionnalités du projet
+## 🛠️ Fonctionnalités du projet
 ### 1. Recherche de produits
 - **Barre de recherche dynamique :**
   - Les utilisateurs peuvent rechercher des produits par **nom**, **marque** ou **catégorie**.
@@ -99,6 +129,7 @@ Avant de commencer, assurez-vous d’avoir les éléments suivants installés su
 - **Affichage dynamique des images :**
    - Les templates utilisent `vich_uploader_asset` pour récupérer les images des produits.
    - Si aucune image n'est associée, l'image par défaut est utilisée via Twig.
-  
+
+***
 
 
