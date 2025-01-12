@@ -27,7 +27,7 @@ Ce projet a été réalisé dans un contexte académique pour mettre en pratique
 
 ## 👥 Membres du groupe 
 - Marcoux Corentin **(marc0237)** ou **(corentinmrcx)**
-- Baudat Louis **(baud0157)**
+- Baudat Louis **(baud0156)**
 - Lobreau Romain **(lobr0013)** ou **(RomsLob1)**
 
 ***
@@ -106,6 +106,25 @@ Les étapes suivantes décrivent le processus d'installation et de configuration
 ***
 
 ## 🙋‍♂️ Comptes et Authentification
+### 1. **Création de compte**
+- Les utilisateurs peuvent créer un compte en remplissant un formulaire d'inscription avec obligatoirement les informations suivantes :
+    - **Nom**
+    - **Prénom**
+    - **Adresse e-mail**
+    - **Mot de passe**
+    - **Numéro de téléphone**
+
+### 2. **Connexion**
+- **Page de connexion :** Les utilisateurs peuvent accéder à leur compte en se connectant via un formulaire de connexion avec leur **adresse e-mail** et **mot de passe**.
+- Une fois connecté, les utilisateurs ont accès à toutes les fonctionnalités spécifiques selon leur rôle.
+- **Modification des informations personnelles :** Les utilisateurs peuvent modifier leurs informations personnelles depuis leur profil.
+
+### 3. **Gestion des rôles et des permissions**
+- **Rôle client :** Un utilisateur standard (ROLE_CUSTOMER) peut effectuer des recherches, gérer son panier et passer des commandes.
+- **Rôle gestionnaire :** Un utilisateur avec le rôle de gestionnaire (ROLE_MANAGER) peuvent gérer les commandes et et les porduits.
+- **Rôle administrateur :** Les administrateurs (ROLE_ADMIN) peuvent gérer les utilisateurs et suivrent le stock. 
+
+### 4. **Comptes**
 | **Prénom - Nom** | **Email**                | **Mot de passe** | **Rôle**          |
 |------------------|----------------------|--------------|---------------|
 | Louis Baudat     | louis@example.com     | test         | ROLE_ADMIN    |
@@ -117,10 +136,15 @@ Les étapes suivantes décrivent le processus d'installation et de configuration
 ***
 
 ## 🛠️ Fonctionnalités du projet
-### 1. Recherche de produits
+### 1. Recherche de produits et filtres
 - **Barre de recherche dynamique :**
   - Les utilisateurs peuvent rechercher des produits par **nom**, **marque** ou **catégorie**.
   - Les résultats de recherche sont affichés directement sur la page `/product`.
+- **Filtres**
+  - Les utilisateurs peuvent appliquer des filtres pour affiner les résultats selon les **catégories**, les **marques**, ou le **prix**.
+  - Ces filtres peuvent être utilisés indépendamment de la recherche. Il est possible de filtrer les produits sans avoir à saisir de termes dans la barre de recherche.
+  - Les filtres s'appliquent immédiatement et permettent de mettre à jour la liste des produits affichés en fonction des critères choisis.
+  - Un bouton de **réinitialisation** est disponible pour revenir aux résultats sans filtre.
 - **Affichage des résultats :**
   - Lorsque l'utilisateur effectue une recherche, un message indique les termes recherchés.
   - Si aucun produit ne correspond, un message est affiché.
