@@ -133,7 +133,40 @@ Les étapes suivantes décrivent le processus d'installation et de configuration
 - **Affichage dynamique des images :**
    - Les templates utilisent `vich_uploader_asset` pour récupérer les images des produits.
    - Si aucune image n'est associée, l'image par défaut est utilisée via Twig.
+#### 3. **Gestion du Panier**
+- **Ajout et mise à jour des produits :**
+    - Les utilisateurs peuvent ajouter des produits au panier.
+- **Calcul du total du panier :**
+    - La somme des prix des produits, multipliée par leur quantité respective, est calculée dynamiquement.
+- **Suppression des produits :**
+    - Chaque ligne du panier dispose d’un bouton pour supprimer une quantité de 1 pour le produit.
+- **Validation du panier :**
+    - Vérification que les quantités demandées sont disponibles en stock avant validation.
+    - En cas de dépassement des stocks, un message d’avertissement s’affiche.
 
+#### 4. **Gestion des Commandes**
+- **Création d’une commande :**
+    - Une commande est générée à partir des produits du panier lors de sa validation.
+    - Chaque commande contient :
+        - La liste des produits commandés.
+        - Les quantités associées.
+        - Le prix total calculé dynamiquement.
+- **Gestion des données utilisateur :**
+    - Les commandes sont associées à l’utilisateur connecté via une relation **ManyToOne**.
+- **Affichage des commandes :**
+    - Les utilisateurs peuvent consulter l’historique de leurs commandes, incluant :
+        - Les produits commandés.
+        - Les quantités et le prix total.
+  
+
+#### 5. **Gestion des Stocks**
+- **Mise à jour des stocks :**
+    - Lors de la validation d’une commande, les quantités des produits en stock sont automatiquement mises à jour.
+- **Vérification des stocks :**
+    - Le système empêche la validation d’un panier si les quantités demandées dépassent celles disponibles en stock.
+    - Un message d’erreur s’affiche si un produit n’est plus disponible.
+- **Suivi des ruptures de stock :**
+    - Les produits avec un stock insuffisant sont signalés dans le panier et les commandes.
 ***
 ## 📋 Autres
 Les fichiers suivants sont disponibles dans le répertoire `files` :
