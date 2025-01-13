@@ -121,17 +121,17 @@ Les étapes suivantes décrivent le processus d'installation et de configuration
 
 ### 3. **Gestion des rôles et des permissions**
 - **Rôle client :** Un utilisateur standard (ROLE_CUSTOMER) peut effectuer des recherches, gérer son panier et passer des commandes.
-- **Rôle gestionnaire :** Un utilisateur avec le rôle de gestionnaire (ROLE_MANAGER) peuvent gérer les commandes et et les porduits.
-- **Rôle administrateur :** Les administrateurs (ROLE_ADMIN) peuvent gérer les utilisateurs et suivrent le stock. 
+- **Rôle gestionnaire :** Les utilisateurs avec le rôle de gestionnaire (ROLE_MANAGER) peuvent gérer les commandes et les produits.
+- **Rôle administrateur :** Les administrateurs (ROLE_ADMIN) peuvent gérer les utilisateurs et suivrent les stocks. 
 
 ### 4. **Comptes**
 | **Prénom - Nom** | **Email**                | **Mot de passe** | **Rôle**          |
-|------------------|----------------------|--------------|---------------|
-| Louis Baudat     | louis@example.com     | test         | ROLE_ADMIN    |
+|-----------------|----------------------|--------------|---------------|
+| Louis Baudat    | louis@example.com     | test         | ROLE_ADMIN    |
 | Corentin Marcoux | corentin@example.com  | test         | ROLE_ADMIN    |
-| Romain Lobreaux  | romain@example.com    | test         | ROLE_ADMIN    |
-| Peter Parker     | user@example.com      | test         | ROLE_CUSTOMER |
-| Tony Stark       | manager@example.com    | test         | ROLE_MANAGER  |
+| Romain Lobreau  | romain@example.com    | test         | ROLE_ADMIN    |
+| Peter Parker    | user@example.com      | test         | ROLE_CUSTOMER |
+| Tony Stark      | manager@example.com    | test         | ROLE_MANAGER  |
 
 ***
 
