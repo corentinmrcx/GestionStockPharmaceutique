@@ -21,7 +21,7 @@
                     {% if product.stock.quantity > product.stock.alert %}
                         {{ form_start(addCartIndex[product.id]) }}
                         {{ form_widget(addCartIndex[product.id]) }}
-                        <button type="submit" class="btn btn-custom flex-shrink-0">
+                        <button type="submit" class="btn-custom">
                             <i class="fas fa-shopping-cart"></i>&nbsp;&nbsp;&nbsp;Ajouter au panier
                         </button>
                         {{ form_end(addCartIndex[product.id]) }}
