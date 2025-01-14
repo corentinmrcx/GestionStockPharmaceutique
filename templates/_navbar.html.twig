@@ -52,17 +52,31 @@
         </div>
 
         <div class="action-buttons" id="action-buttons-out">
-            <a href="{{ app.user ? path('app_user_dashboard') : path('app_login') }}" class="btn">
-                <i class="fas fa-user"></i>
-                {{ app.user ? app.user.firstName : 'Se connecter' }}
-            </a>
-            <a href="{{ path('app_cart_index') }}" class="btn">
-                <i class="fas fa-shopping-cart"></i>
-                Panier
-                {% if itemCount > 0 %}
-                    <span class="badge">{{ itemCount }}</span>
+            {% if app.user and 'ROLE_CUSTOMER' not in app.user.roles %}
+                {% if 'ROLE_ADMIN' in app.user.roles %}
+                    <a href="{{ path('app_admin_index') }}" class="btn">
+                        <i class="fas fa-crown"></i>
+                    </a>
+                {% elseif 'ROLE_MANAGER' in app.user.roles %}
+                    <a href="{{ path('app_manager_index') }}" class="btn">
+                        <i class="fas fa-clipboard-list"></i>
+                    </a>
                 {% endif %}
-            </a>
+            {% endif %}
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+                <a href="{{ app.user ? path('app_user_dashboard') : path('app_login') }}" class="btn">
+                    <i class="fas fa-user"></i>
+                    {{ app.user ? app.user.firstName : 'Se connecter' }}
+                </a>
+
+                <a href="{{ path('app_cart_index') }}" class="btn">
+                    <i class="fas fa-shopping-cart"></i>
+                    Panier
+                    {% if itemCount > 0 %}
+                        <span class="badge bg-primary">{{ itemCount }}</span>
+                    {% endif %}
+                </a>
+            </div>
         </div>
     </div>
 </nav>
