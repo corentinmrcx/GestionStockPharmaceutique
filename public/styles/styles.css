@@ -226,7 +226,7 @@ a:hover::after {
     font-size: 12px;
 
     top: 0 !important;
-    margin-right: 5px;
+    margin-left: 5px;
 }
 
 .navbar-toggler {
