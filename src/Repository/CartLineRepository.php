@@ -30,7 +30,7 @@ class CartLineRepository extends ServiceEntityRepository
     public function countItemsByUser(int $userId): int
     {
         return $this->createQueryBuilder('clc')
-            ->select('SUM(clc.id)')
+            ->select('SUM(clc.quantity)')
             ->join('clc.cart', 'c')
             ->where('c.user = :userId')
             ->setParameter('userId', $userId)
