@@ -757,8 +757,4 @@ h4{
     .navbar-collapse #action-buttons-in {
         display: none;
     }
-
-    .action-buttons {
-        flex-direction: column;
-    }
 }
