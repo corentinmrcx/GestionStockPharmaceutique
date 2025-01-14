@@ -44,6 +44,9 @@
                 <a href="{{ path('app_cart_index') }}" class="btn">
                     <i class="fas fa-shopping-cart"></i>
                     Panier
+                    {% if itemCount > 0 %}
+                        <span class="badge bg-primary">{{ itemCount }}</span>
+                    {% endif %}
                 </a>
             </div>
         </div>
@@ -56,6 +59,9 @@
             <a href="{{ path('app_cart_index') }}" class="btn">
                 <i class="fas fa-shopping-cart"></i>
                 Panier
+                {% if itemCount > 0 %}
+                    <span class="badge bg-primary">{{ itemCount }}</span>
+                {% endif %}
             </a>
         </div>
     </div>
