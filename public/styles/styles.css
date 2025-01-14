@@ -218,6 +218,17 @@ a:hover::after {
     background-color: var(--primary-color);
 }
 
+.badge{
+    background-color: var(--primary-color);
+    color: var(--secondary-text-color);
+    border-radius: 5px;
+
+    font-size: 12px;
+
+    top: 0 !important;
+    margin-right: 5px;
+}
+
 .navbar-toggler {
     background-color: var(--primary-color);
     border-color: var(--secondary-color) ;

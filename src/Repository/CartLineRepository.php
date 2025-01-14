@@ -16,30 +16,6 @@ class CartLineRepository extends ServiceEntityRepository
         parent::__construct($registry, CartLine::class);
     }
 
-    //    /**
-    //     * @return CartLine[] Returns an array of CartLine objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('c.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
-
-    //    public function findOneBySomeField($value): ?CartLine
-    //    {
-    //        return $this->createQueryBuilder('c')
-    //            ->andWhere('c.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
     public function findByUser(int $userId): array
     {
         return $this->createQueryBuilder('cl')
@@ -49,5 +25,16 @@ class CartLineRepository extends ServiceEntityRepository
             ->setParameter('userId', $userId)
             ->getQuery()
             ->getResult();
+    }
+
+    public function countItemsByUser(int $userId): int
+    {
+        return $this->createQueryBuilder('clc')
+            ->select('SUM(clc.quantity)')
+            ->join('clc.cart', 'c')
+            ->where('c.user = :userId')
+            ->setParameter('userId', $userId)
+            ->getQuery()
+            ->getSingleScalarResult() ?? 0;
     }
 }
